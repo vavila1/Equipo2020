@@ -37,7 +37,7 @@
 		        						<a href="cuentas.html"> Cuentas </a>
 		        					</li>
 		        					<li class="bold">
-		        						<a href="almacenes2.html"> Almacenes </a>
+		        						<a href="almacenes.html"> Almacenes </a>
 		        					</li>
 		        				</ul>	        				
 		        			</div>
@@ -51,80 +51,65 @@
 	</section>
     
 	<!-- Termina Navegación-->
-
-	<!-- Inicia Seccion de Contenido -->
+   		<!-- Inicia Seccion de Contenido -->
 	<section>
 	   	<div class="container">
 	   		<div class="row">
 	   			<div class="col s1"></div>
 	   			<div class="col s11">
 	   				<div class="container">
-			   			<h1>Almacenes</h1>
-			   				<br>
-			   				<br>
-			   				<a class="btn-floating btn-large waves-effect waves-light green right" href="Registrar_Almacen.html"><i class="material-icons">add</i></a>
-			   				<br>
-			   				<br>
-			   				    <table>
-							        <thead>
-							          <tr>
-							              <th>Nombre</th>
-							              <th>ID</th>
-							              <th>Almacenista</th>
-							              <th> Estado</th>
-							              <th> Dirección</th>
-							          </tr>
-							        </thead>
-
-							        <tbody>
-							          <tr>
-							            <td>Plaza Norte</td>
-							            <td>00001</td>
-							            <td>Ivan</td>
-							            <td> Querétaro </td>
-							            </td>
-							            <td>Avenida Jesus Oviedo Avendaño # 119</td>
-							            <td> 
-							            	<a class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>
-							            	<a class="waves-effect waves-light btn-small"><i class="material-icons">edit</i></a>
-							            </td>
-							          </tr>
-							          <tr>
-							            <td>Taladro percutor 2800</td>
-							            <td>00002</td>
-							            <td>$3.76</td>
-							            <td> Indisponible </td>
-							            <td> 
-							            	<a class="waves-effect waves-light btn-small  red lighten-2"><i class="material-icons">delete</i></a>
-							            	<a class="waves-effect waves-light btn-small"><i class="material-icons">edit</i></a>
-							            </td>
-							          </tr>
-							          <tr>
-							            <td>Vidrio 10x10 compañia</td>
-							            <td>00003</td>
-							            <td>$7.00</td>
-							            <td> 10 unidades </td>
-							            <td> 
-							            	<a class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>
-							            	<a class="waves-effect waves-light btn-small"><i class="material-icons">edit</i></a>
-							            </td>
-							          </tr>
-							        </tbody>
-						</table>		
-			   		</div>
+	   					<h1> Registrar Almacén</h1>
+	   					<br>
+	   					<br>
+		   				<div class="browser-default col s12">
+		   					<select>
+		   						<option value="" disabled selected>Seleccionar Almacenista</option>
+		   						<option value="1">Iván Ramírez</option>
+		   						<option value="2">Oribe Peralta</option>
+		   						<option value="3">Hirving Lozano</option>
+		   					</select>
+		   					<label>Almacenista</label>
+		   				</div>
+		   				<div class="input-field col s12">
+		   					<form class="cols 12">
+		   						<input placeholder="Ejemplo: Av Epigmenio González #513" id="direccion_almacen" type="text" class="validate">
+		   						<label class="active" for="direccion_almacen">Dirección</label>
+		   					</form>
+		   				</div>
+		   				<div class="input-field col s12">
+		   					<form class="cols 12">
+		   						<input placeholder="Ejemplo: Villas del Tecnológico" type="text" class="validate">
+		   						<label class="active" for="nombre_almacen">Nombre</label>
+		   					</form>
+		   				</div>
+		   				<div class="browser-default col s12">
+		   					<select>
+		   						<option value="" disabled selected>Seleccionar Estado</option>
+		   						<option value="1">Querétaro</option>
+		   						<option value="2">Monterrey</option>
+		   						<option value="3">Puebla</option>
+		   					</select>
+		   					<label>Estado</label>
+		   				</div>
+		   				<div class="row">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                       <i class="material-icons right">send</i>
+                      </button>
+	   				</div>
 	   			</div>
 	   		</div>
 	   	</div>
    	</section>
    	<!-- Termina Seccion de Contenido -->
-
-   	   	<!--Inicia Footer -->
+        
+        	<!--Inicia Footer -->
    	 <footer class="page-footer">
           <div class="footer-copyright">
             <div class="container"><p class="copy">STARMEN WEB DESIGN S.A de C.V &copy; <script> document.write(new Date().getFullYear());</script> Derechos Reservados.</p></div>
           </div>
      </footer>
-   		
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
     	document.addEventListener('DOMContentLoaded', function() {
@@ -132,5 +117,4 @@
   		});
     </script>
     </body>
-
   </html>
