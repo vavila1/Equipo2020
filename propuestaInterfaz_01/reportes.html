@@ -2,47 +2,74 @@
   <!DOCTYPE html>
   <html>
     <head>
+    	<meta charset="utf-8">
+      <link href="img/logo/logo.ico" rel="shortcut icon"/>
       <!--Import Google Icon Font-->
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!--Import materialize.css-->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+       <!--Import our style-->
+      <link rel="stylesheet" href="css/style.css"/>
 
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-    	<div class="sidenav sidenav-fixed light-blue lighten-3">	
-	      <ul id="nav-mobile">
-	      	<li class="logo">CIASA</li>
-	        <li class="bold"><a href="reportes.html">Reportes</a></li>
-	        <li class="bold"><a href="productos.html">Productos</a></li>
-	        <li class="bold"><a href="proyectos.html">Proyectos</a></li>
-	        <li class="no-padding">
-	        	<ul class="collapsible collapsible-accordion">
-	        		<li class="bold">
-	        			<a class="collapsible-header waves-effect waves-teal" tabindex="0">Configuración </a>
-	        			<div class="collapsible-body  light-blue lighten-4">
-	        				<ul>
-	        					<li class="bold">
-	        						<a href="cuentas.html"> Cuentas </a>
-	        					</li>
-	        					<li class="bold">
-	        						<a href="almacenes.html"> Almacenes </a>
-	        					</li>
-	        				</ul>	        				
-	        			</div>
-	        		</li>
-	        		
-	        		
-	        	</ul>
-	        </li>
-	      </ul>
+    	<!-- Seccion de Navegación -->
+  <section>
+      <div class="row">
+        <div class="col s4">
+        <div class="sidenav sidenav-fixed dark-blue"> 
+          <ul>
+            <li class="logo"><img id="sides" class="logoSideNav" src="img/logo/logo.png"></li>
+            <li class="bold"><a href="index.html">Inicio</a></li>
+            <li class="bold"><a href="reportes.html">Reportes</a></li>
+            <li class="bold"><a href="productos.html">Productos</a></li>
+            <li class="bold"><a href="proyectos.html">Proyectos</a></li>
+            <li class="bold">
+              <ul class="collapsible collapsible-accordion">
+                <li class="bold">
+                  <a class="collapsible-header waves-effect waves-teal" tabindex="0">Configuración </a>
+                  <div class="collapsible-body  light-blue darken-4">
+                    <ul>
+                      <li class="bold">
+                        <a href="cuentas.html"> Cuentas </a>
+                      </li>
+                      <li class="bold">
+                        <a href="almacenes.html"> Almacenes </a>
+                      </li>
+                    </ul>                 
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        </div>
+      </div>
+  </section>
 
-    	</div>
-   		<div class="container">
-   			<h1>Reportes</h1>
-   			
-   		</div>
+    	<!-- Termina Navegación-->
+
+      <!-- Inicia Seccion de Contenido -->
+  <section>
+      <div class="container">
+        <div class="row">
+          <div class="col s4"></div>
+          <div class="col s8">
+            <h1>Reportes</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Termina Seccion de Contenido -->
+
+     <!--Inicia Footer -->
+     <footer class="page-footer">
+          <div class="footer-copyright">
+            <div class="container"><p class="copy">STARMEN WEB DESIGN S.A de C.V &copy; <script> document.write(new Date().getFullYear());</script> Derechos Reservados.</p></div>
+          </div>
+     </footer>
         
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
