@@ -86,7 +86,7 @@ create table Proyecto(
     Fecha_Inicio TIMESTAMP,
     Fecha_Fin DATETIME,
     PRIMARY KEY (Id_Proyecto),
-    FOREIGN KEY (Id_EstatusProyecto) references EstatusProyecto (id_estatus)
+    FOREIGN KEY (Id_EstatusProyecto) references EstatusProyecto (Id_EstatusProyecto)
 );
 
 create table estatus_producto (
