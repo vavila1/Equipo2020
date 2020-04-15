@@ -1,0 +1,21 @@
+<?php
+	//Inicio o recuperdo la sesión
+    session_start();
+
+    //Traemos libreria de model
+    require_once("model_producto.php");
+
+    /*Probamos conexicon con la funcion creada en model.php conectar_bd()
+    var_dump(conectar_bd()); */
+
+    /* Verificar si funciona desconectar_bd
+    $bd = conectar_bd();
+    desconectar_bd($bd); */
+
+
+    include("partials/_header.html");
+    include("partials/_nav.html");
+    include("partials/_productos.html");
+    include("partials/_footer.html");
+
+?>
