@@ -105,6 +105,15 @@ body {
 
 /* Navegacion Style */
 
+
+.material-menu{
+    padding-left: 1em;
+    color: rgb(2,0,36);
+    font-size: 35px;
+
+
+}
+
 .logoSideNav{
     height: 120px;
     width: 250px;
