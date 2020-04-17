@@ -19,20 +19,7 @@
 	    	$marca = "";
 	    }
 
-
-	    if (isset($_POST["tipo_producto"])) {
-	    	$tipo = htmlspecialchars($_POST["tipo_producto"]);
-	    } else {
-	    	$tipo = "";
-	    }
-
-	    if (isset($_POST["estatus_producto"])) {
-	    	$estatus_producto = htmlspecialchars($_POST["estatus_producto"]);
-	    } else {
-	    	$estatus_producto = "";
-	    }
-
-	    echo consultar_productos($marca,$tipo,$estatus_producto);
+	    echo consultar_productos($marca);
 
 	echo "</div></div></div></div></section>";
 

@@ -19,44 +19,35 @@
 
 
 	//Consulta de consultar Productos en Almacen
-	function consultar_productos($marca="",$tipo="",$estatus=""){
+	function consultar_productos($marca=""){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
+		$resultado = "<table><thead><tr><th>ID</th><th></th><th>Nombre de Marca</th><th></th><th>Acciones</th></tr></thead>";
 
 		/*$consulta = 'SELECT pr.descripcion as pr_descripcion, m.nombre as m_nombre, pr.cantidad as pr_cantidad, pr.precio as pr_precio, tp.nombre as tp_nombre, e.nombre as e_nombre FROM producto as pr, productotiene as pt, marca as m, tipoproducto as tp, estatus as e WHERE pr.id_producto = pt.id_producto AND m.id_marca = pt.id_marca AND tp.id_tipo = pt.id_tipo AND e.id_estatus = pt.id_estatus'; */
 
-		$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, m.nombre as m_nombre, tp.nombre as tp_nombre, p.cantidad as p_cantidad, p.precio as p_precio, e.nombre as e_nombre FROM producto as p , marca as m , tipo_producto as tp, estatus_producto as e WHERE p.id_marca = m.id AND p.id_estatus = e.id AND p.id_tipo = tp.id';
+		$consulta = 'SELECT m.nombre as m_nombre, m.id as m_id FROM marca as m ';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
-			$consulta .= " AND m.id=".$marca;
+			$consulta .= " WHERE m_id=".$marca;
 		}
 
-		if ($tipo != "") {
-			$consulta .= " AND tp.id=".$tipo;
-		}
-
-		if ($estatus != "") {
-			$consulta .= " AND e.id=".$estatus;
-		}
 
 		$resultados = $conexion_bd->query($consulta);  
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
 			$resultado .= "<tr>";
-		    $resultado .= "<td>".$row['p_nombre']."</td>";
+		    $resultado .= "<td>".$row['m_id']."</td>";
+		    $resultado .= "<td></td>";
 		    $resultado .= "<td>".$row['m_nombre']."</td>";
-		    $resultado .= "<td>".$row['tp_nombre']."</td>";
-		    $resultado .= "<td>".$row['p_cantidad']."</td>";
-		    $resultado .= "<td>$".$row['p_precio']."</td>";
-		    $resultado .= "<td>".$row['e_nombre']."</td>";
+		    $resultado .= "<td></td>";
 		    $resultado .= "<td>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">add_box</i></a>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\" href=\"registrarIngresoProductos.php\"><i class=\"material-icons\">receipt</i></a>";
-		    $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].'"';
+		    $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['m_id'].'"';
 		    $resultado .= borrarBoton();
 		    $resultado .= '</a>' ;
 
@@ -104,13 +95,13 @@
 	//Paso1: Preparar consulta
 	//Paso2 Union de parametros
 	//Paso3 Ejecutar la consulta
-	function insertar_producto($nombre, $cantidad, $precio, $id_marca, $id_estatus, $id_tipo){
+	function insertar_marca($nombre){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//var_dump($nombre);
 
 		//Prepaprar la consulta
-		$dml = 'INSERT INTO producto (nombre, cantidad, precio, id_marca, id_estatus, id_tipo) VALUES (?,?,?,?,?,?) ';
+		$dml = 'INSERT INTO marca (nombre) VALUES (?) ';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -118,7 +109,7 @@
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("ssssss", $nombre, $cantidad, $precio, $id_marca, $id_estatus, $id_tipo)) {
+		if (!$statement->bind_param("s", $nombre)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
