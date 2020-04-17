@@ -51,12 +51,15 @@
       $resultado.="<td>";
       $resultado.='<a href="editar.php?id='.$row['A_id'].'">';
       $resultado.= botonEditar();
-      $resultado.= '<a href="borrar.php?id='.$row['A_id'].'">';
-      $resultado.= borrarBoton();
-      $resultado.="</a>"."</td>";
+      $resultado.="</a>"." ";
+      $resultado.='<a href="borrar.php?id='.$row['A_id'].'"';
+      $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['A_nombre']."?')".'"'.">";
+      $resultado.=" ". botonBorrar();
+      $resultado.="</a></td>";
       $resultado.="</tr>";
     }
   }
+
 
 
 
@@ -67,7 +70,7 @@ return $resultado;
 
   }
 
-  function borrarBoton(){
+  function botonBorrar(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
     <i class="material-icons right">delete</i>
   </button>';
@@ -162,6 +165,8 @@ function editarAlmacen($id,$estado){
 
     desconectar_bd($conexion_bd);
   }
+
+
 
 
 ?>
