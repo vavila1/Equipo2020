@@ -53,16 +53,17 @@
 		    $resultado .= "<td>$".$row['p_precio']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">add_box</i></a>";
+$resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">add_box</i></a>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\" href=\"registrarIngresoProductos.php\"><i class=\"material-icons\">receipt</i></a>";
-		    $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].'"';
-		    $resultado .= borrarBoton();
-		    $resultado .= '</a>' ;
+		   $resultado.='<a href="borrar.php?id='.$row['p_id'].'"';
+      $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['p_nombre']."?')".'"'.">";
+      $resultado.=" ". botonBorrar();
+      $resultado.="</a></td>";
 
 		   /* $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].' class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>';*/
 
-		    $resultado .= "</td>" ;
+		    
 		    $resultado .= "</tr>" ;
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
@@ -291,7 +292,7 @@
 
 
 
-function borrarBoton(){
+function botonBorrar(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
     <i class="material-icons right">delete</i>
   </button>';
