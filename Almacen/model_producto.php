@@ -53,10 +53,27 @@
 		    $resultado .= "<td>$".$row['p_precio']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-            $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">add_box</i></a>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\" href=\"registrarIngresoProductos.php\"><i class=\"material-icons\">receipt</i></a>";
-		   $resultado.='<a href="borrar.php?id='.$row['p_id'].'"';
+
+		    //Seccion de Entrada de Material
+           $resultado.='<a href="#?id='.$row['p_id'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
+           $resultado.=" ". botonEntrada();
+           $resultado.="</a>";
+		    
+		    //Seccion de Editar Boton
+		   $resultado.='<a href="controlador_editar_producto.php?id='.$row['p_id'].'"';
+           $resultado.="".'"'.">";
+           $resultado.=" ". botonEditar();
+           $resultado.="</a>";
+
+           //Seccion de Codigo de Barras Boton
+            $resultado.='<a href="#?id='.$row['p_id'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
+           $resultado.=" ". botonBarra();
+           $resultado.="</a>";
+
+           //Seccion de Borrar Boton
+		   $resultado.='<a href="controlador_eliminar_producto.php?id='.$row['p_id'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
            $resultado.=" ". botonBorrar();
            $resultado.="</a></td>";
@@ -79,7 +96,7 @@
 
 	//Crear un select con los datos de una consulta
 	
-	function consultar_select($id, $columna_descripcion, $tabla){
+	function consultar_select($id, $columna_descripcion, $tabla, $Seleccion=0){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
@@ -306,6 +323,18 @@ function botonBorrar(){
     return $resultado;
   }
 
+  function botonBarra(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    <i class="material-icons right">receipt</i>
+  </button>';
+    return $resultado;
+  }
 
+  function botonEntrada(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    <i class="material-icons right">add_box</i>
+  </button>';
+    return $resultado;
+  }
 
 ?>
