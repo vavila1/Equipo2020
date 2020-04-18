@@ -15,9 +15,10 @@
     function autenticar($username, $password){
     $con = conectar_bd();
    
-    $query = " SELECT p.nombre as per, c.Usuario as nom
-               FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p
-               WHERE c.Id_Cuenta = cr.Id_Cuenta
+    $query = " SELECT p.nombre as per, e.Nombre as nom
+               FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p, empleado as e
+               WHERE e.Id_Empleado = c.Id_Empleado
+               AND c.Id_Cuenta = cr.Id_Cuenta
                AND cr.Id_Rol = r.Id_Rol
                AND rp.Id_Rol = r.Id_Rol
                AND rp.Id_Privilegio = p.Id_Privilegio
@@ -27,8 +28,8 @@
    $result = mysqli_query($con, $query);
    
    while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-       if($row['per'] == 'Leer'){
-               $_SESSION['Leer'] = 1;
+       if($row['per'] == 'Ver'){
+               $_SESSION['Ver'] = 1;
        }
        if($row['per'] == 'Editar'){
            $_SESSION['Editar'] = 1;
@@ -38,6 +39,9 @@
        }
        if($row['per'] == 'Eliminar'){
            $_SESSION['Eliminar'] = 1;
+       }
+       if($row['per'] == 'Consultar'){
+           $_SESSION['Consultar'] = 1;
        }
        $_SESSION['usuario'] = $row['nom'];
     }

@@ -54,17 +54,21 @@
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
 
+		    if ($_SESSION["Registar"]) {
 		    //Seccion de Entrada de Material
            $resultado.='<a href="#?id='.$row['p_id'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
            $resultado.=" ". botonEntrada();
            $resultado.="</a>";
+       }
 		    
+		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
 		   $resultado.='<a href="controlador_editar_producto.php?id='.$row['p_id'].'"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonEditar();
            $resultado.="</a>";
+           }
 
            //Seccion de Codigo de Barras Boton
             $resultado.='<a href="#?id='.$row['p_id'].'"';
@@ -72,11 +76,15 @@
            $resultado.=" ". botonBarra();
            $resultado.="</a>";
 
-           //Seccion de Borrar Boton
+           if ($_SESSION["Eliminar"]) {
+           	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_producto.php?id='.$row['p_id'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
            $resultado.=" ". botonBorrar();
-           $resultado.="</a></td>";
+           $resultado.="</a>";
+           }
+
+           $resultado.= "</td>";
 
 		   /* $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].' class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>';*/
 

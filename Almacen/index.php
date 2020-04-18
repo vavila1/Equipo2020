@@ -19,19 +19,21 @@
     } else if (isset($_POST["usuario"]) && isset($_POST["password"])) {
         $usuario = $_POST["usuario"];
         $password = $_POST["password"];
+        
         autenticar($usuario,$password);
         var_dump($_SESSION);
-
-    	//Creo la variable de sesión inicio.
-        $_SESSION["usuario"] = $usuario;
-        $_SESSION["password"] = $password;
 
        /* var_dump($_SESSION["usuario"]);
         var_dump($_SESSION["password"]);
         var_dump(autenticar($_POST["usuario"],$_POST["password"]));*/
-
-        include("partials/_mainSection.html");
-        include("partials/_nav.html");
+        if ($_SESSION['Ver']) {
+            include("partials/_mainSection.html");
+            include("partials/_nav.html");
+        }
+        else{
+            include("logout.php");
+        }
+        
 
      // Redirecciona al Login para crear sesion
     } else {

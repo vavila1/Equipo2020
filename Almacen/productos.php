@@ -12,10 +12,11 @@
     $bd = conectar_bd();
     desconectar_bd($bd); */
 
-
-    include("partials/_header.html");
-    include("partials/_nav.html");
-    include("partials/_productos.html");
-    include("partials/_footer.html");
+    if ($_SESSION["Ver"]) {
+        include("partials/_header.html");
+        include("partials/_nav.html");
+        include("partials/_productos.html");
+        include("partials/_footer.html");
+    }
 
 ?>
