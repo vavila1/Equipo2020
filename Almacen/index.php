@@ -4,6 +4,7 @@
     session_start();
 
     include("partials/_header.html");
+    require_once("model_login.php");
 
     // verificar si hay sesión activa
     if(isset($_SESSION["usuario"])) {
@@ -13,10 +14,19 @@
     	include("partials/_nav.html");
 
     // Se crea la sesión si no hay sesión activa
-    } else if (isset($_POST["usuario"])) {
+    } else if (isset($_POST["usuario"]) && isset($_POST["password"])) {
+        $usuario = $_POST["usuario"];
+        $password = $_POST["password"];
+        autenticar($usuario,$password);
 
     	//Creo la variable de sesión inicio.
-        $_SESSION["usuario"] = $_POST["usuario"];
+        $_SESSION["usuario"] = $usuario;
+        $_SESSION["password"] = $password;
+
+
+        var_dump($_SESSION["usuario"]);
+        var_dump($_SESSION["password"]);
+        var_dump(autenticar($_POST["usuario"],$_POST["password"]));
 
         include("partials/_mainSection.html");
         include("partials/_nav.html");
@@ -29,3 +39,5 @@
     include("partials/_footer.html");
 
 ?>
+
+
