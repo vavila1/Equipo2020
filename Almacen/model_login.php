@@ -27,16 +27,23 @@
    $result = mysqli_query($con, $query);
    
    while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-       if($row['per'] == 'registrar'){
-               $_SESSION['registrar'] = 1;
+       if($row['per'] == 'Leer'){
+               $_SESSION['Leer'] = 1;
        }
-       if($row['per'] == 'ver'){
-           $_SESSION['ver'] = 1;
+       if($row['per'] == 'Editar'){
+           $_SESSION['Editar'] = 1;
        }
-       $_SESSION['nombre'] = $row['nom'];
+       if($row['per'] == 'Registar'){
+           $_SESSION['Registar'] = 1;
+       }
+       if($row['per'] == 'Eliminar'){
+           $_SESSION['Eliminar'] = 1;
+       }
+       $_SESSION['usuario'] = $row['nom'];
     }
    mysqli_close($con);
 }
+
 
  //Cerrar conexion de Base de Datos
     //@param $conexion: Conexion que se cerrara
