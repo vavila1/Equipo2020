@@ -1,7 +1,7 @@
 <?php
 	//Inicio o recuperdo la sesión
     session_start();
-
+    //error_reporting(E_ALL ^ E_NOTICE);
     //Traemos libreria de model
     require_once("model_producto.php");
 
