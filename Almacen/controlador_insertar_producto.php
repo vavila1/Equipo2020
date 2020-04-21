@@ -5,7 +5,6 @@
     //Traemos libreria de model
     require_once("model_producto.php");
 
-    if ($_SESSION['Registar']) {
         if (isset($_POST["nombre"]) && isset($_POST["cantidad"]) && isset($_POST["precio"]) && isset($_POST["tipo_producto"]) && isset($_POST["marca"])) {
         //var_dump($_POST["descripcion"]);
         $nombre = htmlspecialchars($_POST["nombre"]);
@@ -25,8 +24,5 @@
     
 
     header("location:productos.php");
-    }
-
-    header("location:logout.php");
 
 ?>
