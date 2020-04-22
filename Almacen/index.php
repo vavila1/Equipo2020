@@ -12,8 +12,9 @@
     if(isset($_SESSION["usuario"])) {
 
     	//codigo si ya estaba con sesion activa
+        include("partials/_nav.html");
     	include("partials/_mainSection.html");
-    	include("partials/_nav.html");
+    	
 
     // Se crea la sesión si no hay sesión activa
     } else if (isset($_POST["usuario"]) && isset($_POST["password"])) {

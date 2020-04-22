@@ -105,12 +105,13 @@ body {
 
 /* Navegacion Style */
 
+.material-close{
+    margin-left: 1em;
 
-.material-menu{
-    padding-left: 1em;
-    color: rgb(2,0,36);
-    font-size: 35px;
-
+}
+.material-close:hover{
+    color: red;
+    margin-left: 1em;
 
 }
 
@@ -127,7 +128,12 @@ body {
 
 .dark-blue{
     background: rgb(2,0,36);
-    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,46,93,1) 35%, rgba(2,89,179,1) 100%);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 5%, rgba(0,46,93,1) 35%, rgba(2,89,179,1) 100%);
+}
+
+
+.dark-head{
+    background-color: rgb(2,0,36);
 }
 
 
@@ -162,14 +168,12 @@ body {
 
 
 .page-footer {
-    padding-top: 10px;
     color: black;
     background-color: white;
 }
 
 
 .page-footer .footer-copyright {
-    margin-top: 24em;
     margin-left: 30em;
     color: black;
     background-color: white;
