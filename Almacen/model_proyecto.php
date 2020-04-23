@@ -25,7 +25,7 @@
 
 		$resultado = "<table><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Terminado</th><th>Acciones</th></tr></thead>";
 
-		$consulta = 'SELECT p.id_Proyecto as p_idProyecto, p.nombre as p_desc, p.fecha_inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusProyecto as e WHERE p.id_estatusproyecto = e.id_estatusProyecto';
+		$consulta = 'SELECT p.id_Proyecto as p_idProyecto, p.nombre as p_desc, p.fecha_inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusProyecto as e WHERE p.id_estatusproyecto = e.id_estatusProyecto AND p.id_estatusproyecto != 5';
 
 		if($estado != ""){
 			$consulta .= " AND e.id_estatusproyecto= ".$estado;
@@ -87,7 +87,7 @@
 
 		$resultado = '<select name ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
 
-      	$consulta = "SELECT $idEstado, $columna_descripcion FROM $tabla";
+      	$consulta = "SELECT $idEstado, $columna_descripcion FROM $tabla WHERE $idEstado != 5";
       	$resultados = $conexion_bd->query($consulta);
       	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= '<option value="'.$row["$idEstado"].'">'.$row["$columna_descripcion"].'</option>';
@@ -131,12 +131,14 @@
 
 	}
 
+
 		function eliminar_proyecto($id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 
 		//Prepaprar la consulta
-		$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		//$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		$dml = 'UPDATE `proyecto` SET `Id_EstatusProyecto` = 5 WHERE `Id_Proyecto` = (?)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;

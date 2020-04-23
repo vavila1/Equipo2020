@@ -27,7 +27,7 @@
 
 		/*$consulta = 'SELECT pr.descripcion as pr_descripcion, m.nombre as m_nombre, pr.cantidad as pr_cantidad, pr.precio as pr_precio, tp.nombre as tp_nombre, e.nombre as e_nombre FROM producto as pr, productotiene as pt, marca as m, tipoproducto as tp, estatus as e WHERE pr.id_producto = pt.id_producto AND m.id_marca = pt.id_marca AND tp.id_tipo = pt.id_tipo AND e.id_estatus = pt.id_estatus'; */
 
-		$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, m.nombre as m_nombre, tp.nombre as tp_nombre, p.cantidad as p_cantidad, p.precio as p_precio, e.nombre as e_nombre FROM producto as p , marca as m , tipo_producto as tp, estatus_producto as e WHERE p.id_marca = m.id AND p.id_estatus = e.id AND p.id_tipo = tp.id';
+		$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, m.nombre as m_nombre, tp.nombre as tp_nombre, p.cantidad as p_cantidad, p.precio as p_precio, e.nombre as e_nombre FROM producto as p , marca as m , tipo_producto as tp, estatus_producto as e WHERE p.id_marca = m.id AND p.id_estatus = e.id AND p.id_tipo = tp.id AND e.id != 6';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -110,7 +110,7 @@
 
 		$resultado = '<select name ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
 
-      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla";
+      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 6" ;
       	$resultados = $conexion_bd->query($consulta);
       	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';
@@ -161,6 +161,12 @@
  
 	}
 
+/*UPDATE
+    `producto`
+SET
+    `id_estatus` = 6 
+WHERE
+    `id` = 11*/
 
 
 	function eliminar_producto($id){
@@ -168,7 +174,8 @@
 		$conexion_bd = conectar_bd();
 
 		//Prepaprar la consulta
-		$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `producto` SET `id_estatus` = 6 WHERE `id` = (?)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
