@@ -19,21 +19,20 @@
 
 
 	//Consulta de consultar Empleados
-	function consultar_empleado($nombre="",$correo="",$Id_Empleado=""){
+	function consultar_tipoProducto($nombre="",$id=""){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$consulta = 'SELECT e.Id_Empleado as e_id, e.nombre as e_nombre, e.correo as e_correo FROM Empleado as e';
+		$consulta = 'SELECT t.id as t_id, t.nombre as t_nombre FROM tipo_Producto as t';
 
-		$resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Acciones</th></tr></thead><tbody>";
+		$resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
 		
 		$resultados = $conexion_bd->query($consulta);  
 
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= "<tr>";
-		    $resultado .= "<td>".$row['e_id']."</td>";
-		    $resultado .= "<td>".$row['e_nombre']."</td>";
-		    $resultado .= "<td>".$row['e_correo']."</td>";
+		    $resultado .= "<td>".$row['t_id']."</td>";
+		    $resultado .= "<td>".$row['t_nombre']."</td>";
 		    $resultado .= "<td>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
 		    $resultado .= borrarBoton();
