@@ -15,50 +15,7 @@
     </head>
     <body>
 
-         <?php if(isset($_SESSION["warning"])): ?>
-          <div class="row">
-                              <div class="col s12 m12 l12">
-                                  <div class="card yellow lighten-2">
-                                      <div class="card-content white-text">
-                                          <span class="card-title"><?=$_SESSION["warning"] ?></span>
-                                      </div>
-
-                                  </div>
-                              </div>
-                          </div>
-              <?php unset($_SESSION["warning"])?>
-                  <?php endif;?>
-
-                    <?php if(isset($_SESSION["mensaje"])): ?>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-                                <div class="card blue lighten-1">
-                                    <div class="card-content white-text">
-                                        <span class="card-title"><?=$_SESSION["mensaje"] ?></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php unset($_SESSION["mensaje"])?>
-                            <?php endif;?>
-
-
-          <?php if(isset($_SESSION["delete"])): ?>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-                                <div class="card red lighten-1">
-                                    <div class="card-content white-text">
-                                        <span class="card-title"><?=$_SESSION["delete"] ?></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php unset($_SESSION["delete"])?>
-                            <?php endif;?>
+        
 
 
                               

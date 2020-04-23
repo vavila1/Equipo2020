@@ -57,7 +57,7 @@
 		    if ($_SESSION["Registar"]) {
 		    //Seccion de Entrada de Material
            $resultado.='<a href="#?id='.$row['p_id'].'"';
-           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
+          $resultado.="".'"'.">";
            $resultado.=" ". botonEntrada();
            $resultado.="</a>";
        }
@@ -71,8 +71,8 @@
            }
 
            //Seccion de Codigo de Barras Boton
-            $resultado.='<a href="#?id='.$row['p_id'].'"';
-           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
+            $resultado.='<a href="barcode.php?id='.$row['p_id'].'"';
+           $resultado.="".'"'.">";
            $resultado.=" ". botonBarra();
            $resultado.="</a>";
 

@@ -1,0 +1,28 @@
+	<?php
+		
+	    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><div class=\"container\"><h1 class=\"center\">Inventario de Productos</h1><br><br>";
+	?>
+
+	<?php
+	   echo consultar_productos($id);
+	?>
+	<div class="container">
+		<h3 class="center">Codigo de Producto</h3>
+		<div class="row">
+			<div class="col s4"></div>
+			<div class="col s6"><svg id="barcode"></svg></div>
+		</div>
+	</div>
+	      
+	<div></div></div></div></section>
+
+	<script type="text/javascript">
+      JsBarcode("#barcode", "1", {
+          format: "codabar",
+          lineColor: "#000",
+          width: 4,
+          height: 40,
+          displayValue: true
+      });
+    </script>
+

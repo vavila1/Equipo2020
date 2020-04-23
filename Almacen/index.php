@@ -28,8 +28,8 @@
         var_dump($_SESSION["password"]);
         var_dump(autenticar($_POST["usuario"],$_POST["password"]));*/
         if ($_SESSION['Ver']) {
-            include("partials/_mainSection.html");
-            include("partials/_nav.html");
+             include("partials/_nav.html");
+             include("partials/_mainSection.html");
         }
         else{
             include("logout.php");

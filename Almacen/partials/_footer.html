@@ -1,9 +1,9 @@
-<!--Inicia Footer -->
+<!--Inicia Footer 
    	 <footer class="page-footer">
           <div class="footer-copyright">
             <div class="container"><p class="copy">STARMEN WEB DESIGN S.A de C.V &copy; <script> document.write(new Date().getFullYear());</script> Derechos Reservados.</p></div>
           </div>
-     </footer>
+     </footer>-->
   
         
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -11,6 +11,16 @@
     	document.addEventListener('DOMContentLoaded', function() {
 	   	  M.AutoInit();
   		});
+    </script>
+    <script src="scripts/JsBarcode.all.min.js"></script>
+    <script type="text/javascript">
+      JsBarcode("#barcode", "1", {
+          format: "codabar",
+          lineColor: "#000",
+          width: 4,
+          height: 40,
+          displayValue: true
+      });
     </script>
     </body>
   </html>
