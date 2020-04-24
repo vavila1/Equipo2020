@@ -71,14 +71,14 @@ return $resultado;
   }
 
   function botonBorrar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title="Eliminar Almacen">
     <i class="material-icons right">delete</i>
   </button>';
     return $resultado;
   }
 
   function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Almacen">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;

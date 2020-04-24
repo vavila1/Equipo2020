@@ -163,29 +163,31 @@
  
 	}
 
+
+
 	function botonBorrar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Producto">
     <i class="material-icons right">delete</i>
   </button>';
     return $resultado;
   }
 
   function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Producto">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
   }
 
   function botonBarra(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Codigo de Barras">
     <i class="material-icons right">receipt</i>
   </button>';
     return $resultado;
   }
 
   function botonSalidas(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Salida de Producto">
     <i class="material-icons right">exit_to_app</i>
   </button>';
     return $resultado;
