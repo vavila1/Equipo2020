@@ -108,7 +108,7 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = '<select name ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
+		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
 
       	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 6" ;
       	$resultados = $conexion_bd->query($consulta);

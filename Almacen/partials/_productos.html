@@ -6,7 +6,7 @@
     }
 
     if($_SESSION["Consultar"]){
-    	echo "<br><div class=\"row\"><form method=\"POST\">";
+    	echo "<br><div class=\"row\">";
     	echo "<div class=\"input-field col s3\">";
 	    echo consultar_select("id", "nombre", "marca");
 	    echo "<div class=\"input-field col s3\">";
@@ -14,8 +14,8 @@
 	    echo "<div class=\"input-field col s3\">";
 	    echo consultar_select("id", "nombre", "estatus_producto");
 	    echo "<div class=\"input-field col s3\">";
-	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
-	    echo "</form></div>";
+	    echo "<button id=\"buscar\" class=\"btn\">Buscar</button>";
+	    echo "</div>";
 
 	    if (isset($_POST["marca"])) {
 	    	$marca = htmlspecialchars($_POST["marca"]);
@@ -35,9 +35,9 @@
 	    	$estatus_producto = "";
 	    }
 	  }
-
+	  	echo "<div id=\"resultados_consulta_productos\">";
 	    echo consultar_productos($marca,$tipo_producto,$estatus_producto);
-
+		echo "</div>";
 	echo "</div></div></div></div></section>";
 
 ?>

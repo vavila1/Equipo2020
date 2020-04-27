@@ -1,16 +1,19 @@
-	<!-- Login -->
-	<div class="container login">
-		<div class="row">
-			<div class="col s3"></div>
-			<div class="col s6">
-				<h2 class="center">Inicio de Sesión</h2>
-			<form method="POST" action="index.php" enctype="multipart/form-data" autocomplete="off">
-				<label>Usuario: </label>
-				<input type="text" name="usuario"><br>
-				<label>Contraseña: </label>
-				<input type="password" name="password"><br>
-				<input type="submit" name="enviar" value="enviar">
-			</form>
-			</div>
-		</div>
-	</div>
+<!-- Login -->
+<div class="container-login">
+	<div class="login-box">
+      <img src="img/logo/login.png" class="avatar" alt="Avatar Image">
+      <h1>Inicio de Sesión</h1>
+      <form method="POST" action="index.php" enctype="multipart/form-data" autocomplete="off">
+        <!-- USERNAME INPUT -->
+        <label for="usuario">Usuario: </label>
+        <input type="text" name="usuario" placeholder="Ingresa Usuario"><br>
+         <!-- PASSWORD INPUT -->
+        <label for="password">Contraseña: </label>
+        <input type="password" name="password" placeholder="Ingresa Contraseña"><br><br>
+        <input type="submit" name="enviar" value="Enviar">
+        <a href="#">Olvidaste tu contraseña?</a><br>
+        <a href="#">No tienes cuenta?</a>
+      </form>
+    </div>
+</div>
+<!-- Fin Login -->
