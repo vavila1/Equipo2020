@@ -35,11 +35,14 @@
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>".$row['e_correo']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
-		    $resultado .= borrarBoton();
-		    $resultado .= '</a>' ;
-		    $resultado .= "</td>" ;
-		    $resultado .= "</tr>" ;
+      $resultado.='<a href="editar.php?id='.$row['e_id'].'">';
+      $resultado.= botonEditar();
+      $resultado.="</a>"." ";
+      $resultado.='<a href="borrar.php?id='.$row['e_id'].'"';
+      $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['e_nombre']."?')".'"'.">";
+      $resultado.=" ". botonBorrar();
+      $resultado.="</a></td>";
+      $resultado.="</tr>";
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
 
@@ -51,11 +54,19 @@
 		return $resultado;
 	}
 
-function borrarBoton(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+  function botonBorrar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title="Eliminar Almacen">
     <i class="material-icons right">delete</i>
   </button>';
     return $resultado;
   }
+
+  function botonEditar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Almacen">
+    <i class="material-icons right">edit</i>
+  </button>';
+    return $resultado;
+  }
+
 
 ?>

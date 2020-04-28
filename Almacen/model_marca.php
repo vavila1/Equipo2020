@@ -44,12 +44,14 @@
 		    $resultado .= "<td>".$row['m_nombre']."</td>";
 		    $resultado .= "<td></td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">add_box</i></a>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\" href=\"registrarIngresoProductos.php\"><i class=\"material-icons\">receipt</i></a>";
-		    $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['m_id'].'"';
-		    $resultado .= borrarBoton();
-		    $resultado .= '</a>' ;
+      $resultado.='<a href="editar.php?id='.$row['m_id'].'">';
+      $resultado.= botonEditar();
+      $resultado.="</a>"." ";
+      $resultado.='<a href="borrar.php?id='.$row['m_id'].'"';
+      $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['m_nombre']."?')".'"'.">";
+      $resultado.=" ". botonBorrar();
+      $resultado.="</a></td>";
+      $resultado.="</tr>";
 
 		   /* $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].' class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>';*/
 
@@ -282,15 +284,15 @@
 
 
 
-function borrarBoton(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+  function botonBorrar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title="Eliminar Almacen">
     <i class="material-icons right">delete</i>
   </button>';
     return $resultado;
   }
 
   function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Almacen">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
