@@ -19,24 +19,23 @@
 
 
 	//Consulta de consultar Empleados
-	function consultar_empleado($nombre="",$correo="",$id_empleado=""){
+	function consultar_empleado($nombre="",$correo="",$Id_Empleado=""){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table><thead><tr><th>Nombre</th><th>Correo</th><th>ID</th><th>Acciones</th></tr></thead>";
-
 		$consulta = 'SELECT e.Id_Empleado as e_id, e.nombre as e_nombre, e.correo as e_correo FROM Empleado as e';
+
+		$resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Acciones</th></tr></thead><tbody>";
 		
 		$resultados = $conexion_bd->query($consulta);  
+
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= "<tr>";
 		    $resultado .= "<td>".$row['e_id']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>".$row['e_correo']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">add_box</i></a>";
 		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">receipt</i></a>";
 		    $resultado .= borrarBoton();
 		    $resultado .= '</a>' ;
 		    $resultado .= "</td>" ;
