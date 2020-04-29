@@ -22,8 +22,8 @@
                AND cr.Id_Rol = r.Id_Rol
                AND rp.Id_Rol = r.Id_Rol
                AND rp.Id_Privilegio = p.Id_Privilegio
-               AND     usuario='$username' 
-               AND     contraseña='$password'";
+               AND usuario='$username' 
+               AND contraseña='$password'";
       
    $result = mysqli_query($con, $query);
    
