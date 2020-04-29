@@ -50,6 +50,37 @@
 		return $resultado;
 	}
 
+	function insertar_tipoProducto($id, $nombre){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		//var_dump($nombre);
+
+		//Prepaprar la consulta
+		$dml = 'INSERT INTO tipo_producto (id,nombre) VALUES (?,?) ';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ssssss", $id, $nombre)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
 function borrarBoton(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
     <i class="material-icons right">delete</i>
