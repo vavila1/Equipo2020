@@ -9,7 +9,14 @@
 
   if((isset($_POST["nombreProyecto"])) && (isset($_POST["num"])) && (isset($_POST["fechaInicio"]))&& (isset($_POST["fechaFin"])) && (isset($_POST["estatus"])) ) {
       insertar_proyecto($_POST["num"], $_POST["estatus"] , $_POST["nombreProyecto"],$_POST["fechaInicio"],$_POST["fechaFin"] );
-  }
+      $_SESSION["mensaje"] = "Se completo el registro";
+  }  else {
+            $_SESSION["warning"] = "Ocurrio un error al registar el producto";
+        }
 
   header("location:index.php");
 ?>
+
+
+
+   
