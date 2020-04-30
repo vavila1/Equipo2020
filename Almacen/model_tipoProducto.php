@@ -112,9 +112,16 @@
  
 	}
 
-function borrarBoton(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+	function botonBorrar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Producto">
     <i class="material-icons right">delete</i>
+  </button>';
+    return $resultado;
+  }
+
+  function botonEditar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Producto">
+    <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
   }
