@@ -34,7 +34,7 @@
 		    $resultado .= "<td>".$row['e_id']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
+		    $resultado .= borrarEditar();
 		    $resultado .= borrarBoton();
 		    $resultado .= '</a>' ;
 		    $resultado .= "</td>" ;
@@ -81,7 +81,7 @@
  
 	}
 
-	function eliminar_proyecto($id){
+	function eliminar_EstadoProducto($id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 
