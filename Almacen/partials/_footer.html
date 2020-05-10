@@ -15,7 +15,8 @@
     <script src="scripts/JsBarcode.all.min.js"></script>
     <script src="scripts/ajax.js"></script>
     <script type="text/javascript">
-      JsBarcode("#barcode", "<?php echo $a; ?>", {
+      let nuemero = "<?php echo $a; ?>"
+      JsBarcode("#barcode", nuemero, {
           format: "codabar",
           lineColor: "#000",
           width: 3,
