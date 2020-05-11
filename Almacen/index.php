@@ -22,7 +22,7 @@
         $password = $_POST["password"];
         
         autenticar($usuario,$password);
-        var_dump($_SESSION);
+        //var_dump($_SESSION);
 
        /* var_dump($_SESSION["usuario"]);
         var_dump($_SESSION["password"]);
