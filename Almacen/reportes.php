@@ -4,6 +4,7 @@
 
     include("partials/_header.html");
     include("partials/_nav.html");
+    include("partials/_focus_productos.html");
     include("partials/_reportes.html");
     include("partials/_footer.html");
 
