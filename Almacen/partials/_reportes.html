@@ -1,137 +1,162 @@
-<!-- Seccion de Navegación -->
-
-	<section>
-		<nav>
-   		 <div class="nav-wrapper dark-head">
-   		 	<div class="mobile-button"><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></div>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="reportes.php"><i title="Modulo de Reportes" class="material-icons">view_module</i></a></li>
-        <li><a href="configuracion.php"id="config"><i title="configuración" class="material-icons">settings</i></a></li>
-        <li><a href="logout.php"><i title="Cerrar Sesión" class="material-icons material-close">close</i></a></li>
-      </ul>
-    </div>
-  </nav>
-	</section>
-	<section>
-	    <div class="row">
-	    	<div class="col s4">
-	    	<div class="sidenav sidenav-fixed dark-blue">	
-		      <ul>
-		      	<li class="logo"><img id="sides" class="logoSideNav" src="img/logo/logo.png"></li>
-		      	<li> 
-    				<div class="nav-wrapper">
-     					 <form>
-       						 <div class="input-field">
-          						 <input id="search" type="search" required>
-         					 	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-         					 	<i class="material-icons">close</i>
-       						 </div>
-     					 </form>
-   					 </div>
-  				</li>
-		      	<li class="bold"><a href="index.php" id="inicio">Inicio</a></li>
-		        <li class="bold"><a href="reportes.php"id="reportes">Reportes</a></li>
-		        <li class="bold"><a href="proyectos.php" id="proyectos">Proyectos</a></li>
-		        <li class="bold"><a href="productos.php"id="productos">Inventario</a></li>
-		      </ul>
-	    	</div>
-	    	</div>
-	    </div>
-	</section>
-	  
-
-  <ul class="sidenav dark-blue" id="mobile-demo">
-		      	<li class="logo"><img id="sides" class="logoSideNav" src="img/logo/logo.png"></li>
-		      	<li> 
-    				<div class="nav-wrapper">
-     					 <form>
-       						 <div class="input-field">
-          						 <input id="search" type="search" required>
-         					 	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-         					 	<i class="material-icons">close</i>
-       						 </div>
-     					 </form>
-   					 </div>
-  				</li>
-		      	<li class="bold"><a href="index.php">Inicio</a></li>
-		        <li class="bold"><a href="reportes.php">Reportes</a></li>
-		        <li class="bold"><a href="proyectos.php">Proyectos</a></li>
-		        <li class="bold"><a href="productos.php">Inventario</a></li>
-		        <li class="bold">
-		        	<ul class="collapsible collapsible-accordion">
-		        		<li class="bold">
-		        			<a class="collapsible-header waves-effect waves-teal" tabindex="0">Configuración </a>
-		        			<div class="collapsible-body  light-blue darken-4">
-		        				<ul>
-		        					<li class="bold">
-		        						<a href="almacenes.php"> Almacenes </a>
-		        					</li>
-		        					<li class="bold">
-		        						<a href="cuentas.php"> Cuentas </a>
-		        					</li>
-		        					<li class="bold">
-		        						<a href="estadoProducto.php"> Estados de Productos </a>
-		        					</li>	
-		        					<li class="bold">
-		        						<a href="marcas.php"> Marcas </a>
-		        					</li>
-		        					<li class="bold">
-		        						<a href="tipoProducto.php"> Tipos de Productos </a>
-		        					</li>
-		        						        					
-		        					<li class="bold">
-		        						<a href="logout.php"> Cerrar Sesión </a>
-		        					</li>
-		        				</ul>	        				
-		        			</div>
-		        		</li>
-		        	</ul>
-		        </li>
-  </ul>
-
-
-
-   <?php if(isset($_SESSION["warning"])): ?>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col s4"><h6><?php 
+              $usuario = $_SESSION['usuario'];
+              echo '<span style="font-weight:bold">Usuario: </span>&nbsp&nbsp'.$usuario.'';
+             ?><br><br><span style="font-weight:bold">Fecha:</span>&nbsp&nbsp <script>
+      var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+      var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+      var f=new Date();
+      document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+      </script><h6></div>
+      <div class="center col s4"><h1>Reportes</h1></div>
+      <div class="container">
+        <br>
           <div class="row">
-                              <div class="col s12 m12 l12">
-                                  <div class="card yellow lighten-2">
-                                      <div class="card-content white-text">
-                                          <span class="card-title"><?=$_SESSION["warning"] ?></span>
-                                      </div>
+              <div class="col s12">
+                <ul class="tabs">
+                  <li class="tab col s3"><a href="#test1">Reporte 1</a></li>
+                  <li class="tab col s3"><a href="#test2">Reporte 2</a></li>
+                  <li class="tab col s3"><a href="#test3">Reporte 3</a></li>
+                  <li class="tab col s3"><a href="#test4">Reporte 4</a></li>
+                </ul>
+              </div>
+              <div id="test1" class="col s12"><div class="col s12">
+          <br>
+          <form method="POST">
+            <div class="input-field col s3">
+              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "Proyecto"); ?>
+              <div class="input-field col s3">
+              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto"); ?>
+              <div class="input-field col s3">
+              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto"); ?>
+            <div class="input-field col s3">
+              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto"); ?>
+              <div class="input-field col s5"></div>
+            <div class="input-field col s3">
+              <input class="btn" type="submit" value="Generar Reporte"></div>
+            </form>
+          </div>
+          <br>
+          <br></div>
+              <div id="test2" class="col s12">Test 2</div>
+              <div id="test3" class="col s12">Test 3</div>
+              <div id="test4" class="col s12">Test 4</div>
+            </div>
 
-                                  </div>
-                              </div>
-                          </div>
-              <?php unset($_SESSION["warning"])?>
-                  <?php endif;?>
-
-                    <?php if(isset($_SESSION["mensaje"])): ?>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-                                <div class="card blue lighten-1">
-                                    <div class="card-content white-text">
-                                        <span class="card-title"><?=$_SESSION["mensaje"] ?></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <?php unset($_SESSION["mensaje"])?>
-                            <?php endif;?>
 
 
-          <?php if(isset($_SESSION["delete"])): ?>
-                        <div class="row">
-                            <div class="col s12 m12 l12">
-                                <div class="card red lighten-1">
-                                    <div class="card-content white-text">
-                                        <span class="card-title"><?=$_SESSION["delete"] ?></span>
-                                    </div>
 
-                                </div>
-                            </div>
-                        </div>
 
-                        <?php unset($_SESSION["delete"])?>
         
+
+
+          <!--
+        <div class="col s4">
+            <div class="card small hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="img/almacen.png">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Proyectos Completados<i class="material-icons right">more_vert</i></span>
+                  <p><a href="registrar_Almacen.php">Agregar Almacén</a></p>
+                  <p><a href="almacenes.php">Editar Almacén</a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Configurar Almacén<i class="material-icons right">close</i></span>
+                  <p>Descripción</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card small hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="img/marcas.png">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Proyectos en Proceso<i class="material-icons right">more_vert</i></span>
+                  <p><a href="controlador_registra_marca.php">Agregar Marcas</a></p>
+                  <p><a href="marcas.php">Editar Marcas</a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Configurar Marcas<i class="material-icons right">close</i></span>
+                  <p>Descripción</p>>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card small hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="img/add.png">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Calibración de Herramientas<i class="material-icons right">more_vert</i></span>
+                  <p><a href="_agregarEmpleado.php">Agregar Usuarios</a></p>
+                  <p><a href="cuentas.php">Editar Usuarios</a></p>
+                </div>
+                <div class="card-reveal ">
+                  <span class="card-title grey-text text-darken-4">Configurar Usuarios<i class="material-icons right">close</i></span>
+                  <p>Descripción</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card small hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="img/tipo.png">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Entradas de Materiales y Salidas<i class="material-icons right">more_vert</i></span>
+                  <p><a href="_agregarTipoProducto.php">Agregar Tipo de Producto</a></p>
+                  <p><a href="tipoProducto.php">Editar Tipo de Producto/a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Configuarar Producto<i class="material-icons right">close</i></span>
+                  <p>Descripción</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card small hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="img/tipo.png">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Otro Reporte <i class="material-icons right">more_vert</i></span>
+                  <p><a href="_agregarTipoProducto.php">Agregar Tipo de Producto</a></p>
+                  <p><a href="tipoProducto.php">Editar Tipo de Producto/a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Configuarar Producto<i class="material-icons right">close</i></span>
+                  <p>Descripción</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s4">
+            <div class="card small hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="img/estados.png">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">Estados de Producto<i class="material-icons right">more_vert</i></span>
+                  <p><a href="_agregarEstadoProducto.php">Agregar Estado de Producto</a></p>
+                  <p><a href="estadoProducto.php">Editar Estado de Producto</a></p>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4">Configurar Estados de Productos<i class="material-icons right">close</i></span>
+                  <p>Descripción</p>
+                </div>
+            </div>-->
+        </div>
+      </div>  
+    </div>
+    
+  </div>
+
+</section>
