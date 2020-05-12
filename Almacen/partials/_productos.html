@@ -34,9 +34,10 @@
 	    } else {
 	    	$estatus_producto = "";
 	    }
+	    $almacen = $_SESSION["almacen"];
 	  }
 	  	echo "<div id=\"resultados_consulta_productos\">";
-	    echo consultar_productos($marca,$tipo_producto,$estatus_producto);
+	    echo consultar_productos($marca,$tipo_producto,$estatus_producto,$almacen);
 		echo "</div>";
 	echo "</div></div></div></div></section>";
 

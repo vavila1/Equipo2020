@@ -19,7 +19,7 @@
 
 
 	//Consulta de consultar Productos en Almacen
-	function consultar_productos($marca="",$tipo="",$estatus=""){
+	function consultar_productos($marca="",$tipo="",$estatus="",$almacen){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
@@ -27,7 +27,26 @@
 
 		/*$consulta = 'SELECT pr.descripcion as pr_descripcion, m.nombre as m_nombre, pr.cantidad as pr_cantidad, pr.precio as pr_precio, tp.nombre as tp_nombre, e.nombre as e_nombre FROM producto as pr, productotiene as pt, marca as m, tipoproducto as tp, estatus as e WHERE pr.id_producto = pt.id_producto AND m.id_marca = pt.id_marca AND tp.id_tipo = pt.id_tipo AND e.id_estatus = pt.id_estatus'; */
 
-		$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, m.nombre as m_nombre, tp.nombre as tp_nombre, p.cantidad as p_cantidad, p.precio as p_precio, e.nombre as e_nombre FROM producto as p , marca as m , tipo_producto as tp, estatus_producto as e WHERE p.id_marca = m.id AND p.id_estatus = e.id AND p.id_tipo = tp.id AND e.id != 6';
+		/*$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, m.nombre as m_nombre, tp.nombre as tp_nombre, p.cantidad as p_cantidad, p.precio as p_precio, e.nombre as e_nombre FROM producto as p , marca as m , tipo_producto as tp, estatus_producto as e WHERE p.id_marca = m.id AND p.id_estatus = e.id AND p.id_tipo = tp.id AND e.id != 6';*/
+
+		$consulta = 'SELECT
+		    p.id AS p_id,
+		    p.nombre AS p_nombre,
+		    m.nombre AS m_nombre,
+		    t.nombre AS tp_nombre,
+		    p.cantidad AS p_cantidad,
+		    p.precio AS p_precio,
+		    e.nombre AS e_nombre
+		FROM
+		    producto AS p,
+		    marca AS m,
+		    tipo_producto AS t,
+		    estatus_producto AS e,
+		    empleado,
+		    almacen,
+		    e_p
+		WHERE
+		    m.id = p.id_marca AND t.id = p.id_tipo AND e.id = e_p.Id_Estado_producto AND p.id = e_p.Id_Producto AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Almacen ='.$almacen.'';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -35,12 +54,13 @@
 		}
 
 		if ($tipo != "") {
-			$consulta .= " AND tp.id=".$tipo;
+			$consulta .= " AND t.id=".$tipo;
 		}
 
 		if ($estatus != "") {
 			$consulta .= " AND e.id=".$estatus;
 		}
+
 
 		$resultados = $conexion_bd->query($consulta);  
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
@@ -102,6 +122,7 @@
 	}
 
 
+
 	//Crear un select con los datos de una consulta
 	
 	function consultar_select($id, $columna_descripcion, $tabla, $Seleccion=0){
@@ -110,7 +131,7 @@
 
 		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
 
-      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 6" ;
+      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5 AND $id != 1" ;
       	$resultados = $conexion_bd->query($consulta);
       	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';

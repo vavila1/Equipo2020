@@ -15,7 +15,7 @@
     function autenticar($username, $password){
     $con = conectar_bd();
    
-    $query = " SELECT p.nombre as per, e.Nombre as nom
+    $query = " SELECT p.nombre as per, e.Nombre as nom, e.id_Almacen as alm
                FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p, empleado as e
                WHERE e.Id_Empleado = c.Id_Empleado
                AND c.Id_Cuenta = cr.Id_Cuenta
@@ -44,6 +44,7 @@
            $_SESSION['Consultar'] = 1;
        }
        $_SESSION['usuario'] = $row['nom'];
+       $_SESSION['almacen'] = $row['alm'];
     }
    mysqli_close($con);
 }
