@@ -16,7 +16,7 @@
 
   function getFruits($id,$nombre,$estado){
     $conexion_bd = conectar_bd();
-      $resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Estado</th></tr></thead>";
+      $resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Estado</th></tr></thead>";
     
     $consulta = 'Select A.id as A_id, A.nombre as A_nombre, E.nombre as E_nombre From almacen as A, estado as E Where A.id_estado = E.id';
 

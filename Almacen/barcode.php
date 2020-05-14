@@ -11,8 +11,7 @@
 
 
     include("partials/_header.html");
-    include("partials/_nav.html");
     include("partials/_generarCodigo.html");
-    include("partials/_footer.html");
 
 ?>
+

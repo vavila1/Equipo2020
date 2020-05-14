@@ -25,7 +25,7 @@
 
 		$consulta = 'SELECT e.Id_Empleado as e_id, e.nombre as e_nombre, e.correo as e_correo FROM Empleado as e';
 
-		$resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Acciones</th></tr></thead><tbody>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Acciones</th></tr></thead><tbody>";
 		
 		$resultados = $conexion_bd->query($consulta);  
 

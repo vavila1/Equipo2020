@@ -25,7 +25,7 @@
 
 		$consulta = 'SELECT e.id as e_id, e.nombre as e_nombre FROM estatus_producto as e';
 
-		$resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
 		
 		$resultados = $conexion_bd->query($consulta);  
 

@@ -25,7 +25,7 @@
 
 		$consulta = 'SELECT t.id t_id, t.nombre as t_nombre FROM tipo_producto as t';
 
-		$resultado = "<table><thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
 		
 		$resultados = $conexion_bd->query($consulta);  
 

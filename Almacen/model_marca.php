@@ -23,7 +23,7 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table><thead><tr><th>ID</th><th></th><th>Nombre de Marca</th><th></th><th>Acciones</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th></th><th>Nombre de Marca</th><th></th><th>Acciones</th></tr></thead>";
 
 		/*$consulta = 'SELECT pr.descripcion as pr_descripcion, m.nombre as m_nombre, pr.cantidad as pr_cantidad, pr.precio as pr_precio, tp.nombre as tp_nombre, e.nombre as e_nombre FROM producto as pr, productotiene as pt, marca as m, tipoproducto as tp, estatus as e WHERE pr.id_producto = pt.id_producto AND m.id_marca = pt.id_marca AND tp.id_tipo = pt.id_tipo AND e.id_estatus = pt.id_estatus'; */
 

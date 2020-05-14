@@ -11,6 +11,22 @@
 		return $conexion_bd;
 	}
 
+/*BEGIN 
+	SELECT
+    E.nombre AS E_nombre,
+    H.fecha AS H_fecha
+FROM
+    estatus_producto AS E,
+    producto AS P,
+    e_p AS H
+WHERE
+    E.id = H.Id_Estado_producto AND P.id = H.Id_Producto AND H.Id_Producto = id
+ORDER BY
+    H.fecha
+DESC
+LIMIT 3;
+END*/
+
 	//Cerrar conexion de Base de Datos
 	//@param $conexion: Conexion que se cerrara
 	function desconectar_bd($conexion_bd){
@@ -18,35 +34,32 @@
 	}
 
 
+	function obtenerHistorial($id){
+    $conexion_bd=conectar_bd();
+    $consulta='call ObtenerHistorial('.$id.');';
+    $resultado="";
+    $resultados=mysqli_query($conexion_bd,$consulta);
+    if(mysqli_num_rows($resultados)>0){
+      while($row=mysqli_fetch_assoc($resultados)){
+        $resultado.=$row["E_nombre"];
+        $resultado.=" (".$row["H_fecha"].")";
+        $resultado.="<br>";
+      }
+    }
+    mysqli_free_result($resultados);
+    desconectar_bd($conexion_bd);
+    return $resultado;
+  }
+
+
 	//Consulta de consultar Productos en Almacen
 	function consultar_productos($marca="",$tipo="",$estatus="",$almacen){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
 
-		/*$consulta = 'SELECT pr.descripcion as pr_descripcion, m.nombre as m_nombre, pr.cantidad as pr_cantidad, pr.precio as pr_precio, tp.nombre as tp_nombre, e.nombre as e_nombre FROM producto as pr, productotiene as pt, marca as m, tipoproducto as tp, estatus as e WHERE pr.id_producto = pt.id_producto AND m.id_marca = pt.id_marca AND tp.id_tipo = pt.id_tipo AND e.id_estatus = pt.id_estatus'; */
-
-		/*$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, m.nombre as m_nombre, tp.nombre as tp_nombre, p.cantidad as p_cantidad, p.precio as p_precio, e.nombre as e_nombre FROM producto as p , marca as m , tipo_producto as tp, estatus_producto as e WHERE p.id_marca = m.id AND p.id_estatus = e.id AND p.id_tipo = tp.id AND e.id != 6';*/
-
-		$consulta = 'SELECT
-		    p.id AS p_id,
-		    p.nombre AS p_nombre,
-		    m.nombre AS m_nombre,
-		    t.nombre AS tp_nombre,
-		    p.cantidad AS p_cantidad,
-		    p.precio AS p_precio,
-		    e.nombre AS e_nombre
-		FROM
-		    producto AS p,
-		    marca AS m,
-		    tipo_producto AS t,
-		    estatus_producto AS e,
-		    empleado,
-		    almacen,
-		    e_p
-		WHERE
-		    m.id = p.id_marca AND t.id = p.id_tipo AND e.id = e_p.Id_Estado_producto AND p.id = e_p.Id_Producto AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Almacen ='.$almacen.'';
+		   $consulta = 'SELECT p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Almacen = '.$almacen.'';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -71,7 +84,7 @@
 		    $resultado .= "<td>".$row['tp_nombre']."</td>";
 		    $resultado .= "<td>".$row['p_cantidad']."</td>";
 		    $resultado .= "<td>$".$row['p_precio']."</td>";
-		    $resultado .= "<td>".$row['e_nombre']."</td>";
+		    $resultado .= "<td>".obtenerHistorial($row['p_id'])."</td>";
 		    $resultado .= "<td>";
 
 		    if ($_SESSION["Registar"]) {
@@ -122,7 +135,6 @@
 	}
 
 
-
 	//Crear un select con los datos de una consulta
 	
 	function consultar_select($id, $columna_descripcion, $tabla, $Seleccion=0){
@@ -131,7 +143,7 @@
 
 		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
 
-      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5 AND $id != 1" ;
+      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5 " ;
       	$resultados = $conexion_bd->query($consulta);
       	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';
@@ -147,17 +159,73 @@
 	}
 
 
+
+	function consultar_ultimo_id(){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+
+      	$consulta = 'SELECT
+	   						 id as p_id
+					 FROM
+	  						 `producto`
+				     ORDER BY
+	    					  id DESC
+					 Limit 1' ;
+
+      	$resultados = $conexion_bd->query($consulta);
+      	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			$resultado = $row["p_id"];
+		}
+      
+      	// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		return $resultado;
+
+	}
+
+	function consultar_ultimo_estado($id_producto){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+
+      	$consulta = 'SELECT
+	   						 id as p_id
+					 FROM
+	  						 `e_p`
+	  				 WHERE Id_Producto = '.$id_producto.'';
+
+		$consulta .='ORDER BY
+	    					  id DESC
+					 Limit 1';
+
+
+
+      	$resultados = $conexion_bd->query($consulta);
+      	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			$resultado = $row["p_id"];
+		}
+      
+      	// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		return $resultado;
+
+	}
+
+	//var_dump(consultar_ultimo_estado(1));
+
+
 	// Funcion para insertar un registro de un producto en el almacen
 	//Paso1: Preparar consulta
 	//Paso2 Union de parametros
 	//Paso3 Ejecutar la consulta
-	function insertar_producto($nombre, $cantidad, $precio, $id_marca, $id_estatus, $id_tipo){
+	function insertar_producto($nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//var_dump($nombre);
 
 		//Prepaprar la consulta
-		$dml = 'INSERT INTO producto (nombre, cantidad, precio, id_marca, id_estatus, id_tipo) VALUES (?,?,?,?,?,?) ';
+		$dml = 'INSERT INTO producto (nombre, cantidad, precio, id_marca, id_almacen, id_tipo) VALUES (?,?,?,?,?,?) ';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -165,7 +233,37 @@
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("ssssss", $nombre, $cantidad, $precio, $id_marca, $id_estatus, $id_tipo)) {
+		if (!$statement->bind_param("ssssss", $nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+	function insertar_producto_estatus($id_producto, $id_estatus){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		$dml = 'INSERT INTO e_p (Id_Producto, Id_Estado_producto) VALUES (?,?) ';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ss", $id_producto, $id_estatus)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -196,7 +294,7 @@ WHERE
 
 		//Prepaprar la consulta
 		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
-		$dml = 'UPDATE `producto` SET `id_estatus` = 6 WHERE `id` = (?)';
+		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 5 WHERE `Id_Producto` = (?) AND ';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
