@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2020 a las 16:54:06
+-- Tiempo de generación: 12-05-2020 a las 21:35:44
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -39,25 +39,10 @@ CREATE TABLE `almacen` (
 --
 
 INSERT INTO `almacen` (`id`, `id_estado`, `nombre`) VALUES
-(2, 8, 'Almacen BC'),
-(3, 7, 'Almacen Chiapas'),
-(4, 20, 'Almacen Chichuahua'),
-(5, 12, 'Almacen  coahuila'),
-(6, 19, 'Almacen  Guanajuato'),
-(7, 11, 'Almacen Guerrero'),
-(8, 15, 'Almacen Hidalgo'),
-(9, 3, 'Almacen Jalisco'),
-(10, 5, 'Almacen Michoacan'),
-(11, 13, 'Almacen Morelos'),
-(12, 18, 'Almacen  Nayarit'),
-(13, 9, 'Almacen NL'),
-(14, 2, 'Almacen  QRO'),
-(15, 16, 'Almacen  QROO'),
-(16, 6, 'Almacen  SNL'),
-(17, 17, 'Almacen  Tabasco'),
-(18, 1, 'Almacen Tamaulipas'),
-(19, 4, 'Almacen Yucatan'),
-(20, 14, 'Almacen Zacatecas');
+(1, 1, 'Almacen queretaro'),
+(2, 7, 'Almacen Monterrey'),
+(3, 5, 'Almacen Sinaloa'),
+(4, 4, 'alamcen jalisco');
 
 -- --------------------------------------------------------
 
@@ -77,12 +62,8 @@ CREATE TABLE `cuenta` (
 --
 
 INSERT INTO `cuenta` (`Id_Cuenta`, `Id_Empleado`, `Usuario`, `Contraseña`) VALUES
-(1, 1, 'MarcoAdmin', '123456'),
-(2, 2, '', ''),
-(3, 3, 'Username2', 'avion1234'),
-(4, 4, 'Username3', 'casa1234'),
-(5, 5, '', ''),
-(6, 6, '', '');
+(2, 2, 'Admin', 'Admin'),
+(3, 3, 'Admin2', 'Admin2');
 
 -- --------------------------------------------------------
 
@@ -100,9 +81,8 @@ CREATE TABLE `cuenta_rol` (
 --
 
 INSERT INTO `cuenta_rol` (`Id_Cuenta`, `Id_Rol`) VALUES
-(1, 6),
-(3, 7),
-(4, 10);
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -113,6 +93,7 @@ INSERT INTO `cuenta_rol` (`Id_Cuenta`, `Id_Rol`) VALUES
 CREATE TABLE `empleado` (
   `Id_Empleado` int(10) NOT NULL,
   `Id_Puesto` int(10) DEFAULT NULL,
+  `Id_Almacen` int(10) DEFAULT NULL,
   `Correo` varchar(50) DEFAULT NULL,
   `Nombre` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -121,13 +102,9 @@ CREATE TABLE `empleado` (
 -- Volcado de datos para la tabla `empleado`
 --
 
-INSERT INTO `empleado` (`Id_Empleado`, `Id_Puesto`, `Correo`, `Nombre`) VALUES
-(1, 1, 'tkumar.kvishal@designingenium.com', 'Marco '),
-(2, 2, 'fmohamad-sh32@betaboks.org', 'Juan'),
-(3, 2, 'hdempapa508@flexninori.ga', 'Andrés'),
-(4, 2, 'zeronax6@lordfkas.tk', 'Eduardo'),
-(5, 3, 'rlethiap@hghhumangrowthhormones.com', 'Javier'),
-(6, 4, 'gmessaoud39ss@betaboks.org', 'Jaime');
+INSERT INTO `empleado` (`Id_Empleado`, `Id_Puesto`, `Id_Almacen`, `Correo`, `Nombre`) VALUES
+(2, 1, 1, 'corre@correo.com', 'Marco'),
+(3, 1, 3, 'sinaloa@.com', 'Marco sinaloa');
 
 -- --------------------------------------------------------
 
@@ -138,7 +115,6 @@ INSERT INTO `empleado` (`Id_Empleado`, `Id_Puesto`, `Correo`, `Nombre`) VALUES
 CREATE TABLE `entregan` (
   `Id_Transaccion` int(10) NOT NULL,
   `Id_Producto` int(10) NOT NULL,
-  `Id_Almacen` int(10) NOT NULL,
   `Id_Empleado` int(10) NOT NULL,
   `Fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -147,9 +123,8 @@ CREATE TABLE `entregan` (
 -- Volcado de datos para la tabla `entregan`
 --
 
-INSERT INTO `entregan` (`Id_Transaccion`, `Id_Producto`, `Id_Almacen`, `Id_Empleado`, `Fecha`) VALUES
-(2, 4, 14, 1, '2020-04-15 14:53:57'),
-(2, 6, 14, 2, '2020-04-15 14:53:57');
+INSERT INTO `entregan` (`Id_Transaccion`, `Id_Producto`, `Id_Empleado`, `Fecha`) VALUES
+(1, 1, 2, '2020-05-12 19:06:20');
 
 -- --------------------------------------------------------
 
@@ -167,26 +142,13 @@ CREATE TABLE `estado` (
 --
 
 INSERT INTO `estado` (`id`, `nombre`) VALUES
-(1, 'Tamaulipas'),
-(2, 'Queretaro'),
-(3, 'Jalsco'),
-(4, 'Yucatan'),
-(5, 'Michoacan'),
+(1, 'Queretaro'),
+(2, 'Quintana Roo'),
+(3, 'Zacatecas'),
+(4, 'Estado de Mexico'),
+(5, 'CDMX'),
 (6, 'Sinaloa'),
-(7, 'Chiapas'),
-(8, 'Baja California'),
-(9, 'Nuevo León'),
-(10, 'Sonora'),
-(11, 'Guerrero'),
-(12, 'Coahuila'),
-(13, 'Morelos'),
-(14, 'Zacatecas'),
-(15, 'Hidalgo'),
-(16, 'Quinata Roo'),
-(17, 'Tabasco'),
-(18, 'Nayarit'),
-(19, 'Guanajuato'),
-(20, 'Chihuahua');
+(7, 'Monterrey');
 
 -- --------------------------------------------------------
 
@@ -206,8 +168,9 @@ CREATE TABLE `estatusproyecto` (
 INSERT INTO `estatusproyecto` (`Id_EstatusProyecto`, `Nombre`) VALUES
 (1, 'Terminado'),
 (2, 'Pendiente'),
-(3, 'Suspendido'),
-(4, 'En proceso');
+(3, 'En proceso'),
+(4, 'Iniciado'),
+(5, 'Eliminado');
 
 -- --------------------------------------------------------
 
@@ -225,11 +188,32 @@ CREATE TABLE `estatus_producto` (
 --
 
 INSERT INTO `estatus_producto` (`id`, `nombre`) VALUES
-(1, 'Agotado'),
-(2, 'Disponible'),
-(3, 'Prestado'),
-(4, 'En reparacion'),
-(5, 'Descompuesto');
+(1, 'Calibración'),
+(2, 'Agotado'),
+(3, 'En prestamo'),
+(4, 'Descompuesto'),
+(5, 'Eliminado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `e_p`
+--
+
+CREATE TABLE `e_p` (
+  `Id_Producto` int(10) NOT NULL,
+  `Id_Estado_producto` int(10) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `e_p`
+--
+
+INSERT INTO `e_p` (`Id_Producto`, `Id_Estado_producto`, `fecha`) VALUES
+(1, 1, '2020-05-12 19:05:44'),
+(1, 3, '2020-05-12 19:06:00'),
+(3, 2, '2020-05-12 19:26:30');
 
 -- --------------------------------------------------------
 
@@ -250,13 +234,9 @@ INSERT INTO `marca` (`id`, `nombre`) VALUES
 (1, 'Trupper'),
 (2, 'Vitromex'),
 (3, 'DeWalt'),
-(4, 'Makita'),
-(5, 'Bosch'),
-(6, 'Milwaukee'),
-(7, 'Einhell'),
-(8, 'Tacklife'),
-(9, 'Stanley'),
-(10, 'Bellota');
+(4, 'Bosch'),
+(5, 'totis'),
+(6, 'Nike');
 
 -- --------------------------------------------------------
 
@@ -274,10 +254,10 @@ CREATE TABLE `privilegio` (
 --
 
 INSERT INTO `privilegio` (`Id_Privilegio`, `Nombre`) VALUES
-(1, 'Leer'),
+(1, 'Ver'),
 (2, 'Editar'),
 (3, 'Eliminar'),
-(4, 'Editar'),
+(4, 'Registrar'),
 (5, 'Consultar');
 
 -- --------------------------------------------------------
@@ -292,21 +272,18 @@ CREATE TABLE `producto` (
   `cantidad` int(10) DEFAULT NULL,
   `precio` int(10) DEFAULT NULL,
   `id_marca` int(10) DEFAULT NULL,
-  `id_estatus` int(10) DEFAULT NULL,
-  `id_tipo` int(10) DEFAULT NULL
+  `id_tipo` int(10) DEFAULT NULL,
+  `Id_Almacen` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`id`, `nombre`, `cantidad`, `precio`, `id_marca`, `id_estatus`, `id_tipo`) VALUES
-(1, 'Martillo 12\'\'', 1, 199, 1, 1, 2),
-(2, 'Martillo 12\'\'', 1, 500, 2, 1, 2),
-(3, 'Desarmador cruz', 1, 399, 10, 3, 2),
-(4, 'Panel de Vidrio 10 metros cuadrados', 10, 1000, 2, 2, 1),
-(5, 'Cemento Cruz Azul', 2, 399, 4, 5, 3),
-(6, 'Panel vidrio 11 metros cuadrados', 4, 750, 2, 2, 1);
+INSERT INTO `producto` (`id`, `nombre`, `cantidad`, `precio`, `id_marca`, `id_tipo`, `Id_Almacen`) VALUES
+(1, 'Martillo', 1, 1222, 1, 1, 1),
+(2, 'Vidrio', 10, 599, 2, 2, 1),
+(3, 'Martillo en CDMX', 1, 12, 3, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -315,8 +292,9 @@ INSERT INTO `producto` (`id`, `nombre`, `cantidad`, `precio`, `id_marca`, `id_es
 --
 
 CREATE TABLE `producto_proyecto` (
-  `Id_Producto` int(10) NOT NULL,
-  `Id_Proyecto` int(10) NOT NULL,
+  `id` int(10) NOT NULL,
+  `Id_Producto` int(10) DEFAULT NULL,
+  `Id_Proyecto` int(10) DEFAULT NULL,
   `Cantidad_Asignada` int(10) DEFAULT NULL,
   `Fecha_Asignacion` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -325,15 +303,8 @@ CREATE TABLE `producto_proyecto` (
 -- Volcado de datos para la tabla `producto_proyecto`
 --
 
-INSERT INTO `producto_proyecto` (`Id_Producto`, `Id_Proyecto`, `Cantidad_Asignada`, `Fecha_Asignacion`) VALUES
-(1, 2, 1, '2020-04-15 14:52:51'),
-(1, 25, 1, '2020-04-15 14:52:51'),
-(2, 2, 1, '2020-04-15 14:52:51'),
-(3, 1, 1, '2020-04-15 14:52:51'),
-(3, 25, 1, '2020-04-15 14:52:51'),
-(4, 1, 2, '2020-04-15 14:52:51'),
-(5, 2, 2, '2020-04-15 14:52:51'),
-(6, 1, 2, '2020-04-15 14:52:51');
+INSERT INTO `producto_proyecto` (`id`, `Id_Producto`, `Id_Proyecto`, `Cantidad_Asignada`, `Fecha_Asignacion`) VALUES
+(1, 1, 1, 1, '2020-05-12 19:06:36');
 
 -- --------------------------------------------------------
 
@@ -354,9 +325,8 @@ CREATE TABLE `proyecto` (
 --
 
 INSERT INTO `proyecto` (`Id_Proyecto`, `Id_EstatusProyecto`, `Nombre`, `Fecha_Inicio`, `Fecha_Fin`) VALUES
-(1, 4, 'Oxxo venta', '2020-04-15 14:51:24', '0000-00-00 00:00:00'),
-(2, 1, 'Carretara ', '2020-04-15 14:51:24', '0000-00-00 00:00:00'),
-(25, 1, 'Proyecto 1', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(0, 1, 'Proyecto 1', '2020-05-12 18:52:31', NULL),
+(1, 5, 'Oxxo', '2020-05-12 19:09:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -374,10 +344,7 @@ CREATE TABLE `puesto` (
 --
 
 INSERT INTO `puesto` (`Id_Puesto`, `Nombre`) VALUES
-(1, 'Administrador'),
-(2, 'Almacenista'),
-(3, 'Obrero'),
-(4, 'Supervisor de obra');
+(1, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -395,11 +362,7 @@ CREATE TABLE `rol` (
 --
 
 INSERT INTO `rol` (`Id_Rol`, `Nombre`) VALUES
-(6, 'Administrador'),
-(7, 'Almacenista'),
-(8, 'Obrero'),
-(9, 'Supervisor de obra'),
-(10, 'Servicio al cliente');
+(1, 'Administrador');
 
 -- --------------------------------------------------------
 
@@ -417,14 +380,11 @@ CREATE TABLE `rol_privilegio` (
 --
 
 INSERT INTO `rol_privilegio` (`Id_Rol`, `Id_Privilegio`) VALUES
-(6, 1),
-(6, 2),
-(6, 3),
-(6, 5),
-(7, 1),
-(7, 2),
-(10, 1),
-(10, 2);
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -442,8 +402,8 @@ CREATE TABLE `tipo_producto` (
 --
 
 INSERT INTO `tipo_producto` (`id`, `nombre`) VALUES
-(1, 'Consumible'),
-(2, 'Herramienta'),
+(1, 'Herramienta'),
+(2, 'Consumible'),
 (3, 'Perecedero');
 
 -- --------------------------------------------------------
@@ -462,8 +422,8 @@ CREATE TABLE `transaccion` (
 --
 
 INSERT INTO `transaccion` (`Id_Transaccion`, `Nombre`) VALUES
-(1, 'Llegada'),
-(2, 'Salida');
+(1, 'Salida'),
+(2, 'llegada');
 
 --
 -- Índices para tablas volcadas
@@ -495,15 +455,15 @@ ALTER TABLE `cuenta_rol`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`Id_Empleado`),
-  ADD KEY `Id_Puesto` (`Id_Puesto`);
+  ADD KEY `Id_Puesto` (`Id_Puesto`),
+  ADD KEY `Id_Almacen` (`Id_Almacen`);
 
 --
 -- Indices de la tabla `entregan`
 --
 ALTER TABLE `entregan`
-  ADD PRIMARY KEY (`Id_Transaccion`,`Id_Producto`,`Id_Almacen`,`Id_Empleado`),
+  ADD PRIMARY KEY (`Id_Transaccion`,`Id_Producto`,`Id_Empleado`),
   ADD KEY `Id_Producto` (`Id_Producto`),
-  ADD KEY `Id_Almacen` (`Id_Almacen`),
   ADD KEY `Id_Empleado` (`Id_Empleado`);
 
 --
@@ -525,6 +485,13 @@ ALTER TABLE `estatus_producto`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `e_p`
+--
+ALTER TABLE `e_p`
+  ADD PRIMARY KEY (`Id_Producto`,`Id_Estado_producto`),
+  ADD KEY `Id_Estado_producto` (`Id_Estado_producto`);
+
+--
 -- Indices de la tabla `marca`
 --
 ALTER TABLE `marca`
@@ -542,15 +509,16 @@ ALTER TABLE `privilegio`
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_marca` (`id_marca`),
-  ADD KEY `id_estatus` (`id_estatus`),
+  ADD KEY `Id_Almacen` (`Id_Almacen`),
   ADD KEY `id_tipo` (`id_tipo`);
 
 --
 -- Indices de la tabla `producto_proyecto`
 --
 ALTER TABLE `producto_proyecto`
-  ADD PRIMARY KEY (`Id_Producto`,`Id_Proyecto`),
-  ADD KEY `Id_Proyecto` (`Id_Proyecto`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Id_Proyecto` (`Id_Proyecto`),
+  ADD KEY `Id_Producto` (`Id_Producto`);
 
 --
 -- Indices de la tabla `proyecto`
@@ -598,31 +566,31 @@ ALTER TABLE `transaccion`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `cuenta`
 --
 ALTER TABLE `cuenta`
-  MODIFY `Id_Cuenta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_Cuenta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  MODIFY `Id_Empleado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_Empleado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `estatusproyecto`
 --
 ALTER TABLE `estatusproyecto`
-  MODIFY `Id_EstatusProyecto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_EstatusProyecto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `estatus_producto`
@@ -634,7 +602,7 @@ ALTER TABLE `estatus_producto`
 -- AUTO_INCREMENT de la tabla `marca`
 --
 ALTER TABLE `marca`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `privilegio`
@@ -646,19 +614,25 @@ ALTER TABLE `privilegio`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `producto_proyecto`
+--
+ALTER TABLE `producto_proyecto`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
-  MODIFY `Id_Puesto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Puesto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `Id_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_producto`
@@ -699,7 +673,8 @@ ALTER TABLE `cuenta_rol`
 -- Filtros para la tabla `empleado`
 --
 ALTER TABLE `empleado`
-  ADD CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`Id_Puesto`) REFERENCES `puesto` (`Id_Puesto`);
+  ADD CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`Id_Puesto`) REFERENCES `puesto` (`Id_Puesto`),
+  ADD CONSTRAINT `empleado_ibfk_2` FOREIGN KEY (`Id_Almacen`) REFERENCES `almacen` (`id`);
 
 --
 -- Filtros para la tabla `entregan`
@@ -707,15 +682,21 @@ ALTER TABLE `empleado`
 ALTER TABLE `entregan`
   ADD CONSTRAINT `entregan_ibfk_1` FOREIGN KEY (`Id_Transaccion`) REFERENCES `transaccion` (`Id_Transaccion`),
   ADD CONSTRAINT `entregan_ibfk_2` FOREIGN KEY (`Id_Producto`) REFERENCES `producto` (`id`),
-  ADD CONSTRAINT `entregan_ibfk_3` FOREIGN KEY (`Id_Almacen`) REFERENCES `almacen` (`id`),
-  ADD CONSTRAINT `entregan_ibfk_4` FOREIGN KEY (`Id_Empleado`) REFERENCES `empleado` (`Id_Empleado`);
+  ADD CONSTRAINT `entregan_ibfk_3` FOREIGN KEY (`Id_Empleado`) REFERENCES `empleado` (`Id_Empleado`);
+
+--
+-- Filtros para la tabla `e_p`
+--
+ALTER TABLE `e_p`
+  ADD CONSTRAINT `e_p_ibfk_1` FOREIGN KEY (`Id_Producto`) REFERENCES `producto` (`id`),
+  ADD CONSTRAINT `e_p_ibfk_2` FOREIGN KEY (`Id_Estado_producto`) REFERENCES `estatus_producto` (`id`);
 
 --
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_marca`) REFERENCES `marca` (`id`),
-  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`id_estatus`) REFERENCES `estatus_producto` (`id`),
+  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`Id_Almacen`) REFERENCES `almacen` (`id`),
   ADD CONSTRAINT `producto_ibfk_3` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_producto` (`id`);
 
 --
