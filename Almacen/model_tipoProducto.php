@@ -34,8 +34,8 @@
 		    $resultado .= "<td>".$row['t_id']."</td>";
 		    $resultado .= "<td>".$row['t_nombre']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
-		    $resultado .= borrarBoton();
+		    $resultado .= botonEditar();
+		    $resultado .= botonBorrar();
 		    $resultado .= '</a>' ;
 		    $resultado .= "</td>" ;
 		    $resultado .= "</tr>" ;
@@ -50,40 +50,34 @@
 		return $resultado;
 	}
 
-	function insertar_tipoProducto($id, $nombre){
-		//Primero conectarse a la base de datos
+	function insertar_tipoProducto($nombre){
 		$conexion_bd = conectar_bd();
-		//var_dump($nombre);
 
-		//Prepaprar la consulta
-		$dml = 'INSERT INTO tipo_producto (id,nombre) VALUES (?,?) ';
-		if ( !($statement = $conexion_bd->prepare($dml)) ){
-			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-			return 0;
-			}
+		$consulta = 'INSERT INTO `tipo_producto` (`nombre`) VALUES ((?))';
 
-		// Unir los parametros de la funcion con los parametros de la consulta
-		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("ssssss", $id, $nombre)) {
-			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
+		if ( !($statement = $conexion_bd->prepare($consulta)) ) {
+    	}
+    	if (!$statement->bind_param("s", $nombre)) {
+    	}
+    	if (!$statement->execute()) {
+  		}
+	
+	mysqli_free_result($resultados);
 
-		// Ejecutar la consulta
-		if (!$statement->execute()) {
-			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		//Desconectarse de la base de datos
-			  desconectar_bd($conexion_bd);
-			  return 1;
+    desconectar_bd($conexion_bd);
  
 	}
 
-function borrarBoton(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+function botonBorrar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Estado">
     <i class="material-icons right">delete</i>
+  </button>';
+    return $resultado;
+  }
+
+  function botonEditar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Estado">
+    <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
   }
