@@ -34,9 +34,14 @@
 		    $resultado .= "<td>".$row['e_id']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= botonEditar();
-		    $resultado .= botonBorrar();
-		    $resultado .= '</a>' ;
+		   	$resultado .='<a href="editarEstado.php?id='.$row['e_id'].'"';
+           	$resultado .="".'"'.">";
+           	$resultado .=" ". botonEditar();
+           	$resultado .="</a>";
+		    $resultado .='<a href="controlador_eliminar_estado.php?id='.$row['e_id'].'"';
+           	$resultado .="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el estado:  ".$row['e_nombre']." ?')".'"'.">";
+           	$resultado .=" ". botonBorrar();
+           	$resultado .="</a>";
 		    $resultado .= "</td>" ;
 		    $resultado .= "</tr>" ;
 		}
@@ -77,7 +82,7 @@ function botonBorrar(){
   }
 
   function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Estado">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Producto">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
