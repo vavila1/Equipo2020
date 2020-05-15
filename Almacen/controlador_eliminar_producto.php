@@ -14,6 +14,8 @@
         eliminar_producto($id);
         eliminar_producto_historial($id);
         $_SESSION["delete"] = "Se ha eliminado un registro con exito";
+    }else{
+         $_SESSION["warning"] = "Ocurrio un error al borrar el registro";
     }
 
     header("location:productos.php");

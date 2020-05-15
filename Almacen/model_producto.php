@@ -11,24 +11,7 @@
 		return $conexion_bd;
 	}
 
-/*BEGIN 
-	SELECT
-    E.nombre AS E_nombre,
-    H.fecha AS H_fecha
-FROM
-    estatus_producto AS E,
-    producto AS P,
-    e_p AS H
-WHERE
-    E.id = H.Id_Estado_producto AND P.id = H.Id_Producto AND H.Id_Producto = id
-ORDER BY
-    H.fecha
-DESC
-LIMIT 3;
-END*/
 
-	//Cerrar conexion de Base de Datos
-	//@param $conexion: Conexion que se cerrara
 	function desconectar_bd($conexion_bd){
 		mysqli_close($conexion_bd);
 	}
@@ -59,7 +42,7 @@ END*/
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
 
-		   $consulta = 'SELECT p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -88,12 +71,26 @@ END*/
 		    $resultado .= "<td>";
 
 		    if ($_SESSION["Registar"]) {
-		    //Seccion de Entrada de Material
-           $resultado.='<a href="#?id='.$row['p_id'].'"';
-          $resultado.="".'"'.">";
-           $resultado.=" ". botonEntrada();
-           $resultado.="</a>";
-       }
+		    	if ($row['tp_nombre'] == "Consumible") {
+		    		//Seccion de Entrada de Material
+		           $resultado.='<a href="#?id='.$row['p_id'].'"';
+		           $resultado.="".'"'.">";
+		           $resultado.=" ". botonEntrada();
+		           $resultado.="</a>";
+		    	} else if ($row['tp_nombre'] == "Herramienta" && $row['p_Estatus'] == 1) {
+		    	//Seccion de Borrar Boton
+				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
+		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar la finalización de la calibración para la Herramienta:  ".$row['p_nombre']." ?')".'"'.">";
+		           $resultado.=" ". botonEntradaCalibracion();
+		           $resultado.="</a>";
+		    	} else if ($row['tp_nombre'] == "Herramienta") {
+		    	//Seccion de Borrar Boton
+				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'"';
+		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar calibración para la Herramienta:  ".$row['p_nombre']." ?')".'"'.">";
+		           $resultado.=" ". botonCalibracion();
+		           $resultado.="</a>";
+		    	} 
+       		}
 		    
 		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
@@ -351,13 +348,13 @@ function eliminar_producto_historial($id){
 	}
 
 
-
-	function eliminar_producto_proyecto($id){
+	function registar_calibracion($id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 
 		//Prepaprar la consulta
-		$dml = 'DELETE FROM `producto_proyecto` WHERE `producto_proyecto`.`id_producto` = (?)';
+		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `producto` SET `Id_Estatus` = 1 WHERE `id` = (?)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -381,6 +378,103 @@ function eliminar_producto_historial($id){
 			  return 1;
  
 	}
+
+function registar_calibracion_historial($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 1 WHERE `Id_Producto` = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
+
+	function registar_termino_calibracion($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `producto` SET `Id_Estatus` = 6 WHERE `id` = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+function registar_termino_calibracion_historial($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 6 WHERE `Id_Producto` = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
 
 	function editar_producto_estatus($id, $id_estatus){
 		//Primero conectarse a la base de datos
@@ -500,6 +594,22 @@ function botonBorrar(){
   function botonEntrada(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Recibir Entrada">
     <i class="material-icons right">add_box</i>
+  </button>';
+    return $resultado;
+  }
+
+
+  function botonCalibracion(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Registar Calibración">
+    <i class="material-icons right">build</i>
+  </button>';
+    return $resultado;
+  }
+
+
+  function botonEntradaCalibracion(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Entrada de herramienta en calibración">
+    <i class="material-icons right">build</i>
   </button>';
     return $resultado;
   }
