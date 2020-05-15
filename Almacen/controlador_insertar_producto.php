@@ -15,7 +15,7 @@
         $almacen = $_SESSION["almacen"];
         $id_estatus = 6;
 
-        insertar_producto($nombre, $cantidad, $precio, $id_marca, $almacen, $id_tipo);
+        insertar_producto($nombre, $cantidad, $precio, $id_marca, $almacen, $id_tipo,$id_estatus);
         $id_producto = consultar_ultimo_id();
         insertar_producto_estatus($id_producto, $id_estatus);
         $_SESSION["mensaje"] = "Se completo el registro";

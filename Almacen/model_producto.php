@@ -53,13 +53,13 @@ END*/
 
 
 	//Consulta de consultar Productos en Almacen
-	function consultar_productos($marca="",$tipo="",$estatus="",$almacen){
+	function consultar_productos($marca="",$tipo="",/*$estatus="",*/$almacen){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
 
-		   $consulta = 'SELECT p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -70,9 +70,9 @@ END*/
 			$consulta .= " AND t.id=".$tipo;
 		}
 
-		if ($estatus != "") {
+		/*if ($estatus != "") {
 			$consulta .= " AND e.id=".$estatus;
-		}
+		}*/
 
 
 		$resultados = $conexion_bd->query($consulta);  
@@ -219,13 +219,13 @@ END*/
 	//Paso1: Preparar consulta
 	//Paso2 Union de parametros
 	//Paso3 Ejecutar la consulta
-	function insertar_producto($nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo){
+	function insertar_producto($nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo,$id_estatus){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//var_dump($nombre);
 
 		//Prepaprar la consulta
-		$dml = 'INSERT INTO producto (nombre, cantidad, precio, id_marca, id_almacen, id_tipo) VALUES (?,?,?,?,?,?) ';
+		$dml = 'INSERT INTO producto (nombre, cantidad, precio, id_marca, id_almacen, id_tipo, Id_Estatus) VALUES (?,?,?,?,?,?,?) ';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -233,7 +233,7 @@ END*/
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("ssssss", $nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo)) {
+		if (!$statement->bind_param("sssssss", $nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo,$id_estatus)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -294,7 +294,7 @@ WHERE
 
 		//Prepaprar la consulta
 		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
-		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 5 WHERE `Id_Producto` = (?) AND ';
+		$dml = 'UPDATE `producto` SET `Id_Estatus` = 5 WHERE `id` = (?)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -318,6 +318,39 @@ WHERE
 			  return 1;
  
 	}
+
+function eliminar_producto_historial($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 5 WHERE `Id_Producto` = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
 
 	function eliminar_producto_proyecto($id){
 		//Primero conectarse a la base de datos

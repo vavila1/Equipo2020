@@ -11,8 +11,8 @@
 	    echo consultar_select("id", "nombre", "marca");
 	    echo "<div class=\"input-field col s3\">";
 	    echo consultar_select("id", "nombre", "tipo_producto");
-	    echo "<div class=\"input-field col s3\">";
-	    echo consultar_select("id", "nombre", "estatus_producto");
+	  //  echo "<div class=\"input-field col s3\">";
+	  // echo consultar_select("id", "nombre", "estatus_producto");
 	    echo "<div class=\"input-field col s3\">";
 	    echo "<button id=\"buscar\" class=\"btn\">Buscar</button>";
 	    echo "</div>";
@@ -37,7 +37,7 @@
 	    $almacen = $_SESSION["almacen"];
 	  }
 	  	echo "<div id=\"resultados_consulta_productos\">";
-	    echo consultar_productos($marca,$tipo_producto,$estatus_producto,$almacen);
+	    echo consultar_productos($marca,$tipo_producto,/*$estatus_producto,*/$almacen);
 		echo "</div>";
 	echo "</div></div></div></section>";
 

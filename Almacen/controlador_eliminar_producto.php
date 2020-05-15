@@ -12,6 +12,7 @@
     if (isset($id)) {
         $id = htmlspecialchars($_GET["id"]);
         eliminar_producto($id);
+        eliminar_producto_historial($id);
         $_SESSION["delete"] = "Se ha eliminado un registro con exito";
     }
 
