@@ -11,12 +11,12 @@
     $estatus = $_GET["estatus"];
 
 
-    if (isset($id) && isset($estatus)) {
+    if (isset($id) && isset($estatus) && $estatus == 1) {
          $id = htmlspecialchars($_GET["id"]);
         registar_termino_calibracion($id);
         registar_termino_calibracion_historial($id);
         $_SESSION["mensaje"] = "Registro exitoso, la herramienta esta Disponible";
-    }else if (isset($id)) {
+    }else if (isset($id) && isset($estatus) && $estatus == 6) {
         $id = htmlspecialchars($_GET["id"]);
         registar_calibracion($id);
         registar_calibracion_historial($id);

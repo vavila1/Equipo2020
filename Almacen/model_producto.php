@@ -85,7 +85,7 @@
 		           $resultado.="</a>";
 		    	} else if ($row['tp_nombre'] == "Herramienta") {
 		    	//Seccion de Borrar Boton
-				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'"';
+				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
 		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar calibración para la Herramienta:  ".$row['p_nombre']." ?')".'"'.">";
 		           $resultado.=" ". botonCalibracion();
 		           $resultado.="</a>";
@@ -322,7 +322,7 @@ function eliminar_producto_historial($id){
 
 		//Prepaprar la consulta
 		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
-		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 5 WHERE `Id_Producto` = (?)';
+		$dml = 'INSERT INTO `e_p`(`Id_Producto`, `Id_Estado_producto`) VALUES ((?),5)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -385,7 +385,7 @@ function registar_calibracion_historial($id){
 
 		//Prepaprar la consulta
 		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
-		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 1 WHERE `Id_Producto` = (?)';
+		$dml = 'INSERT INTO `e_p`(`Id_Producto`, `Id_Estado_producto`) VALUES ((?),1)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -448,8 +448,8 @@ function registar_termino_calibracion_historial($id){
 		$conexion_bd = conectar_bd();
 
 		//Prepaprar la consulta
-		//$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
-		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = 6 WHERE `Id_Producto` = (?)';
+		//UPDATE `e_p` SET `Id_Estado_producto` = 6 WHERE `Id_Producto` = (?)
+		$dml = 'INSERT INTO `e_p`(`Id_Producto`, `Id_Estado_producto`) VALUES ((?),6)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;

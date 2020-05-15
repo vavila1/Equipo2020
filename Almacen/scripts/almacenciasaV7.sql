@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2020 a las 21:56:54
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.3
+-- Host: 127.0.0.1
+-- Generation Time: May 16, 2020 at 01:28 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,12 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `almacenciasa`
+-- Database: `almacenciasa`
 --
 
 DELIMITER $$
 --
--- Procedimientos
+-- Procedures
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerHistorial` (IN `id` INT(10))  BEGIN 
 	SELECT
@@ -35,11 +34,17 @@ FROM
     producto AS P,
     e_p AS H
 WHERE
-    E.id = H.Id_Estado_producto AND P.id = H.Id_Producto AND H.Id_Producto = id
+    E.id = H.Id_Estado_producto AND P.id = H.Id_Producto AND H.Id_Producto = id 
 ORDER BY
     H.fecha
 DESC
-LIMIT 3;
+LIMIT 1;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerProductos` (IN `almacen` INT(10), IN `marca` INT(10), IN `tipo` INT(10))  BEGIN 
+	SELECT p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio 
+    FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen 
+    WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = almacen AND m.id = marca AND t.id = tipo;
 END$$
 
 DELIMITER ;
@@ -47,7 +52,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `almacen`
+-- Table structure for table `almacen`
 --
 
 CREATE TABLE `almacen` (
@@ -57,7 +62,7 @@ CREATE TABLE `almacen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `almacen`
+-- Dumping data for table `almacen`
 --
 
 INSERT INTO `almacen` (`id`, `id_estado`, `nombre`) VALUES
@@ -69,7 +74,7 @@ INSERT INTO `almacen` (`id`, `id_estado`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuenta`
+-- Table structure for table `cuenta`
 --
 
 CREATE TABLE `cuenta` (
@@ -80,7 +85,7 @@ CREATE TABLE `cuenta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `cuenta`
+-- Dumping data for table `cuenta`
 --
 
 INSERT INTO `cuenta` (`Id_Cuenta`, `Id_Empleado`, `Usuario`, `Contraseña`) VALUES
@@ -90,7 +95,7 @@ INSERT INTO `cuenta` (`Id_Cuenta`, `Id_Empleado`, `Usuario`, `Contraseña`) VALU
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuenta_rol`
+-- Table structure for table `cuenta_rol`
 --
 
 CREATE TABLE `cuenta_rol` (
@@ -99,7 +104,7 @@ CREATE TABLE `cuenta_rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `cuenta_rol`
+-- Dumping data for table `cuenta_rol`
 --
 
 INSERT INTO `cuenta_rol` (`Id_Cuenta`, `Id_Rol`) VALUES
@@ -109,7 +114,7 @@ INSERT INTO `cuenta_rol` (`Id_Cuenta`, `Id_Rol`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `empleado`
+-- Table structure for table `empleado`
 --
 
 CREATE TABLE `empleado` (
@@ -121,7 +126,7 @@ CREATE TABLE `empleado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `empleado`
+-- Dumping data for table `empleado`
 --
 
 INSERT INTO `empleado` (`Id_Empleado`, `Id_Puesto`, `Id_Almacen`, `Correo`, `Nombre`) VALUES
@@ -131,7 +136,7 @@ INSERT INTO `empleado` (`Id_Empleado`, `Id_Puesto`, `Id_Almacen`, `Correo`, `Nom
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `entregan`
+-- Table structure for table `entregan`
 --
 
 CREATE TABLE `entregan` (
@@ -142,7 +147,7 @@ CREATE TABLE `entregan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `entregan`
+-- Dumping data for table `entregan`
 --
 
 INSERT INTO `entregan` (`Id_Transaccion`, `Id_Producto`, `Id_Empleado`, `Fecha`) VALUES
@@ -151,7 +156,7 @@ INSERT INTO `entregan` (`Id_Transaccion`, `Id_Producto`, `Id_Empleado`, `Fecha`)
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estado`
+-- Table structure for table `estado`
 --
 
 CREATE TABLE `estado` (
@@ -160,7 +165,7 @@ CREATE TABLE `estado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `estado`
+-- Dumping data for table `estado`
 --
 
 INSERT INTO `estado` (`id`, `nombre`) VALUES
@@ -175,7 +180,7 @@ INSERT INTO `estado` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estatusproyecto`
+-- Table structure for table `estatusproyecto`
 --
 
 CREATE TABLE `estatusproyecto` (
@@ -184,7 +189,7 @@ CREATE TABLE `estatusproyecto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `estatusproyecto`
+-- Dumping data for table `estatusproyecto`
 --
 
 INSERT INTO `estatusproyecto` (`Id_EstatusProyecto`, `Nombre`) VALUES
@@ -197,7 +202,7 @@ INSERT INTO `estatusproyecto` (`Id_EstatusProyecto`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estatus_producto`
+-- Table structure for table `estatus_producto`
 --
 
 CREATE TABLE `estatus_producto` (
@@ -206,7 +211,7 @@ CREATE TABLE `estatus_producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `estatus_producto`
+-- Dumping data for table `estatus_producto`
 --
 
 INSERT INTO `estatus_producto` (`id`, `nombre`) VALUES
@@ -220,33 +225,33 @@ INSERT INTO `estatus_producto` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `e_p`
+-- Table structure for table `e_p`
 --
 
 CREATE TABLE `e_p` (
-  `Id_Producto` int(10) NOT NULL,
-  `Id_Estado_producto` int(10) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `id` int(10) NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  `Id_Producto` int(10) DEFAULT NULL,
+  `Id_Estado_producto` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `e_p`
+-- Dumping data for table `e_p`
 --
 
-INSERT INTO `e_p` (`Id_Producto`, `Id_Estado_producto`, `fecha`) VALUES
-(1, 1, '2020-05-12 19:05:44'),
-(1, 3, '2020-05-12 19:06:00'),
-(3, 2, '2020-05-12 19:26:30'),
-(5, 3, '2020-05-14 17:56:15'),
-(7, 6, '2020-05-14 18:08:31'),
-(8, 6, '2020-05-14 19:57:05'),
-(9, 6, '2020-05-14 20:06:12'),
-(10, 6, '2020-05-14 20:09:00');
+INSERT INTO `e_p` (`id`, `fecha`, `Id_Producto`, `Id_Estado_producto`) VALUES
+(1, '2020-05-15 23:24:04', 23, 5),
+(2, '2020-05-15 23:24:25', 23, 5),
+(3, '2020-05-15 23:24:40', 23, 5),
+(4, '2020-05-15 23:26:17', 24, 6),
+(5, '2020-05-15 23:26:32', 24, 1),
+(6, '2020-05-15 23:26:48', 24, 6),
+(7, '2020-05-15 23:27:06', 24, 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `marca`
+-- Table structure for table `marca`
 --
 
 CREATE TABLE `marca` (
@@ -255,7 +260,7 @@ CREATE TABLE `marca` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `marca`
+-- Dumping data for table `marca`
 --
 
 INSERT INTO `marca` (`id`, `nombre`) VALUES
@@ -269,7 +274,7 @@ INSERT INTO `marca` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `privilegio`
+-- Table structure for table `privilegio`
 --
 
 CREATE TABLE `privilegio` (
@@ -278,7 +283,7 @@ CREATE TABLE `privilegio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `privilegio`
+-- Dumping data for table `privilegio`
 --
 
 INSERT INTO `privilegio` (`Id_Privilegio`, `Nombre`) VALUES
@@ -293,7 +298,7 @@ INSERT INTO `privilegio` (`Id_Privilegio`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto`
+-- Table structure for table `producto`
 --
 
 CREATE TABLE `producto` (
@@ -308,16 +313,18 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `producto`
+-- Dumping data for table `producto`
 --
 
 INSERT INTO `producto` (`id`, `nombre`, `cantidad`, `precio`, `id_marca`, `id_tipo`, `Id_Almacen`, `Id_Estatus`) VALUES
-(11, 'Martillo', 1, 1222, 1, 1, 1, 6);
+(22, 'Frutsi', 500, 8, 3, 2, 1, 5),
+(23, 'Pala T-2000 Cuadrada', 1, 254, 1, 1, 1, 5),
+(24, 'Mojojo', 1, 1230, 2, 1, 1, 5);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto_proyecto`
+-- Table structure for table `producto_proyecto`
 --
 
 CREATE TABLE `producto_proyecto` (
@@ -329,7 +336,7 @@ CREATE TABLE `producto_proyecto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `producto_proyecto`
+-- Dumping data for table `producto_proyecto`
 --
 
 INSERT INTO `producto_proyecto` (`id`, `Id_Producto`, `Id_Proyecto`, `Cantidad_Asignada`, `Fecha_Asignacion`) VALUES
@@ -338,7 +345,7 @@ INSERT INTO `producto_proyecto` (`id`, `Id_Producto`, `Id_Proyecto`, `Cantidad_A
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proyecto`
+-- Table structure for table `proyecto`
 --
 
 CREATE TABLE `proyecto` (
@@ -350,7 +357,7 @@ CREATE TABLE `proyecto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `proyecto`
+-- Dumping data for table `proyecto`
 --
 
 INSERT INTO `proyecto` (`Id_Proyecto`, `Id_EstatusProyecto`, `Nombre`, `Fecha_Inicio`, `Fecha_Fin`) VALUES
@@ -361,7 +368,7 @@ INSERT INTO `proyecto` (`Id_Proyecto`, `Id_EstatusProyecto`, `Nombre`, `Fecha_In
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `puesto`
+-- Table structure for table `puesto`
 --
 
 CREATE TABLE `puesto` (
@@ -370,7 +377,7 @@ CREATE TABLE `puesto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `puesto`
+-- Dumping data for table `puesto`
 --
 
 INSERT INTO `puesto` (`Id_Puesto`, `Nombre`) VALUES
@@ -379,7 +386,7 @@ INSERT INTO `puesto` (`Id_Puesto`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol`
+-- Table structure for table `rol`
 --
 
 CREATE TABLE `rol` (
@@ -388,7 +395,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `rol`
+-- Dumping data for table `rol`
 --
 
 INSERT INTO `rol` (`Id_Rol`, `Nombre`) VALUES
@@ -397,7 +404,7 @@ INSERT INTO `rol` (`Id_Rol`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `rol_privilegio`
+-- Table structure for table `rol_privilegio`
 --
 
 CREATE TABLE `rol_privilegio` (
@@ -406,7 +413,7 @@ CREATE TABLE `rol_privilegio` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `rol_privilegio`
+-- Dumping data for table `rol_privilegio`
 --
 
 INSERT INTO `rol_privilegio` (`Id_Rol`, `Id_Privilegio`) VALUES
@@ -420,7 +427,7 @@ INSERT INTO `rol_privilegio` (`Id_Rol`, `Id_Privilegio`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipo_producto`
+-- Table structure for table `tipo_producto`
 --
 
 CREATE TABLE `tipo_producto` (
@@ -429,7 +436,7 @@ CREATE TABLE `tipo_producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `tipo_producto`
+-- Dumping data for table `tipo_producto`
 --
 
 INSERT INTO `tipo_producto` (`id`, `nombre`) VALUES
@@ -440,7 +447,7 @@ INSERT INTO `tipo_producto` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `transaccion`
+-- Table structure for table `transaccion`
 --
 
 CREATE TABLE `transaccion` (
@@ -449,7 +456,7 @@ CREATE TABLE `transaccion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `transaccion`
+-- Dumping data for table `transaccion`
 --
 
 INSERT INTO `transaccion` (`Id_Transaccion`, `Nombre`) VALUES
@@ -457,32 +464,32 @@ INSERT INTO `transaccion` (`Id_Transaccion`, `Nombre`) VALUES
 (2, 'llegada');
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `almacen`
+-- Indexes for table `almacen`
 --
 ALTER TABLE `almacen`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_estado` (`id_estado`);
 
 --
--- Indices de la tabla `cuenta`
+-- Indexes for table `cuenta`
 --
 ALTER TABLE `cuenta`
   ADD PRIMARY KEY (`Id_Cuenta`),
   ADD KEY `Id_Empleado` (`Id_Empleado`);
 
 --
--- Indices de la tabla `cuenta_rol`
+-- Indexes for table `cuenta_rol`
 --
 ALTER TABLE `cuenta_rol`
   ADD PRIMARY KEY (`Id_Cuenta`,`Id_Rol`),
   ADD KEY `Id_Rol` (`Id_Rol`);
 
 --
--- Indices de la tabla `empleado`
+-- Indexes for table `empleado`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`Id_Empleado`),
@@ -490,7 +497,7 @@ ALTER TABLE `empleado`
   ADD KEY `Id_Almacen` (`Id_Almacen`);
 
 --
--- Indices de la tabla `entregan`
+-- Indexes for table `entregan`
 --
 ALTER TABLE `entregan`
   ADD PRIMARY KEY (`Id_Transaccion`,`Id_Producto`,`Id_Empleado`),
@@ -498,44 +505,45 @@ ALTER TABLE `entregan`
   ADD KEY `Id_Empleado` (`Id_Empleado`);
 
 --
--- Indices de la tabla `estado`
+-- Indexes for table `estado`
 --
 ALTER TABLE `estado`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `estatusproyecto`
+-- Indexes for table `estatusproyecto`
 --
 ALTER TABLE `estatusproyecto`
   ADD PRIMARY KEY (`Id_EstatusProyecto`);
 
 --
--- Indices de la tabla `estatus_producto`
+-- Indexes for table `estatus_producto`
 --
 ALTER TABLE `estatus_producto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `e_p`
+-- Indexes for table `e_p`
 --
 ALTER TABLE `e_p`
-  ADD PRIMARY KEY (`Id_Producto`,`Id_Estado_producto`),
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Id_Producto` (`Id_Producto`),
   ADD KEY `Id_Estado_producto` (`Id_Estado_producto`);
 
 --
--- Indices de la tabla `marca`
+-- Indexes for table `marca`
 --
 ALTER TABLE `marca`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `privilegio`
+-- Indexes for table `privilegio`
 --
 ALTER TABLE `privilegio`
   ADD PRIMARY KEY (`Id_Privilegio`);
 
 --
--- Indices de la tabla `producto`
+-- Indexes for table `producto`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`id`),
@@ -545,7 +553,7 @@ ALTER TABLE `producto`
   ADD KEY `Id_Estatus` (`Id_Estatus`);
 
 --
--- Indices de la tabla `producto_proyecto`
+-- Indexes for table `producto_proyecto`
 --
 ALTER TABLE `producto_proyecto`
   ADD PRIMARY KEY (`id`),
@@ -553,163 +561,169 @@ ALTER TABLE `producto_proyecto`
   ADD KEY `Id_Producto` (`Id_Producto`);
 
 --
--- Indices de la tabla `proyecto`
+-- Indexes for table `proyecto`
 --
 ALTER TABLE `proyecto`
   ADD PRIMARY KEY (`Id_Proyecto`),
   ADD KEY `Id_EstatusProyecto` (`Id_EstatusProyecto`);
 
 --
--- Indices de la tabla `puesto`
+-- Indexes for table `puesto`
 --
 ALTER TABLE `puesto`
   ADD PRIMARY KEY (`Id_Puesto`);
 
 --
--- Indices de la tabla `rol`
+-- Indexes for table `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`Id_Rol`);
 
 --
--- Indices de la tabla `rol_privilegio`
+-- Indexes for table `rol_privilegio`
 --
 ALTER TABLE `rol_privilegio`
   ADD PRIMARY KEY (`Id_Rol`,`Id_Privilegio`),
   ADD KEY `Id_Privilegio` (`Id_Privilegio`);
 
 --
--- Indices de la tabla `tipo_producto`
+-- Indexes for table `tipo_producto`
 --
 ALTER TABLE `tipo_producto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `transaccion`
+-- Indexes for table `transaccion`
 --
 ALTER TABLE `transaccion`
   ADD PRIMARY KEY (`Id_Transaccion`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `almacen`
+-- AUTO_INCREMENT for table `almacen`
 --
 ALTER TABLE `almacen`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `cuenta`
+-- AUTO_INCREMENT for table `cuenta`
 --
 ALTER TABLE `cuenta`
   MODIFY `Id_Cuenta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `empleado`
+-- AUTO_INCREMENT for table `empleado`
 --
 ALTER TABLE `empleado`
   MODIFY `Id_Empleado` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `estado`
+-- AUTO_INCREMENT for table `estado`
 --
 ALTER TABLE `estado`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `estatusproyecto`
+-- AUTO_INCREMENT for table `estatusproyecto`
 --
 ALTER TABLE `estatusproyecto`
   MODIFY `Id_EstatusProyecto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `estatus_producto`
+-- AUTO_INCREMENT for table `estatus_producto`
 --
 ALTER TABLE `estatus_producto`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `marca`
+-- AUTO_INCREMENT for table `e_p`
+--
+ALTER TABLE `e_p`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `marca`
 --
 ALTER TABLE `marca`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `privilegio`
+-- AUTO_INCREMENT for table `privilegio`
 --
 ALTER TABLE `privilegio`
   MODIFY `Id_Privilegio` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `producto`
+-- AUTO_INCREMENT for table `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT de la tabla `producto_proyecto`
+-- AUTO_INCREMENT for table `producto_proyecto`
 --
 ALTER TABLE `producto_proyecto`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `puesto`
+-- AUTO_INCREMENT for table `puesto`
 --
 ALTER TABLE `puesto`
   MODIFY `Id_Puesto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `rol`
+-- AUTO_INCREMENT for table `rol`
 --
 ALTER TABLE `rol`
   MODIFY `Id_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de la tabla `tipo_producto`
+-- AUTO_INCREMENT for table `tipo_producto`
 --
 ALTER TABLE `tipo_producto`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `transaccion`
+-- AUTO_INCREMENT for table `transaccion`
 --
 ALTER TABLE `transaccion`
   MODIFY `Id_Transaccion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `almacen`
+-- Constraints for table `almacen`
 --
 ALTER TABLE `almacen`
   ADD CONSTRAINT `almacen_ibfk_1` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`);
 
 --
--- Filtros para la tabla `cuenta`
+-- Constraints for table `cuenta`
 --
 ALTER TABLE `cuenta`
   ADD CONSTRAINT `cuenta_ibfk_1` FOREIGN KEY (`Id_Empleado`) REFERENCES `empleado` (`Id_Empleado`);
 
 --
--- Filtros para la tabla `cuenta_rol`
+-- Constraints for table `cuenta_rol`
 --
 ALTER TABLE `cuenta_rol`
   ADD CONSTRAINT `cuenta_rol_ibfk_1` FOREIGN KEY (`Id_Rol`) REFERENCES `rol` (`Id_Rol`),
   ADD CONSTRAINT `cuenta_rol_ibfk_2` FOREIGN KEY (`Id_Cuenta`) REFERENCES `cuenta` (`Id_Cuenta`);
 
 --
--- Filtros para la tabla `empleado`
+-- Constraints for table `empleado`
 --
 ALTER TABLE `empleado`
   ADD CONSTRAINT `empleado_ibfk_1` FOREIGN KEY (`Id_Puesto`) REFERENCES `puesto` (`Id_Puesto`),
   ADD CONSTRAINT `empleado_ibfk_2` FOREIGN KEY (`Id_Almacen`) REFERENCES `almacen` (`id`);
 
 --
--- Filtros para la tabla `entregan`
+-- Constraints for table `entregan`
 --
 ALTER TABLE `entregan`
   ADD CONSTRAINT `entregan_ibfk_1` FOREIGN KEY (`Id_Transaccion`) REFERENCES `transaccion` (`Id_Transaccion`),
@@ -717,14 +731,14 @@ ALTER TABLE `entregan`
   ADD CONSTRAINT `entregan_ibfk_3` FOREIGN KEY (`Id_Empleado`) REFERENCES `empleado` (`Id_Empleado`);
 
 --
--- Filtros para la tabla `e_p`
+-- Constraints for table `e_p`
 --
 ALTER TABLE `e_p`
-  ADD CONSTRAINT `e_p_ibfk_1` FOREIGN KEY (`Id_Producto`) REFERENCES `producto` (`id`),
-  ADD CONSTRAINT `e_p_ibfk_2` FOREIGN KEY (`Id_Estado_producto`) REFERENCES `estatus_producto` (`id`);
+  ADD CONSTRAINT `e_p_ibfk_1` FOREIGN KEY (`Id_Producto`) REFERENCES `producto` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `e_p_ibfk_2` FOREIGN KEY (`Id_Estado_producto`) REFERENCES `estatus_producto` (`id`) ON DELETE SET NULL;
 
 --
--- Filtros para la tabla `producto`
+-- Constraints for table `producto`
 --
 ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`id_marca`) REFERENCES `marca` (`id`),
@@ -733,20 +747,20 @@ ALTER TABLE `producto`
   ADD CONSTRAINT `producto_ibfk_4` FOREIGN KEY (`Id_Estatus`) REFERENCES `estatus_producto` (`id`);
 
 --
--- Filtros para la tabla `producto_proyecto`
+-- Constraints for table `producto_proyecto`
 --
 ALTER TABLE `producto_proyecto`
   ADD CONSTRAINT `producto_proyecto_ibfk_1` FOREIGN KEY (`Id_Proyecto`) REFERENCES `proyecto` (`Id_Proyecto`),
   ADD CONSTRAINT `producto_proyecto_ibfk_2` FOREIGN KEY (`Id_Producto`) REFERENCES `producto` (`id`);
 
 --
--- Filtros para la tabla `proyecto`
+-- Constraints for table `proyecto`
 --
 ALTER TABLE `proyecto`
   ADD CONSTRAINT `proyecto_ibfk_1` FOREIGN KEY (`Id_EstatusProyecto`) REFERENCES `estatusproyecto` (`Id_EstatusProyecto`);
 
 --
--- Filtros para la tabla `rol_privilegio`
+-- Constraints for table `rol_privilegio`
 --
 ALTER TABLE `rol_privilegio`
   ADD CONSTRAINT `rol_privilegio_ibfk_1` FOREIGN KEY (`Id_Rol`) REFERENCES `rol` (`Id_Rol`),
