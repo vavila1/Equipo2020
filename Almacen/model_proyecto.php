@@ -42,13 +42,13 @@
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
 		   
-		     if ($_SESSION["Registar"]) {
+		   
 		    //Seccion de Entrada de Material
            $resultado.='<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonSalidas();
            $resultado.="</a>";
-       }
+       
 		    
 		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton

@@ -6,6 +6,16 @@
 	   			<div class="col s8">
 	   				<h1>Salida de productos</h1>
 
+	   				<form>
+	   					<input type="text" name="id_producto">
+	   				</form>
+	   				<?php
+	   					$almacen = $_SESSION["almacen"];
+	   					echo consultar_productos($almacen);
+
+	   				?>
+	   				
+
 	   			</div>
 	   		</div>
 	   	</div>
