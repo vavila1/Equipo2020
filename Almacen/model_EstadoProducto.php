@@ -34,15 +34,14 @@
 		    $resultado .= "<td>".$row['e_id']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= "<a class=\"waves-effect waves-light btn-small\"><i class=\"material-icons\">edit</i></a>";
-		    $resultado .= borrarBoton();
+		    $resultado .= botonEditar();
+		    $resultado .= botonBorrar();
 		    $resultado .= '</a>' ;
 		    $resultado .= "</td>" ;
 		    $resultado .= "</tr>" ;
 		}
-		mysqli_free_result($resultados); //Liberar la memoria
+		mysqli_free_result($resultados);
 
-		// desconectarse al termino de la consulta
 		desconectar_bd($conexion_bd);
 
 		$resultado .= "</tbody></table>";
@@ -50,9 +49,36 @@
 		return $resultado;
 	}
 
-function borrarBoton(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar">
+	function agregar_estadoProducto($nombre=""){
+
+		$conexion_bd = conectar_bd();
+
+		$consulta = 'INSERT INTO `estatus_producto` (`nombre`) VALUES ((?))';
+
+		if ( !($statement = $conexion_bd->prepare($consulta)) ) {
+    	}
+    	if (!$statement->bind_param("s", $nombre)) {
+    	}
+    	if (!$statement->execute()) {
+  		}
+	
+	mysqli_free_result($resultados);
+
+    desconectar_bd($conexion_bd);
+
+
+	}
+
+function botonBorrar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Estado">
     <i class="material-icons right">delete</i>
+  </button>';
+    return $resultado;
+  }
+
+  function botonEditar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Estado">
+    <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
   }

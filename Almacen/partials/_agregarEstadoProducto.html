@@ -8,22 +8,15 @@
               <h1>Agregar Estado Producto</h1>
 
                <div class="row">
-                <form class="col s12">
+                <form class="col s12" method="POST" action="controlador_insertar_estado.php">
                   <div class="row">
-                    <div class="input-field col s12">
-                        <input id="reporte" type="number" class="validate">
-                        <label for="reporte">ID</label>
-                      </div>
                       <div class="input-field col s12">
-                        <input id="ubi" type="text" class="validate">
-                        <label for="ubi">Nombre</label>
+                        <input id="nombre" type="text" class="validate" name="nombre">
+                        <label for="nombre">Nombre</label>
                       </div>
-                    </div>
-                    </div> 
                     <div class="row">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                       <i class="material-icons right">send</i>
-                      </button>
+                        <input class="btn" type="submit" value="Submit">
+                      </input>
                     </div>
                   </form>
                 </div>
