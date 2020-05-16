@@ -25,7 +25,7 @@
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Terminado</th><th>Acciones</th></tr></thead>";
 
-		$consulta = 'SELECT p.id_Proyecto as p_idProyecto, p.nombre as p_desc, p.fecha_inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusProyecto as e WHERE p.id_estatusproyecto = e.id_estatusProyecto AND p.id_estatusproyecto != 5';
+		$consulta = 'SELECT p.Nombre as p_nombre, p.id_Proyecto as p_idProyecto, p.nombre as p_desc, p.fecha_inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusProyecto as e WHERE p.id_estatusproyecto = e.id_estatusProyecto AND p.id_estatusproyecto != 5';
 
 		if($estado != ""){
 			$consulta .= " AND e.id_estatusproyecto= ".$estado;
@@ -41,19 +41,16 @@
 		    $resultado .= "<td>".$row['p_fecha']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-		   
-		   
 		    //Seccion de Entrada de Material
-           $resultado.='<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
+           $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonSalidas();
            $resultado.="</a>";
        
-		    
+		   
 		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="controlador_editar_producto.php?id='.$row['p_idProyecto'].'"';
-           $resultado.="".'"'.">";
+		   $resultado.='<a href="editarProyecto.php?id='.$row['p_idProyecto'].'&nombreProyecto='.$row['p_nombre'].'">';
            $resultado.=" ". botonEditar();
            $resultado.="</a>";
            }
@@ -166,25 +163,19 @@
 
 
 	function botonBorrar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Producto">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Proyecto">
     <i class="material-icons right">delete</i>
   </button>';
     return $resultado;
   }
 
   function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Producto">
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Proyecto">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
   }
 
-  function botonBarra(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Codigo de Barras">
-    <i class="material-icons right">receipt</i>
-  </button>';
-    return $resultado;
-  }
 
   function botonSalidas(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Salida de Producto">
@@ -192,5 +183,70 @@
   </button>';
     return $resultado;
   }
+
+  function editar_proyecto_estatus($id, $id_estatus){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE proyecto SET Id_EstatusProyecto = (?) WHERE Id_Proyecto = (?) ';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ii", $id_estatus, $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
+	function editar_proyecto_nombre($id, $nombre){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE proyecto SET Nombre = (?) WHERE Id_Proyecto = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("si", $nombre,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
 
 ?>
