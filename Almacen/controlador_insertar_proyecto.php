@@ -3,12 +3,10 @@
 
   $_POST["nombreProyecto"] = htmlspecialchars($_POST["nombreProyecto"]);
   $_POST["num"] = htmlspecialchars($_POST["num"]);
-  $_POST["fechaInicio"] = htmlspecialchars($_POST["fechaInicio"]);
-  $_POST["fechaFin"] = htmlspecialchars($_POST["fechaFin"]);
-  $_POST["estatus"] = htmlspecialchars($_POST["estatus"]);
+  $_POST["estatusProyecto"] = htmlspecialchars($_POST["estatusProyecto"]);
 
-  if((isset($_POST["nombreProyecto"])) && (isset($_POST["num"])) && (isset($_POST["fechaInicio"]))&& (isset($_POST["fechaFin"])) && (isset($_POST["estatus"])) ) {
-      insertar_proyecto($_POST["num"], $_POST["estatus"] , $_POST["nombreProyecto"],$_POST["fechaInicio"],$_POST["fechaFin"] );
+  if((isset($_POST["nombreProyecto"])) && (isset($_POST["num"])) && (isset($_POST["estatusProyecto"])) ) {
+      insertar_proyecto($_POST["num"], $_POST["estatusProyecto"] , $_POST["nombreProyecto"]);
       $_SESSION["mensaje"] = "Se completo el registro";
   }  else {
             $_SESSION["warning"] = "Ocurrio un error al registar el producto";

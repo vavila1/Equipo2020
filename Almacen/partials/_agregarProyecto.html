@@ -10,22 +10,23 @@
 						    <form class="col s12" action="controlador_insertar_proyecto.php" method="POST">
 						      <div class="row">
 						          <div class="input-field col s12">
+						            <textarea id="num" name="num" class="materialize-textarea" data-length="250"></textarea>
+						            <label for="num"># Folio</label>
+						          </div>
+						      </div>
+						      <div class="row">
+						          <div class="input-field col s12">
 						            <textarea id="nombreProyecto" name="nombreProyecto" class="materialize-textarea" data-length="250"></textarea>
 						            <label for="nombreProyecto">Nombre</label>
 						          </div>
 						      </div>
 						      <div class="row">
 						          <div class="input-field col s12">
-						            <textarea id="estatus" name="estatus" class="materialize-textarea" data-length="250"></textarea>
-						            <label for="estatus">Id_Estatus</label>
+						            <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto");?>
+						            
 						          </div>
 						      </div>
-						      <div class="row">
-						          <div class="input-field col s12">
-						            <textarea id="num" name="num" class="materialize-textarea" data-length="250"></textarea>
-						            <label for="num"># Folio</label>
-						          </div>
-						      </div>
+
 						      <div class="row">
 						      	  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
 			   						 <i class="material-icons right">send</i>

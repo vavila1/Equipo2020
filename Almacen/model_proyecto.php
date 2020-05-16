@@ -104,12 +104,12 @@
 
 	//funcion para insertar un registro de un nuevo proyecto
 
-	function insertar_proyecto($folio,$estatus, $nombrem,$inicio,$fin){
+	function insertar_proyecto($folio,$estatus, $nombrem){
 
 		$conexion_bd = conectar_bd();
 		// prepara la consulta
 		
-		$dlmInsertarProyecto = 'INSERT INTO proyecto (id_Proyecto, id_estatusproyecto, nombre, fecha_inicio, fecha_fin) VALUES (?,?,?,?,?)' ;
+		$dlmInsertarProyecto = 'INSERT INTO proyecto (id_Proyecto, id_estatusproyecto, nombre) VALUES (?,?,?)' ;
 
 		if( !($statement = $conexion_bd->prepare($dlmInsertarProyecto))){
 			 die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
@@ -117,7 +117,7 @@
 
      //Unir los parámetros de la función con los parámetros de la consulta   
      //El primer argumento de bind_param es el formato de cada parámetro
-     if (!$statement->bind_param("iisss", $folio,$estatus, $nombrem,$inicio,$fin)) {
+     if (!$statement->bind_param("iis", $folio,$estatus, $nombrem)) {
          die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
      }
        
