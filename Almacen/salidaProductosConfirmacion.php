@@ -8,7 +8,7 @@
     //Probamos conexicon con la funcion creada en model.php conectar_bd()
     //var_dump(conectar_bd());
 
-    
+    registrarSalidaHerramientas();
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_salidaProductos.html");

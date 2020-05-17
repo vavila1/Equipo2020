@@ -40,10 +40,10 @@ END*/
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Estatus</th><th>Agregar a proyecto</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Estatus</th><th>Cantidad</th><th>Agregar a proyecto</th></tr></thead>";
 
 
-		   $consulta = 'SELECT ep.nombre AS ep_nombre ,p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND ep.id = p.Id_Estatus AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus = 6 AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT p.id as p_id,  ep.nombre AS ep_nombre ,p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND ep.id = p.Id_Estatus AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus = 6 AND p.Id_Almacen = '.$almacen.'';
 		
 
 
@@ -56,8 +56,21 @@ END*/
 		    $resultado .= "<td>".$row['tp_nombre']."</td>";
 		    $resultado .= "<td>".$row['p_cantidad']."</td>";
 		    $resultado .= "<td>".$row['ep_nombre']."</td>";
+		    $proyecto = $_GET["id"];
+		    $resultado .= "<form>";
+		    $resultado .= "<td> <input class= 'col s4' name = 'cantidad' type = 'text'></td>";
+			$resultado .= "</form>";
+		    $resultado .= "<td>";
 
-		   /* $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].' class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>';*/
+		
+
+		    $resultado.= '<a href="salidaProductosConfirmacion.php?id='.$proyecto.'&idProduto='.$row['p_id'].'">';
+            $resultado.=" ". botonSalidas();
+            $resultado.="</a>";
+		    $resultado .= "</td>";
+
+   			
+		
 
 		    
 		    $resultado .= "</tr>" ;
@@ -71,5 +84,43 @@ END*/
 
 		return $resultado;
 	}
+
+	 function botonSalidas(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" title="Salida de Producto" > AGREGAR</button>';
+    return $resultado;
+  }
+
+  function registrarSalidaHerramientas(){
+
+ 
+
+  			$conexion_bd = conectar_bd();
+		// prepara la consulta
+
+  	    $proyecto = $_GET["id"];
+  	    $producto = $_GET["idProduto"];
+  	    $cantidad = $_POST["cantidad"];
+  	    $usuario = 2;
+		
+		$dlmInsertarProyecto = 'call registrarSalidaHerramienta(?,?,?,?);' ;
+
+		if( !($statement = $conexion_bd->prepare($dlmInsertarProyecto))){
+			 die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+		}
+
+     //Unir los parámetros de la función con los parámetros de la consulta   
+     //El primer argumento de bind_param es el formato de cada parámetro
+     if (!$statement->bind_param("iiii", $producto,$proyecto, $usuario, $cantidad)) {
+         die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+     }
+       
+     //Executar la consulta
+     if (!$statement->execute()) {
+       die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+     }
+ 
+     desconectar_bd($conexion_bd);		
+
+  }
 
 ?>
