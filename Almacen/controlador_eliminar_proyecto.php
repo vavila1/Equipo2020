@@ -15,7 +15,7 @@
         $_SESSION["delete"] = "Se ha eliminado un tipo de producto con exito";
     }
 
-    header("location:tipoProducto.php");
+    header("location:proyectos.php");
 
 
 ?>

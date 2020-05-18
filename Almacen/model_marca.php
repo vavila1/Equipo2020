@@ -44,15 +44,21 @@
 		    $resultado .= "<td>".$row['m_nombre']."</td>";
 		    $resultado .= "<td></td>";
 		    $resultado .= "<td>";
-      $resultado.='<a href="editar.php?id='.$row['m_id'].'">';
-      $resultado.= botonEditar();
-      $resultado.="</a>"." ";
-      $resultado.='<a href="borrar.php?id='.$row['m_id'].'"';
-      $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['m_nombre']."?')".'"'.">";
-      $resultado.=" ". botonBorrar();
-      $resultado.="</a></td>";
-      $resultado.="</tr>";
 
+		   if ($_SESSION["Editar"]) {
+		    //Seccion de Editar Boton
+		   $resultado.='<a href="editarMarca.php?id='.$row['m_id'].'&nombre='.$row['m_nombre'].'">';
+           $resultado.=" Editar ";
+          //  $resultado.=" ".botonEditar();
+           $resultado.="</a>";
+           }
+           if ($_SESSION["Eliminar"]) {
+           	//Seccion de Borrar Boton
+		   $resultado.='<a href="controlador_eliminar_marca.php?id='.$row['m_id'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['m_nombre']." ?')".'"'.">";
+           $resultado.= " borrar ";//.botonBorrar();
+           $resultado.="</a>";
+           }
 		   /* $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].' class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>';*/
 
 		    $resultado .= "</td>" ;
@@ -130,72 +136,13 @@
 
 
 
-	function eliminar_producto($id){
-		//Primero conectarse a la base de datos
-		$conexion_bd = conectar_bd();
-
-		//Prepaprar la consulta
-		$dml = 'DELETE FROM `producto` WHERE `producto`.`id` = (?)';
-		if ( !($statement = $conexion_bd->prepare($dml)) ){
-			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-			return 0;
-			}
-
-		// Unir los parametros de la funcion con los parametros de la consulta
-		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $id)) {
-			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		// Ejecutar la consulta
-		if (!$statement->execute()) {
-			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		//Desconectarse de la base de datos
-			  desconectar_bd($conexion_bd);
-			  return 1;
- 
-	}
-
-	function eliminar_producto_proyecto($id){
-		//Primero conectarse a la base de datos
-		$conexion_bd = conectar_bd();
-
-		//Prepaprar la consulta
-		$dml = 'DELETE FROM `producto_proyecto` WHERE `producto_proyecto`.`id_producto` = (?)';
-		if ( !($statement = $conexion_bd->prepare($dml)) ){
-			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-			return 0;
-			}
-
-		// Unir los parametros de la funcion con los parametros de la consulta
-		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $id)) {
-			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		// Ejecutar la consulta
-		if (!$statement->execute()) {
-			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		//Desconectarse de la base de datos
-			  desconectar_bd($conexion_bd);
-			  return 1;
- 
-	}
-
-	function editar_producto_estatus($id, $id_estatus){
+		function editar_marca_nombre($id, $nombre){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		
 		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `id_estatus` = id_estatus WHERE `producto`.`id` = id ';
+		$dml = 'UPDATE marca SET nombre = (?) WHERE id = (?)';
+
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -203,7 +150,7 @@
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $id_estatus)) {
+		if (!$statement->bind_param("si", $nombre,$id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -220,13 +167,13 @@
  
 	}
 
-
-	function editar_producto_cantidad($id, $cantidad){
+			function eliminar_marca($id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
-		
+
 		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `cantidad` = cantidad WHERE `producto`.`id` = id ';
+		//$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		$dml = 'DELETE FROM marca WHERE id = (?)';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -234,38 +181,7 @@
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $cantidad)) {
-			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		// Ejecutar la consulta
-		if (!$statement->execute()) {
-			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		//Desconectarse de la base de datos
-			  desconectar_bd($conexion_bd);
-			  return 1;
- 
-	}
-
-
-	function editar_producto_precio($id, $precio){
-		//Primero conectarse a la base de datos
-		$conexion_bd = conectar_bd();
-		
-		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `precio` = precio WHERE `producto`.`id` = id ';
-		if ( !($statement = $conexion_bd->prepare($dml)) ){
-			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-			return 0;
-			}
-
-		// Unir los parametros de la funcion con los parametros de la consulta
-		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $precio)) {
+		if (!$statement->bind_param("i", $id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
