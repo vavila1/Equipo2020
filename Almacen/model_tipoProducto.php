@@ -34,11 +34,24 @@
 		    $resultado .= "<td>".$row['t_id']."</td>";
 		    $resultado .= "<td>".$row['t_nombre']."</td>";
 		    $resultado .= "<td>";
-		    $resultado .= botonEditar();
-		    $resultado .= botonBorrar();
-		    $resultado .= '</a>' ;
-		    $resultado .= "</td>" ;
-		    $resultado .= "</tr>" ;
+
+
+		   if ($_SESSION["Editar"]) {
+		    //Seccion de Editar Boton
+		   $resultado.='<a href="editarTipoProducto.php?id='.$row['t_id'].'&nombre='.$row['t_nombre'].'">';
+           $resultado.=" Editar ";
+          //  $resultado.=" ".botonEditar();
+           $resultado.="</a>";
+           }
+           if ($_SESSION["Eliminar"]) {
+           	//Seccion de Borrar Boton
+		   $resultado.='<a href="controlador_eliminar_tipo.php?id='.$row['t_id'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['t_nombre']." ?')".'"'.">";
+           $resultado.= " borrar ";//.botonBorrar();
+           $resultado.="</a>";
+           }
+
+		   $resultado .= "</tr>" ;
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
 
@@ -68,18 +81,84 @@
  
 	}
 
-function botonBorrar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Estado">
+	function botonBorrar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Tipo">
     <i class="material-icons right">delete</i>
   </button>';
     return $resultado;
   }
 
-  function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Estado">
+ function botonEditar(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Proyecto">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;
   }
+
+
+
+	function editar_tipo_nombre($id, $nombre){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE tipo_producto SET Nombre = (?) WHERE id = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("si", $nombre,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+			function eliminar_tipo($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		$dml = 'DELETE FROM tipo_producto WHERE id = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("i", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
 
 ?>
