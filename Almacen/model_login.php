@@ -34,7 +34,7 @@
        if($row['per'] == 'Editar'){
            $_SESSION['Editar'] = 1;
        }
-       if($row['per'] == 'Registar'){
+       if($row['per'] == 'Registrar'){
            $_SESSION['Registar'] = 1;
        }
        if($row['per'] == 'Eliminar'){

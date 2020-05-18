@@ -156,26 +156,26 @@
 	}
 
 
-	function consultar_editar_select($id, $columna_descripcion, $tabla, $Seleccion=0){
-		//Primero conectarse a la bd
-		$conexion_bd = conectar_bd();
-
-		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
-
-      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5" ;
-      	$resultados = $conexion_bd->query($consulta);
-      	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
-			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';
-		}
+	function consultar_editar_select($id, $columna_descripcion, $tabla, $seleccion=0){
+		$conexion_bd = conectar_bd();  
       
-      	// desconectarse al termino de la consulta
-		desconectar_bd($conexion_bd);
+	    $resultado = '<div class="input-field"><select name="'.$tabla.'" id="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
+	            
+	    $consulta = "SELECT $id, $columna_descripcion FROM $tabla";
+	    $resultados = $conexion_bd->query($consulta);
+	    while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+	        $resultado .= '<option value="'.$row["$id"].'" ';
+	        if($seleccion == $row["$id"]) {
+	            $resultado .= 'selected';
+	        }
+	        $resultado .= '>'.$row["$columna_descripcion"].'</option>';
+	    }
+	        
+	    desconectar_bd($conexion_bd);
+	    $resultado .=  '</select><label>'.$tabla.'...</label></div>';
+	    return $resultado;
+  }
 
-		$resultado .= '</select><label>'.$tabla.'</label></div>';
-
-		return $resultado;
-
-	}
 
 
 
