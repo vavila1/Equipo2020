@@ -56,17 +56,20 @@ END*/
 		    $resultado .= "<td>".$row['tp_nombre']."</td>";
 		    $resultado .= "<td>".$row['p_cantidad']."</td>";
 		    $resultado .= "<td>".$row['ep_nombre']."</td>";
+
 		    $proyecto = $_GET["id"];
-		    $resultado .= "<form>";
+
+		    $resultado .= '<form action = "salidaProductosConfirmacion.php?id='.$proyecto.'&idProducto='.$row['p_id'].'" method = "POST">';
 		    $resultado .= "<td> <input class= 'col s4' name = 'cantidad' type = 'text'></td>";
-			$resultado .= "</form>";
+		
 		    $resultado .= "<td>";
 
 		
 
-		    $resultado.= '<a href="salidaProductosConfirmacion.php?id='.$proyecto.'&idProduto='.$row['p_id'].'">';
+		    //$resultado.= '<a href="salidaProductosConfirmacion.php?id='.$proyecto.'&idProduto='.$row['p_id'].'">';
             $resultado.=" ". botonSalidas();
-            $resultado.="</a>";
+           // $resultado.="</a>";
+            $resultado .= "</form>";
 		    $resultado .= "</td>";
 
    			
@@ -90,7 +93,7 @@ END*/
     return $resultado;
   }
 
-  function registrarSalidaHerramientas(){
+  function registrarSalidaHerramientas($cantidad){
 
  
 
@@ -98,8 +101,8 @@ END*/
 		// prepara la consulta
 
   	    $proyecto = $_GET["id"];
-  	    $producto = $_GET["idProduto"];
-  	    $cantidad = $_POST["cantidad"];
+  	    $producto = $_GET["idProducto"];
+  
   	    $usuario = 2;
 		
 		$dlmInsertarProyecto = 'call registrarSalidaHerramienta(?,?,?,?);' ;
