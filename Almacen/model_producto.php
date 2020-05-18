@@ -300,13 +300,13 @@
 	}
 
 
-	function editar_producto($nombre, $precio, $id_marca, $id_tipo,$id_estatus,$id_producto){
+	function editar_producto($Nombre, $Precio, $Id_marca, $Id_tipo,$Id_estatus,$Id_producto){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//var_dump($nombre);
 
 		//Prepaprar la consulta
-		$dml = 'UPDATE producto SET nombre = nombre, precio = (?), id_marca = (?), id_almacen = (?), id_tipo = (?), Id_Estatus = (?) WHERE id = (?)';
+		$dml = 'UPDATE producto SET nombre = (?), precio = (?), id_marca = (?), id_tipo = (?), Id_Estatus = (?) WHERE id = (?)';
 		
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
@@ -315,7 +315,7 @@
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("ssssss", $nombre, $precio, $id_marca, $id_tipo,$id_estatus,$id_producto)) {
+		if (!$statement->bind_param("ssssss", $Nombre, $Precio, $Id_marca, $Id_tipo,$Id_estatus,$Id_producto)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
