@@ -42,7 +42,7 @@
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
 
-		   $consulta = 'SELECT p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -94,7 +94,7 @@
 		    
 		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="controlador_editar_producto.php?id='.$row['p_id'].'"';
+		   $resultado.='<a href="editarProducto.php?id='.$row['p_id'].'&nombre='.$row['p_nombre'].'&tipo='.$row['tp_id'].'&marca='.$row['m_id'].'&precio='.$row['p_precio'].'&estatus='.$row['p_Estatus'].'"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonEditar();
            $resultado.="</a>";
@@ -134,13 +134,35 @@
 
 	//Crear un select con los datos de una consulta
 	
-	function consultar_select($id, $columna_descripcion, $tabla, $Seleccion=0){
+	function consultar_select($id, $columna_descripcion, $tabla){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
 		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
 
-      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5 " ;
+      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5" ;
+      	$resultados = $conexion_bd->query($consulta);
+      	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';
+		}
+      
+      	// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		$resultado .= '</select><label>'.$tabla.'</label></div>';
+
+		return $resultado;
+
+	}
+
+
+	function consultar_editar_select($id, $columna_descripcion, $tabla, $Seleccion=0){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+
+		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
+
+      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE $id != 5" ;
       	$resultados = $conexion_bd->query($consulta);
       	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';
@@ -277,12 +299,71 @@
  
 	}
 
-/*UPDATE
-    `producto`
-SET
-    `id_estatus` = 6 
-WHERE
-    `id` = 11*/
+
+	function editar_producto($nombre, $precio, $id_marca, $id_tipo,$id_estatus,$id_producto){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		//var_dump($nombre);
+
+		//Prepaprar la consulta
+		$dml = 'UPDATE producto SET nombre = nombre, precio = (?), id_marca = (?), id_almacen = (?), id_tipo = (?), Id_Estatus = (?) WHERE id = (?)';
+		
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ssssss", $nombre, $precio, $id_marca, $id_tipo,$id_estatus,$id_producto)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
+	function editar_producto_estatus($id_historial,$id_estatus){  //update e_p
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE `e_p` SET `Id_Estado_producto` = (?) WHERE `e_p`.`id` = (?) ';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ss", $id_estatus,$id_historial)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
 
 
 	function eliminar_producto($id){
@@ -475,36 +556,6 @@ function registar_termino_calibracion_historial($id){
 	}
 
 
-
-	function editar_producto_estatus($id, $id_estatus){
-		//Primero conectarse a la base de datos
-		$conexion_bd = conectar_bd();
-		
-		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `id_estatus` = id_estatus WHERE `producto`.`id` = id ';
-		if ( !($statement = $conexion_bd->prepare($dml)) ){
-			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-			return 0;
-			}
-
-		// Unir los parametros de la funcion con los parametros de la consulta
-		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $id_estatus)) {
-			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		// Ejecutar la consulta
-		if (!$statement->execute()) {
-			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-			return 0;
-			}
-
-		//Desconectarse de la base de datos
-			  desconectar_bd($conexion_bd);
-			  return 1;
- 
-	}
 
 
 	function editar_producto_cantidad($id, $cantidad){
