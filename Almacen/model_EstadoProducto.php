@@ -34,14 +34,28 @@
 		    $resultado .= "<td>".$row['e_id']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
-		   	$resultado .='<a href="editarEstado.php?id='.$row['e_id'].'"';
-           	$resultado .="".'"'.">";
-           	$resultado .=" ". botonEditar();
-           	$resultado .="</a>";
-		    $resultado .='<a href="controlador_eliminar_estado.php?id='.$row['e_id'].'"';
-           	$resultado .="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el estado:  ".$row['e_nombre']." ?')".'"'.">";
-           	$resultado .=" ". botonBorrar();
-           	$resultado .="</a>";
+
+
+		   if ($_SESSION["Editar"]) {
+		    //Seccion de Editar Boton
+		   $resultado.='<a href="editarEstadoProducto.php?id='.$row['e_id'].'&nombre='.$row['e_nombre'].'">';
+           $resultado.=" Editar ";
+          //  $resultado.=" ".botonEditar();
+           $resultado.="</a>";
+           }
+
+
+		     if ($_SESSION["Eliminar"]) {
+           	//Seccion de Borrar Boton
+		   $resultado.='<a href="controlador_eliminar_estadoProducto.php?id='.$row['e_id'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el estado de producto:  ".$row['e_nombre']." ?')".'"'.">";
+           $resultado.= " borrar ";//.botonBorrar();
+           $resultado.="</a>";
+           }
+
+
+
+
 		    $resultado .= "</td>" ;
 		    $resultado .= "</tr>" ;
 		}
@@ -87,5 +101,70 @@ function botonBorrar(){
   </button>';
     return $resultado;
   }
+
+
+  	function editar_estado_nombre($id, $nombre){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE estatus_producto SET Nombre = (?) WHERE id = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("si", $nombre,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
+				function eliminar_estado($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		$dml = 'DELETE FROM estatus_producto WHERE id = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("i", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
 
 ?>
