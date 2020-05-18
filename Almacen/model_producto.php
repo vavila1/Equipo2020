@@ -73,7 +73,7 @@
 		    if ($_SESSION["Registar"]) {
 		    	if ($row['tp_nombre'] == "Consumible") {
 		    		//Seccion de Entrada de Material
-		           $resultado.='<a href="#?id='.$row['p_id'].'"';
+		           $resultado.='<a href="agregar_entrada.php?id='.$row['p_id'].'"';
 		           $resultado.="".'"'.">";
 		           $resultado.=" ". botonEntrada();
 		           $resultado.="</a>";
