@@ -73,7 +73,7 @@
 		    if ($_SESSION["Registar"]) {
 		    	if ($row['tp_nombre'] == "Consumible") {
 		    		//Seccion de Entrada de Material
-		           $resultado.='<a href="#?id='.$row['p_id'].'"';
+		           $resultado.='<a href="agregar_entrada.php?id='.$row['p_id'].'"';
 		           $resultado.="".'"'.">";
 		           $resultado.=" ". botonEntrada();
 		           $resultado.="</a>";
@@ -662,6 +662,11 @@ function botonBorrar(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Entrada de herramienta en calibración">
     <i class="material-icons right">build</i>
   </button>';
+    return $resultado;
+  }
+
+  function busquedaEscrita($descripcion,$nomform){
+    $resultado = '<div class="input-field"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for="">'.$descripcion.' del Producto</label></div>';
     return $resultado;
   }
 
