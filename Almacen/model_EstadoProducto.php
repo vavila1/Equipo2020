@@ -18,7 +18,7 @@
 	}
 
 
-	//Consulta de consultar Empleados
+	
 	function consultar_estadoProducto($id="",$nombre=""){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
@@ -38,18 +38,17 @@
 
 		   if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="editarEstadoProducto.php?id='.$row['e_id'].'&nombre='.$row['e_nombre'].'">';
-           $resultado.=" Editar ";
-          //  $resultado.=" ".botonEditar();
-           $resultado.="</a>";
+		   $resultado.='<a href="editarEstadoProducto.php?id='.$row['e_id'].'&nombre='.$row['e_nombre'].'"class="btn waves-effect waves-light btn-small" id="editar">';
+		$resultado.='<i class="material-icons right">edit</i>';
+		$resultado.="</a>"." ";
            }
 
 
 		     if ($_SESSION["Eliminar"]) {
            	//Seccion de Borrar Boton
-		   $resultado.='<a href="controlador_eliminar_estadoProducto.php?id='.$row['e_id'].'"';
-           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el estado de producto:  ".$row['e_nombre']." ?')".'"'.">";
-           $resultado.= " borrar ";//.botonBorrar();
+		   $resultado.='<a href="controlador_eliminar_estadoProducto.php?id='.$row['e_id'].'" class="btn waves-effect waves-light btn-small" id="borrar"';
+		   $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el estado de producto:  ".$row['e_nombre']." ?')".'"'.">";
+		   $resultado.='<i class="material-icons right">delete</i>';
            $resultado.="</a>";
            }
 
@@ -95,8 +94,8 @@ function botonBorrar(){
     return $resultado;
   }
 
-  function botonEditar(){
-    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Producto">
+  function botonEditar($id){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Editar Almacen">
     <i class="material-icons right">edit</i>
   </button>';
     return $resultado;

@@ -1,6 +1,7 @@
 <?php
 	//Inicio o recuperdo la sesión
     session_start();
+    require_once("model_EstadoProducto.php");
 
 
     //Probamos conexicon con la funcion creada en model.php conectar_bd()

@@ -1,6 +1,5 @@
 <?php
   session_start();
-  require_once("model_EstadoProducto.php");  
 
 
    $_POST["nombreEstado"] = htmlspecialchars($_POST["nombreEstado"]);
