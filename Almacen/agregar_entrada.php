@@ -7,6 +7,6 @@
 
     include("partials/_header.html");
     include("partials/_nav.html");
+    include("partials/_form_agregar_entrada.html");
     include("partials/_footer.html");
-
 ?>
