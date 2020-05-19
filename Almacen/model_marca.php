@@ -47,9 +47,9 @@
 
 		   if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="editarMarca.php?id='.$row['m_id'].'&nombre='.$row['m_nombre'].'">';
-           $resultado.=" Editar ";
+		   $resultado.='<a href="editarMarca.php?id='.$row['m_id'].'&nombre='.$row['m_nombre'].'" class="btn waves-effect waves-light btn-small" id="editar">';
           //  $resultado.=" ".botonEditar();
+		   $resultado.='<i class="material-icons right">edit</i>';
            $resultado.="</a>";
            }
            if ($_SESSION["Eliminar"]) {
