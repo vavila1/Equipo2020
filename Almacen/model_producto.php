@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 	//Conexion con Base de Datos
 	function conectar_bd() {
@@ -599,7 +599,7 @@ function registar_termino_calibracion_historial($id){
 			}
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $precio)) {
+		if (!$statement->bind_param("ss", $precio,$id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -620,7 +620,7 @@ function registar_termino_calibracion_historial($id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `nombre` = (?) WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `producto` SET `nombre` = (?) WHERE `producto`.`id` = (?);';
 
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
@@ -628,7 +628,7 @@ function registar_termino_calibracion_historial($id){
 			}
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $precio)) {
+		if (!$statement->bind_param("ss", $nombre, $id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -657,7 +657,7 @@ function registar_termino_calibracion_historial($id){
 			}
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $precio)) {
+		if (!$statement->bind_param("ss", $id_tipo,$id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -686,7 +686,7 @@ function registar_termino_calibracion_historial($id){
 			}
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $precio)) {
+		if (!$statement->bind_param("ss", $id_marca,$id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
@@ -707,7 +707,7 @@ function registar_termino_calibracion_historial($id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `id_estatus` = (?) WHERE `producto`.`id` = (?)';
+		$dml = 'UPDATE `producto` SET `Id_Estatus` = (?) WHERE `producto`.`id` = (?)';
 
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
@@ -715,7 +715,7 @@ function registar_termino_calibracion_historial($id){
 			}
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("s", $precio)) {
+		if (!$statement->bind_param("ss", $id_estatus,$id)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}

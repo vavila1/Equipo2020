@@ -2,6 +2,8 @@
 	//Inicio o recuperdo la sesión
     session_start();
 
+    $id = htmlspecialchars($_GET['id']);
+    $_SESSION['ID_ADD'] = $id; 
     //Traemos libreria de model
     require_once("model_producto.php");
 
