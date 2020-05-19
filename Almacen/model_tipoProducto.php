@@ -38,8 +38,8 @@
 
 		   if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="editarTipoProducto.php?id='.$row['t_id'].'&nombre='.$row['t_nombre'].'">';
-           $resultado.=" Editar ";
+		   $resultado.='<a href="editarTipoProducto.php?id='.$row['t_id'].'&nombre='.$row['t_nombre'].'"class="btn waves-effect waves-light btn-small" id="editar">';
+		   $resultado.='<i class="material-icons right">edit</i>';
           //  $resultado.=" ".botonEditar();
            $resultado.="</a>";
            }
