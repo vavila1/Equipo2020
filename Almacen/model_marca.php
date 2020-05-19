@@ -54,9 +54,11 @@
            }
            if ($_SESSION["Eliminar"]) {
            	//Seccion de Borrar Boton
-		   $resultado.='<a href="controlador_eliminar_marca.php?id='.$row['m_id'].'"';
+           	$resultado.=" ";
+		   $resultado.='<a href="controlador_eliminar_marca.php?id='.$row['m_id'].'"class="btn waves-effect waves-light btn-small" id="borrar"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['m_nombre']." ?')".'"'.">";
-           $resultado.= " borrar ";//.botonBorrar();
+           $resultado.='<i class="material-icons right">delete</i>';
+          //.botonBorrar();
            $resultado.="</a>";
            }
 		   /* $resultado .= '<a href="controlador_eliminar_producto.php?id='.$row['p_id'].' class="waves-effect waves-light btn-small red lighten-2"><i class="material-icons">delete</i></a>';*/
