@@ -792,9 +792,16 @@ function botonBorrar(){
     }
   }
   mysqli_free_result($resultados);
-  desconectar_bd($conexion_bd);
   $resultado = $resultado+$cantidad;
-  echo $resultado;
+  $consulta='Update producto Set cantidad=(?) Where id=(?)';
+  if ( !($statement = $conexion_bd->prepare($consulta)) ) {
+    }
+    if (!$statement->bind_param("ii", $resultado,$id)) {
+    }
+    if (!$statement->execute()) {
+
+  }
+  desconectar_bd($conexion_bd);
   }
 
 ?>
