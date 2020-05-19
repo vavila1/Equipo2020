@@ -703,7 +703,7 @@ function registar_termino_calibracion_historial($id){
  
 	}
 
-	/*function editar_producto_estatus($id_estatus,$id){
+	function editar_producto_idestatus($id_estatus,$id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
 		//Prepaprar la consulta
@@ -731,7 +731,6 @@ function registar_termino_calibracion_historial($id){
 			  return 1;
  
 	}
-	*/
 
 
 
