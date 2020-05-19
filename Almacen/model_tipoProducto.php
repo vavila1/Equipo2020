@@ -45,9 +45,11 @@
            }
            if ($_SESSION["Eliminar"]) {
            	//Seccion de Borrar Boton
-		   $resultado.='<a href="controlador_eliminar_tipo.php?id='.$row['t_id'].'"';
+           	$resultado.=" ";
+		   $resultado.='<a href="controlador_eliminar_tipo.php?id='.$row['t_id'].'"class="btn waves-effect waves-light btn-small" id="borrar"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['t_nombre']." ?')".'"'.">";
-           $resultado.= " borrar ";//.botonBorrar();
+           $resultado.='<i class="material-icons right">delete</i>';
+         //.botonBorrar();
            $resultado.="</a>";
            }
 
