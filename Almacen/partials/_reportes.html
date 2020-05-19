@@ -16,28 +16,26 @@
           <div class="row">
               <div class="col s12">
                 <ul class="tabs">
-                  <li class="tab col s3"><a href="#test1">Reporte 1</a></li>
+                  <li class="tab col s3"><a href="#test1">Entradas - Salidas</a></li>
                   <li class="tab col s3"><a href="#test2">Reporte 2</a></li>
                   <li class="tab col s3"><a href="#test3">Reporte 3</a></li>
                   <li class="tab col s3"><a href="#test4">Reporte 4</a></li>
                 </ul>
               </div>
-              <div id="test1" class="col s12"><div class="col s12">
+              <div id="test1" class="col s12">
           <br>
           <form method="POST">
-            <div class="input-field col s3">
-              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "Proyecto"); ?>
-              <div class="input-field col s3">
-              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto"); ?>
-              <div class="input-field col s3">
-              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto"); ?>
-            <div class="input-field col s3">
-              <?= consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusProyecto"); ?>
-              <div class="input-field col s5"></div>
-            <div class="input-field col s3">
-              <input class="btn" type="submit" value="Generar Reporte"></div>
-            </form>
+            <div class="input-field ">
+              <?= consultar_select("Id_Transaccion", "Nombre", "transaccion"); ?>
+              </form>
+              <?= consultar_transacciones(); ?>
+            </div>
+
+          
+
+             
           </div>
+
           <br>
           <br></div>
               <div id="test2" class="col s12">Test 2</div>
