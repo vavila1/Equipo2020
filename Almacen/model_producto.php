@@ -782,6 +782,7 @@ function botonBorrar(){
     $resultado = '<div class="input-field"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for="">'.$descripcion.' del Producto</label></div>';
     return $resultado;
   }
+  
   function registrarEntrada($id,$cantidad){
   	$conexion_bd=conectar_bd();
   	$consulta = 'Select P.cantidad as P_cantidad From producto as P Where P.id='.$id;

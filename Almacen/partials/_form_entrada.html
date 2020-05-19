@@ -5,9 +5,9 @@
           <div class="col s1"></div>
           <div class="col s11">
             <div class="container">
-              <h1>Agregar Entrada de <?php $nombre = $_GET['producto']; echo $nombre?></h1>
-              <form action="controlador_agregar_entrada.php" method="POST">
-               <?=busquedaEscrita("Cantidad","Cantidad");?>
+              <h1>Agregar Entrada de <?php $nombre = $_GET['producto']; echo $nombre?></h1><br><br>
+            <form method="POST" action="controlador_agregar_entrada.php?id='.$_GET["id"].'"" class="col s12">
+              <?=busquedaEscrita("Cantidad","Cantidad");?>
            <button class="btn waves-effect waves-light" type="submit" name="action">Registrar Entrada
         <i class="material-icons right">send</i>
       </button>

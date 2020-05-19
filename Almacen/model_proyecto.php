@@ -45,8 +45,7 @@
            $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonSalidas();
-           $resultado.="</a>";
-       
+           $resultado.="</a>";  
 		   
 		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
@@ -63,8 +62,7 @@
            $resultado.="</a>";
            }
 
-
-		    $resultado .= "</tr>";
+		   $resultado .= "</tr>";
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
 
