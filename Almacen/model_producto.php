@@ -177,8 +177,6 @@
   }
 
 
-
-
 	function consultar_ultimo_id(){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
@@ -589,17 +587,132 @@ function registar_termino_calibracion_historial($id){
 	}
 
 
-	function editar_producto_precio($id, $precio){
+	function editar_producto_precio($precio,$id){
 		//Primero conectarse a la base de datos
 		$conexion_bd = conectar_bd();
-		
 		//Prepaprar la consulta
-		$dml = 'UPDATE `producto` SET `precio` = precio WHERE `producto`.`id` = id ';
+		$dml = 'UPDATE `producto` SET `precio` = (?) WHERE `producto`.`id` = (?)';
+
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
 			}
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $precio)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
 
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+	function editar_producto_nombre($nombre,$id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		//Prepaprar la consulta
+		$dml = 'UPDATE `producto` SET `nombre` = (?) WHERE `producto`.`id` = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $precio)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+	function editar_producto_tipo($id_tipo,$id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		//Prepaprar la consulta
+		$dml = 'UPDATE `producto` SET `id_tipo` = (?) WHERE `producto`.`id` = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $precio)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+	function editar_producto_marca($id_marca,$id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		//Prepaprar la consulta
+		$dml = 'UPDATE `producto` SET `id_marca` = (?) WHERE `producto`.`id` = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $precio)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+	function editar_producto_estatus($id_estatus,$id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		//Prepaprar la consulta
+		$dml = 'UPDATE `producto` SET `id_estatus` = (?) WHERE `producto`.`id` = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
 		if (!$statement->bind_param("s", $precio)) {
