@@ -4,7 +4,7 @@
 
     //Traemos libreria de model
     require_once("model_producto.php");
-    $id = htmlspecialchars($_SESSION['ID_ADD']);.
+    $id = htmlspecialchars($_SESSION['ID_ADD']);
     if(isset($_POST['Cantidad'])){
     	$cantidad = htmlspecialchars($_POST['Cantidad']);
 		registrarEntrada($id,$cantidad);
