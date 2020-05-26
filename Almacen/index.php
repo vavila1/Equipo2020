@@ -7,6 +7,13 @@
     include("partials/_header.html");
     require_once("model_login.php");
 
+    if (isset($_POST["usuario"])) {
+        $_POST["usuario"] = htmlspecialchars($_POST["usuario"]);
+    }
+    if (isset($_POST["password"])) {
+        $_POST["password"]= htmlspecialchars($_POST["password"]);
+    }
+
 
     // verificar si hay sesión activa
     if(isset($_SESSION["usuario"])) {
@@ -17,30 +24,19 @@
     	
 
     // Se crea la sesión si no hay sesión activa
-    } else if (isset($_POST["usuario"]) && isset($_POST["password"])) {
-        $usuario = $_POST["usuario"];
-        $password = $_POST["password"];
-        
-        autenticar($usuario,$password);
-        //var_dump($_SESSION);
-
-       /* var_dump($_SESSION["usuario"]);
-        var_dump($_SESSION["password"]);
-        var_dump(autenticar($_POST["usuario"],$_POST["password"]));*/
-        if ($_SESSION['Ver']) {
-             include("partials/_nav.html");
-             include("partials/_mainSection.html");
-        }
-        else{
-            include("logout.php");
+    }else if(isset($_POST["usuario"]) && isset($_POST["password"])){
+        $resultado=verificarCuenta($_POST["usuario"],$_POST["password"]);
+        if($resultado=="true"){
+        autenticarRol($_POST["usuario"],$_POST["password"]);
+        include("partials/_nav.html");
+        include("partials/_mainSection.html");
+        }else if($resultado=="false"){
+            $error = "Usuario y/o password incorrectos";
             include("login.php");
-        }
-        
-
-     // Redirecciona al Login para crear sesion
-    } else {
-    	include("login.php");
-    }
+        }    
+    }else{
+    include("login.php");
+}
 
     include("partials/_footer.html");
 

@@ -11,8 +11,41 @@
         return $conexion_bd;
     }
 
+  function verificarCuenta($usuario,$password){
+    $conexion_bd = conectar_bd();
+    
+    $consulta = 'Select C.Id_Cuenta as C_id, C.Usuario as C_usuario, C.Password as C_password From cuenta as C';
+    $consulta.= ' Where C.usuario="'.$usuario.'"';
+    $consulta.=' AND C.password="'.$password.'"';
+    
 
-    function autenticar($username, $password){
+    $resultados = mysqli_query($conexion_bd, $consulta);
+    
+    $resultado="";
+    $resultado2="";
+
+  if(mysqli_num_rows($resultados)>0){
+    while($row = mysqli_fetch_assoc($resultados)){
+      $resultado =  $row['C_usuario'];
+      $resultado2 = $row['C_password'];
+    }
+  }
+  $resultado3="false";
+
+  if($resultado=="" && $resultado2==""){
+    $resultado3 = "false";
+  }else if(($usuario==$resultado) && ($password=$resultado2)){
+    $resultado3 = "true";
+  }
+
+mysqli_free_result($resultados);
+desconectar_bd($conexion_bd);
+return $resultado3;
+
+  }
+
+
+    function autenticarRol($username, $password){
     $con = conectar_bd();
    
     $query = " SELECT p.nombre as per, e.Nombre as nom, e.id_Almacen as alm
@@ -23,7 +56,7 @@
                AND rp.Id_Rol = r.Id_Rol
                AND rp.Id_Privilegio = p.Id_Privilegio
                AND usuario='$username' 
-               AND contraseña='$password'";
+               AND password='$password'";
       
    $result = mysqli_query($con, $query);
    

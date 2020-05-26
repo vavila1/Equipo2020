@@ -12,7 +12,7 @@
             $_SESSION["warning"] = "Ocurrio un error al registar el producto";
         }
 
-  header("location:proyectos.php");
+  header("location:index.php");
 ?>
 
 

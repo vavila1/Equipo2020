@@ -12,7 +12,7 @@
     if (isset($id)) {
         $id = htmlspecialchars($_GET["id"]);
         eliminar_proyecto($id);
-        $_SESSION["delete"] = "Se ha eliminado el proyecto con exito";
+        $_SESSION["delete"] = "Se ha eliminado un tipo de producto con exito";
     }
 
     header("location:proyectos.php");

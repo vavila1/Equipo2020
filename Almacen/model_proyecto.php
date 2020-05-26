@@ -36,7 +36,7 @@
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
 			$resultado .= "<tr>";
-		    $resultado .= "<td>R ".$row['p_idProyecto']."</td>";
+		    $resultado .= "<td>".$row['p_idProyecto']."</td>";
 		    $resultado .= "<td>".$row['p_desc']."</td>";
 		    $resultado .= "<td>".$row['p_fecha']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
