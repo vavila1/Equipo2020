@@ -1,0 +1,260 @@
+
+/* =================================
+------------------------------------
+  STARMEN WED DESIGN SA DE CV
+  VERSION PRUEBA V1
+
+ ------------------------------------ 
+ ====================================*/
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  
+
+/* Login*/
+
+.container-login{
+    min-height: 100vh;
+    background: url(../img/bg.png) no-repeat center top;
+    background-size: cover;
+}
+
+.login-box {
+  width: 320px;
+  height: 420px;
+  background: rgba(0,0,0,.8);
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+}
+
+.login-box .avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: -50px;
+  left: calc(50% - 50px);
+}
+
+.login-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.login-box label {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  display: block;
+}
+
+.login-box input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-box input[type="text"], .login-box input[type="password"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
+.login-box input[type="submit"] {
+  border: none;
+  outline: none;
+  height: 40px;
+  background: #002E5D;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+.login-box input[type="submit"]:hover {
+  cursor: pointer;
+  background: white;
+  color: #000;
+}
+
+.login-box a {
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: darkgrey;
+}
+
+.login-box a:hover {
+  color: #fff;
+}
+
+/* Navegacion Style */
+
+.material-close{
+    margin-left: 1em;
+
+}
+.material-close:hover{
+    color: red;
+    margin-left: 1em;
+
+}
+
+.logoSideNav{
+    height: 90px;
+    width: 170px;
+    margin-left: .2em;
+}
+
+.sidenav{
+    width: 11em;
+}
+
+
+.dark-blue{
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 5%, rgba(0,46,93,1) 35%, rgba(2,89,179,1) 100%);
+}
+
+
+.dark-head{
+    background-color: rgb(2,0,36);
+}
+
+
+.sidenav li>a {
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    display: inline-block;
+    color: white;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 48px;
+}
+
+.sidenav li>a:hover {
+    background-color: rgba(0, 102, 255,.1);
+    color: white;
+}
+
+.sidenav .collapsible-header, .sidenav.fixed .collapsible-header {
+    background-color: transparent;
+    border: none;
+    line-height: inherit;
+    height: inherit;
+    padding-left: 1.5em;
+}
+
+
+
+/*Footer Style */
+
+
+.page-footer {
+    color: black;
+    background-color: white;
+}
+
+
+.page-footer .footer-copyright {
+    margin-left: 30em;
+    color: black;
+    background-color: white;
+}
+
+
+.btn, .btn-large{
+    text-decoration: none;
+    color: white;
+    background-color: #002e5d;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+}
+
+#borrar{
+    text-decoration: none;
+    color: white;
+    background-color: #FF7070;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+    width:50px;
+
+}
+
+#editar{
+    text-decoration: none;
+    color: white;
+    background-color: #59B99A;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+    width:50px;
+
+}
+
+
+
+.btn:hover, .btn-large:hover {
+    text-decoration: none;
+    color: #002e5d;
+    background-color: white;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+}
+
+#borrar:hover{
+    text-decoration: none;
+    color: #FF7070;
+    background-color: white;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+
+}
+
+#editar:hover{
+    text-decoration: none;
+    color: #59B99A;
+    background-color: white;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+
+}
+
+
+
