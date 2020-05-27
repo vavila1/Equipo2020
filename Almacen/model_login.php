@@ -2,8 +2,7 @@
 
     //Conexion con Base de Datos
     function conectar_bd() {
-        //$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
-      $conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
+        $conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
 
         //verificar si la base de datos se conecto
         if( $conexion_bd == NULL){
@@ -49,7 +48,7 @@ return $resultado3;
     function autenticarRol($username, $password){
     $con = conectar_bd();
    
-    $query = " SELECT p.nombre as per, e.Nombre as nom, e.id_Almacen as alm
+    $query = " SELECT   e.Id_Empleado as e_id, p.nombre as per, e.Nombre as nom, e.id_Almacen as alm
                FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p, empleado as e
                WHERE e.Id_Empleado = c.Id_Empleado
                AND c.Id_Cuenta = cr.Id_Cuenta
@@ -79,6 +78,7 @@ return $resultado3;
        }
        $_SESSION['usuario'] = $row['nom'];
        $_SESSION['almacen'] = $row['alm'];
+       $_SESSION["IDempleado"] = $row['e_id'];
     }
    mysqli_close($con);
 }

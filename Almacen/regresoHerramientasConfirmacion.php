@@ -3,20 +3,17 @@
     session_start();
 
     //Traemos libreria de model
-    require_once("model_salidaProductos.php");
-    $cantidad = $_POST["cantidad"];
-    $cantidad_actual = $_GET["cantidadActual"];
-    $tipo = $_GET["tipo"];
+    require_once("model_retornoHerramientas.php");
 
     //Probamos conexicon con la funcion creada en model.php conectar_bd()
     //var_dump(conectar_bd());
 
-    registrarSalidaHerramientas($cantidad, $cantidad_actual,  $tipo);
+    registrarRetornoHerramientas();
 
 
     include("partials/_header.html");
     include("partials/_nav.html");
-    include("partials/_salidaProductos.html");
+    include("partials/_retornoHerramientas.html");
 
     include("partials/_footer.html");
 

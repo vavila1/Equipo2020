@@ -2,8 +2,7 @@
 
 	//Conexion con Base de Datos
 	function conectar_bd() {
-		//$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
-		$conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
+		$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
 
 		//verificar si la base de datos se conecto
 		if( $conexion_bd == NULL){
@@ -46,6 +45,11 @@
            $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonSalidas();
+           $resultado.="</a>";  
+
+           $resultado.= '<a href="retornoHerramientas.php?id='.$row['p_idProyecto'].'"';
+           $resultado.="".'"'.">";
+           $resultado.=" ". botonRetornos();
            $resultado.="</a>";  
 		   
 		    if ($_SESSION["Editar"]) {
@@ -179,6 +183,13 @@
   function botonSalidas(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Salida de Producto">
     <i class="material-icons right">exit_to_app</i>
+  </button>';
+    return $resultado;
+  }
+
+  function botonRetornos(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Retorno de Herramientas">
+    <i class="material-icons right">assignment_return</i>
   </button>';
     return $resultado;
   }

@@ -2,8 +2,7 @@
 
 	//Conexion con Base de Datos
 	function conectar_bd() {
-		//$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
-		$conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
+		$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
 
 		//verificar si la base de datos se conecto
 		if( $conexion_bd == NULL){
@@ -44,7 +43,7 @@ END*/
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Estatus</th><th>Cantidad</th><th>Agregar a proyecto</th></tr></thead>";
 
 
-		   $consulta = 'SELECT p.id as p_id,  ep.nombre AS ep_nombre ,p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND ep.id = p.Id_Estatus AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus = 6 AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT t.nombre as t_nombre, p.cantidad as p_cantidad, p.id as p_id,  ep.nombre AS ep_nombre ,p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad FROM producto AS p, marca AS m, tipo_producto AS t, empleado, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND ep.id = p.Id_Estatus AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id AND p.Id_Estatus = 6 AND p.Id_Almacen = '.$almacen.'';
 		
 
 
@@ -59,10 +58,12 @@ END*/
 		    $resultado .= "<td>".$row['ep_nombre']."</td>";
 
 		    $proyecto = $_GET["id"];
+		    $cantidad_actual = $row['p_cantidad'];
+		    $tipo = $row['t_nombre'];
 
-		    $resultado .= '<form action = "salidaProductosConfirmacion.php?id='.$proyecto.'&idProducto='.$row['p_id'].'" method = "POST">';
+		    $resultado .= '<form action = "salidaProductosConfirmacion.php?id='.$proyecto.'&idProducto='.$row['p_id'].'&cantidadActual='. $cantidad_actual.'&tipo='.$tipo.'" method = "POST">';
 		    $resultado .= "<td> <input class= 'col s4' name = 'cantidad' type = 'text'></td>";
-		
+		    
 		    $resultado .= "<td>";
 
 		
@@ -94,7 +95,7 @@ END*/
     return $resultado;
   }
 
-  function registrarSalidaHerramientas($cantidad){
+  function registrarSalidaHerramientas($cantidad, $cantidad_actual, $tipo){
 
  
 
@@ -103,25 +104,75 @@ END*/
 
   	    $proyecto = $_GET["id"];
   	    $producto = $_GET["idProducto"];
-  
-  	    $usuario = 2;
+  	    $usuario = $_SESSION["IDempleado"];
+
+
+  	     if ($cantidad == NULL){
+ 	    	 $_SESSION["mensaje"] = "Debe introducir una cantidad a entregar";
+ 	    	 return 0;
+  	    }
+
+  	    if($cantidad <= 0){
+ 			$_SESSION["mensaje"] = "La cantidad debe ser mayor a cero";
+ 	    	 return 0;
+  	    }
+  	     if ($cantidad_actual - $cantidad < 0) {
+			 $_SESSION["mensaje"] = "La cantidad a entregar es mayor a la disponible";
+ 	    	 return 0;
+  	    }
+
+  	   	if ( $tipo == "Consumible"){
+
+
+  	   			if( $cantidad_actual - $cantidad == 0){
+  	   					$id_estado = 2;
+  	   			} else {
+  	   					$id_estado = 6;
+  	   			}
+
+	  	   		$dlmInsertarProyecto = 'call registrarSalidaConsumibles(?,?,?,?,?);' ;
+
+				if( !($statement = $conexion_bd->prepare($dlmInsertarProyecto))){
+					 die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+				}
+
+		     //Unir los parámetros de la función con los parámetros de la consulta   
+		     //El primer argumento de bind_param es el formato de cada parámetro
+		     if (!$statement->bind_param("iiiii", $producto,$proyecto, $usuario, $cantidad, $id_estado)) {
+		         die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+		     }
+		       
+		     //Executar la consulta
+		     if (!$statement->execute()) {
+		       die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+		     }
+
+  	   	} else if ( $tipo == "Herramienta"){
+
+	  	   		$dlmInsertarProyecto = 'call registrarSalidaHerramienta(?,?,?,?);' ;
+
+				if( !($statement = $conexion_bd->prepare($dlmInsertarProyecto))){
+					 die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+				}
+
+		     //Unir los parámetros de la función con los parámetros de la consulta   
+		     //El primer argumento de bind_param es el formato de cada parámetro
+		     if (!$statement->bind_param("iiii", $producto,$proyecto, $usuario, $cantidad)) {
+		         die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+		     }
+		       
+		     //Executar la consulta
+		     if (!$statement->execute()) {
+		       die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+		     }
+
+  	   	}
+
+
+
 		
-		$dlmInsertarProyecto = 'call registrarSalidaHerramienta(?,?,?,?);' ;
+		
 
-		if( !($statement = $conexion_bd->prepare($dlmInsertarProyecto))){
-			 die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-		}
-
-     //Unir los parámetros de la función con los parámetros de la consulta   
-     //El primer argumento de bind_param es el formato de cada parámetro
-     if (!$statement->bind_param("iiii", $producto,$proyecto, $usuario, $cantidad)) {
-         die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-     }
-       
-     //Executar la consulta
-     if (!$statement->execute()) {
-       die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-     }
  
      desconectar_bd($conexion_bd);		
 
