@@ -95,7 +95,7 @@ return $resultado3;
     //Primero conectarse a la bd
     $conexion_bd = conectar_bd();
 
-    $resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th></th><th>Tipo de transaccion</th><th></th><th>Producto</th><th>Empleado Responsable</th><th>Fecha</th></tr></thead>";
+    $resultado = "<table class=\"highlight\"><thead><tr><th></th><th>Tipo de transaccion</th><th></th><th>Producto</th><th>Folio Proyecto</th><th>Empleado Responsable</th><th>Fecha</th></tr></thead>";
 
 
     $consulta = 'SELECT e.id as e_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha
@@ -109,10 +109,10 @@ return $resultado3;
     while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
       //$resultado .= $row[0]; //Se puede usar el índice de la consulta
       $resultado .= "<tr>";
-        $resultado .= "<td>".$row['e_id']."</td>";
         $resultado .= "<td></td>";
         $resultado .= "<td>".$row['t_nombre']."</td>";
         $resultado .= "<td></td>";
+        $resultado .= "<td>".$row['p_nombre']."</td>";
         $resultado .= "<td>".$row['p_nombre']."</td>";
         $resultado .= "<td>".$row['emp_nombre']."</td>";
         $resultado .= "<td>".$row['e_fecha']."</td>";
