@@ -98,9 +98,10 @@ return $resultado3;
     $resultado = "<table class=\"highlight\"><thead><tr><th></th><th>Tipo de transaccion</th><th></th><th>Producto</th><th>Folio Proyecto</th><th>Empleado Responsable</th><th>Fecha</th></tr></thead>";
 
 
-    $consulta = 'SELECT e.id as e_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha
-            FROM entregan as e, producto as p, empleado as emp, transaccion as t 
+    $consulta = 'SELECT pp.Id_Proyecto as pp_id ,e.id as e_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha
+            FROM entregan as e, producto as p, empleado as emp, transaccion as t, producto_proyecto as pp
             WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado
+            ORDER BY e.fecha DESC
             LIMIT 5';
     
     //Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
@@ -113,7 +114,7 @@ return $resultado3;
         $resultado .= "<td>".$row['t_nombre']."</td>";
         $resultado .= "<td></td>";
         $resultado .= "<td>".$row['p_nombre']."</td>";
-        $resultado .= "<td>".$row['p_nombre']."</td>";
+        $resultado .= "<td>".$row['pp_id']."</td>";
         $resultado .= "<td>".$row['emp_nombre']."</td>";
         $resultado .= "<td>".$row['e_fecha']."</td>";
         $resultado .= "</tr>" ;
