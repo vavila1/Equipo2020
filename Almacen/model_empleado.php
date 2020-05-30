@@ -45,8 +45,8 @@
       $resultado.='<a href="editar.php?id='.$row['e_id'].'">';
       $resultado.= botonEditar();
       $resultado.="</a>"." ";
-       $resultado.='<a href="editarContrasena.php?id='.$row['e_id'].'&ps='.$row['c_pswrd'].'">';
-      $resultado.= 'editarContra';
+       $resultado.='<a href="editarContrasena.php?id='.$row['e_id'].'&ps='.$row['c_pswrd'].'"class="btn waves-effect waves-light btn-small" id="editar">';
+       $resultado.='<i class="material-icons right">lock</i>';
       $resultado.="</a>"." ";
       $resultado.='<a href="borrar.php?id='.$row['e_id'].'"';
       $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['e_nombre']."?')".'"'.">";
