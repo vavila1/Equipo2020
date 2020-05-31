@@ -80,7 +80,7 @@
       	// desconectarse al termino de la consulta
 		desconectar_bd($conexion_bd);
 
-		$resultado .= '</select><label>'.$tabla.'</label></div>';
+		$resultado .= '</select><label>'.$tabla.'</label>';
 
 		return $resultado;
 
@@ -144,7 +144,9 @@
 		$conexion_bd = conectar_bd();
 		
 		//Prepaprar la consulta
-		$dml = 'UPDATE cuenta SET Password = (?) WHERE Id_Empleado = (?) ';
+		$dml = 'UPDATE cuenta as c SET c.Password = (?) WHERE c.Id_Empleado = (?)';
+
+		//var_dump($dml);
 
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);

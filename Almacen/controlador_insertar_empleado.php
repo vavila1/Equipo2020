@@ -21,7 +21,7 @@
             $_SESSION["warning"] = "Ocurrio un error al registrar la cuenta";
         }
 
-  //header("location:cuentas.php");
+  header("location:cuentas.php");
 ?>
 
 

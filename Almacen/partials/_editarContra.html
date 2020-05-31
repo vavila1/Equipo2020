@@ -9,6 +9,10 @@
                <div class="row">
                 <form class="col s12" action="controlador_editar_contrasena.php" method="POST">
                   <div class="row">
+                    <div class="input-field col s12">
+                      <input type="text" name="id" value="<?=$id_empleado?>" readonly>
+                        <label for="id">Id Empleado</label>
+                      </div>
                       <div class="input-field col s12">
                       <input type="text" name="actual" value="<?=$contra?>" readonly>
                         <label for="actual">Contraseña actual</label>
