@@ -11,11 +11,12 @@
             $id_tipo = htmlspecialchars($_POST["tipo_producto"]);
             $id_marca = htmlspecialchars($_POST["marca"]);
             $almacen = $_SESSION["almacen"];
-            $id_estatus = 6;
             if($_POST["tipo_producto"]==1){
                 $cantidad = 1;
+                $id_estatus = 6;
             }else{
                 $cantidad=0;
+                $id_estatus=2;
             }
 
         insertar_producto($nombre, $cantidad, $precio, $id_marca, $almacen, $id_tipo,$id_estatus);
