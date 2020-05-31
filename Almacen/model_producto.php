@@ -794,7 +794,7 @@ function botonBorrar(){
   }
   mysqli_free_result($resultados);
   $resultado = $resultado+$cantidad;
-  $consulta='Update producto Set cantidad=(?) Where id=(?)';
+  $consulta='Update producto Set cantidad=(?), Id_Estatus = 6 Where id=(?)';
   if ( !($statement = $conexion_bd->prepare($consulta)) ) {
     }
     if (!$statement->bind_param("ii", $resultado,$id)) {
@@ -803,6 +803,41 @@ function botonBorrar(){
 
   }
   desconectar_bd($conexion_bd);
+  registrarEP($id);
   }
+
+
+
+	function registrarEP($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		$estado = 6;
+		//Prepaprar la consulta
+		$dml = 'INSERT INTO e_p (Id_Producto, Id_Estado_producto) VALUES (?,?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ii", $id,$estado)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
 
 ?>
