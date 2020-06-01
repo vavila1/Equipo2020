@@ -16,9 +16,9 @@
 
   function getFruits($id,$nombre,$estado){
     $conexion_bd = conectar_bd();
-      $resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Estado</th></tr></thead>";
+      $resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Estado</th><th>Estatus</th></tr></thead>";
     
-    $consulta = 'Select A.id as A_id, A.nombre as A_nombre, E.nombre as E_nombre From almacen as A, estado as E Where A.id_estado = E.id';
+    $consulta = 'Select A.id as A_id, A.nombre as A_nombre, E.nombre as E_nombre, EP.nombre as EP_nombre From almacen as A, estado as E, estatus_producto as EP Where A.id_estado = E.id AND A.id_estatus=EP.id AND A.id_estatus=6';
 
 
     /* Para evitar los 16 ifs resultantes de las combinaciones entre cada variable, se simplificó de tal forma que se creó una variable y esta variable va a contener todas las condiciones de la consulta. Si no hay una anterior, se pondra como inicial de una consulta. Si hay una anterior, se agregara con un AND.
@@ -48,6 +48,7 @@
       $resultado.="<td>" . $row['A_id'] . "</td>";
       $resultado.="<td>" . $row['A_nombre'] . "</td>";
       $resultado.="<td>" . $row['E_nombre'] . "</td>";
+      $resultado.="<td>" . $row['EP_nombre'] . "</td>";
       $resultado.="<td>";
       $resultado.='<a href="editar.php?id='.$row['A_id'].'&nombre='.$row['A_nombre'].'">';
       $resultado.= botonEditar();
@@ -108,14 +109,15 @@ return $resultado;
   function borrarAlmacen($id){
 
      $conexion_bd = conectar_bd();
-    $consulta = 'Delete From almacen Where id=(?)';
+     $consulta = 'Update almacen Set id_estatus=(?) WHERE id=(?)';
+     $estatus=5;
 
 
     /*Con el siguiente codigo se puede encontrar el error en caso de existir.*/
 
     if ( !($statement = $conexion_bd->prepare($consulta)) ) {
     }
-    if (!$statement->bind_param("i", $id)) {
+    if (!$statement->bind_param("ii", $estatus,$id)) {
     }
     if (!$statement->execute()) {
 
@@ -150,14 +152,15 @@ function editarAlmacen($id,$estado){
 
   function insertarPaciente($nombre,$estado){
     $conexion_bd = conectar_bd();
-    $consulta = 'Insert Into almacen (nombre, id_estado) Values (?,?) ';
+    $consulta = 'Insert Into almacen (nombre, id_estado,id_estatus) Values (?,?,?) ';
+    $estatus=6;
 
 
     /*Con el siguiente codigo se puede encontrar el error en caso de existir.*/
 
     if ( !($statement = $conexion_bd->prepare($consulta)) ) {
     }
-    if (!$statement->bind_param("ss", $nombre, $estado)) {
+    if (!$statement->bind_param("ssi", $nombre, $estado,$estatus)) {
     }
     if (!$statement->execute()) {
 
