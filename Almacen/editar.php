@@ -2,9 +2,10 @@
 	//Inicio o recuperdo la sesión
     session_start();
 
-    require_once("model_almacen.php");
-    include("partials/_despliegueEditarAlmacen.php");
+    $id = htmlspecialchars($_GET["id"]);
+    $_SESSION["id_almacen"] = $id;
 
+    require_once("model_almacen.php");
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_editarAlmacen.html");

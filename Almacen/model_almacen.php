@@ -49,7 +49,7 @@
       $resultado.="<td>" . $row['A_nombre'] . "</td>";
       $resultado.="<td>" . $row['E_nombre'] . "</td>";
       $resultado.="<td>";
-      $resultado.='<a href="editar.php?id='.$row['A_id'].'">';
+      $resultado.='<a href="editar.php?id='.$row['A_id'].'&nombre='.$row['A_nombre'].'">';
       $resultado.= botonEditar();
       $resultado.="</a>"." ";
       $resultado.='<a href="borrar.php?id='.$row['A_id'].'"';

@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once("model_almacen.php");
 
 if(isset($_POST['Nombre']) && isset($_POST['estado'])){
 	$nombre = htmlspecialchars($_POST['Nombre']);
