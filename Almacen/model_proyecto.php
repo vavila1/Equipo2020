@@ -28,7 +28,7 @@
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th></tr></thead>";
 
-		$consulta = 'SELECT p.Nombre as p_nombre, p.id_Proyecto as p_idProyecto, p.nombre as p_desc, p.fecha_inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusProyecto as e WHERE p.id_estatusproyecto = e.id_estatusProyecto AND p.id_estatusproyecto != 5';
+		$consulta = 'SELECT p.Nombre as p_nombre, p.id_Proyecto as p_idProyecto, p.nombre as p_desc, p.fecha_inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusproyecto as e WHERE p.id_estatusproyecto = e.id_estatusProyecto AND p.id_estatusproyecto != 5';
 
 		if($estado != ""){
 			$consulta .= " AND e.id_estatusproyecto= ".$estado;
