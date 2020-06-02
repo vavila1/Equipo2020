@@ -28,7 +28,7 @@
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th></tr></thead>";
 
-		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.nombre as p_desc, p.Fecha_Inicio as p_fecha, e.nombre as e_nombre FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
+		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.Fecha_Inicio as p_fecha, e.Nombre as e_nombre FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
 
 		if($estado != ""){
 			$consulta .= " AND e.id_estatusproyecto= ".$estado;
@@ -40,7 +40,7 @@
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
 			$resultado .= "<tr>";
 		    $resultado .= "<td>R ".$row['p_idProyecto']."</td>";
-		    $resultado .= "<td>".$row['p_desc']."</td>";
+		    $resultado .= "<td>".$row['p_nombre']."</td>";
 		    $resultado .= "<td>".$row['p_fecha']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
@@ -65,7 +65,7 @@
            if ($_SESSION["Eliminar"]) {
            	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_proyecto.php?id='.$row['p_idProyecto'].'"';
-           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['p_desc']." ?')".'"'.">";
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['p_nombre']." ?')".'"'.">";
            $resultado.=" ". botonBorrar();
            $resultado.="</a>";
            }
