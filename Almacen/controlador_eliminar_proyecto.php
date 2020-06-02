@@ -6,7 +6,7 @@
     //Traemos libreria de model
     require_once("model_proyecto.php");
 
-    var_dump($_GET["id"]);
+    //var_dump($_GET["id"]);
     $id =  $_GET["id"];
 
     if (isset($id)) {
