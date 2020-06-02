@@ -10,10 +10,10 @@
       <form method="POST" action="index.php" enctype="multipart/form-data" autocomplete="off">
         <!-- USERNAME INPUT -->
         <label for="usuario">Usuario: </label>
-        <input type="text" name="usuario" placeholder="Ingresa Usuario"><br>
+        <input type="text" name="usuario" placeholder="gciasa"><br>
          <!-- PASSWORD INPUT -->
         <label for="password">Contraseña: </label>
-        <input type="password" name="password" placeholder="Ingresa Contraseña"><br><br>
+        <input type="password" name="password" placeholder="*****"><br><br>
         <input type="submit" name="enviar" value="Enviar">
       </form>
     </div>
