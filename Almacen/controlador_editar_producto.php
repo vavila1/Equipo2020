@@ -13,15 +13,17 @@
         $Id_marca = htmlspecialchars($_POST["marca"]);
         $Id_estatus = htmlspecialchars($_POST["estatus_producto"]);
         $Precio = htmlspecialchars($_POST["precio"]);
-        $Id_producto = $_GET['id'];
+        $Id_producto = $_SESSION['id_producto'];
 
         editar_producto($Nombre, $Precio, $Id_marca, $Id_tipo,$Id_estatus,$Id_producto);
         editar_producto_estatus($Id_producto,$Id_estatus);
 
         $_SESSION["mensaje"] = "Se completo el registro";
+        unset($_SESSION['id_producto']);
         }
          else {
             $_SESSION["warning"] = "Ocurrio un error al registar el producto";
+            unset($_SESSION['id_producto']);
         }
     
     header("location:productos.php");
