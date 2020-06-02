@@ -13,7 +13,7 @@
         <input type="text" name="usuario" placeholder="gciasa"><br>
          <!-- PASSWORD INPUT -->
         <label for="password">Contraseña: </label>
-        <input type="password" name="password" placeholder="*****"><br><br>
+        <input type="password" name="password" placeholder="**********"><br><br>
         <input type="submit" name="enviar" value="Enviar">
       </form>
     </div>
