@@ -49,7 +49,6 @@
   if(mysqli_num_rows($resultados)>0){
     while($row = mysqli_fetch_assoc($resultados)){
       $resultado.="<tr>";
-      $resultado.="<td>" . $row['A_id'] . "</td>";
       $resultado.="<td>" . $row['A_nombre'] . "</td>";
       $resultado.="<td>" . $row['E_nombre'] . "</td>";
       $resultado.="<td>" . $row['EP_nombre'] . "</td>";
