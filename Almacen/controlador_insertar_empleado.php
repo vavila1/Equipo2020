@@ -15,7 +15,9 @@
 
 
   if((isset($_POST["nombre"])) && (isset($_POST["correo"])) && (isset($_POST["usuario"])) && (isset($_POST["contra"])) && (isset($_POST["puesto"])) && (isset($_POST["almacen"])) && (isset($_POST["rol"])) ) {
-      insertar_empleado($_POST["nombre"], $_POST["correo"] , $_POST["usuario"] , $_POST["contra"] , $_POST["puesto"] , $_POST["almacen"] , $_POST["rol"]);
+    //Encriptar contraseña
+      $contra = encriptarPassword($_POST["contra"]);
+      insertar_empleado($_POST["nombre"], $_POST["correo"] , $_POST["usuario"] , $contra , $_POST["puesto"] , $_POST["almacen"] , $_POST["rol"]);
       $_SESSION["mensaje"] = "Se completo el registro";
   }  else {
             $_SESSION["warning"] = "Ocurrio un error al registrar la cuenta";

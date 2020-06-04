@@ -2,8 +2,8 @@
 
 	//Conexion con Base de Datos
 	function conectar_bd() {
-		//$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
-		$conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
+		$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
+		//$conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
 
 		$conexion_bd->set_charset("utf8");
 

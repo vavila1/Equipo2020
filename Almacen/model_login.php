@@ -2,8 +2,8 @@
 
     //Conexion con Base de Datos
     function conectar_bd() {
-        //$conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
-      $conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
+      $conexion_bd = mysqli_connect("localhost","root","","almacenciasa");
+      //$conexion_bd = mysqli_connect("localhost","ciasagr2_adminciasa","20Gciasa20","ciasagr2_almacenciasa");
 
       $conexion_bd->set_charset("utf8");
 
@@ -16,10 +16,10 @@
 
   function verificarCuenta($usuario,$password){
     $conexion_bd = conectar_bd();
-    
+    $hash_pass = encriptarPassword($password);
     $consulta = 'Select C.Id_Cuenta as C_id, C.Usuario as C_usuario, C.Password as C_password From cuenta as C';
     $consulta.= ' Where C.usuario="'.$usuario.'"';
-    $consulta.=' AND C.password="'.$password.'"';
+    $consulta.=' AND C.password="'.$hash_pass.'"';
     
 
     $resultados = mysqli_query($conexion_bd, $consulta);
@@ -37,7 +37,7 @@
 
   if($resultado=="" && $resultado2==""){
     $resultado3 = "false";
-  }else if(($usuario==$resultado) && ($password=$resultado2)){
+  }else if(($usuario==$resultado) && ($hash_pass=$resultado2)){
     $resultado3 = "true";
   }
 
@@ -50,7 +50,7 @@ return $resultado3;
 
     function autenticarRol($username, $password){
     $con = conectar_bd();
-   
+    $hash_pass = encriptarPassword($password);
     $query = " SELECT   e.Id_Empleado as e_id, p.nombre as per, e.Nombre as nom, e.id_Almacen as alm
                FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p, empleado as e
                WHERE e.Id_Empleado = c.Id_Empleado
@@ -59,7 +59,7 @@ return $resultado3;
                AND rp.Id_Rol = r.Id_Rol
                AND rp.Id_Privilegio = p.Id_Privilegio
                AND usuario='$username' 
-               AND password='$password'";
+               AND password='$hash_pass'";
       
    $result = mysqli_query($con, $query);
    
@@ -132,6 +132,12 @@ return $resultado3;
     return $resultado;
   }
 
+
+  function encriptarPassword($contraseña){
+    //$hash = password_hash($contraseña, PASSWORD_DEFAULT, ['cost' => 10]);
+    $hash = hash('sha3-224', $contraseña);
+    return $hash;
+  }
 
 
 
