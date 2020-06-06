@@ -7,10 +7,26 @@
 	   		<div class="row">
 	   			<div class="col s4"></div>
 	   			<div class="">
-	   				<?php 
-	   					$usuario = $_SESSION['usuario'];
-	   					echo "<h1>Bienvenido, $usuario</h1>" 
-	   				 ?>
+	   				<h6>
+          <?php 
+              
+                echo "<br>";
+                $usuario = $_SESSION['usuario'];
+                echo '<span style="font-weight:bold">Usuario: </span>&nbsp&nbsp'.$usuario.'';
+                echo "<br>";
+                echo "<br>";
+                $almacen = $_SESSION['nomalm'];
+                echo '<span style="font-weight:bold">Almacen: </span>&nbsp&nbsp'.$almacen.'';
+          ?>
+        <br><br>
+          <span style="font-weight:bold">Fecha:</span>&nbsp&nbsp 
+            <script>
+              var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+              var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+              var f=new Date();
+              document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+            </script>
+        </h6>
 	   				<br>
 	   				<br>
 	   				<div class="col s6 ">

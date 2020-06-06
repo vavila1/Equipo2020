@@ -51,13 +51,14 @@ return $resultado3;
     function autenticarRol($username, $password){
     $con = conectar_bd();
     $hash_pass = encriptarPassword($password);
-    $query = " SELECT   e.Id_Empleado as e_id, p.nombre as per, e.Nombre as nom, e.id_Almacen as alm
-               FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p, empleado as e
+    $query = " SELECT   e.Id_Empleado as e_id, p.nombre as per, e.Nombre as nom, e.id_Almacen as alm, a.nombre as a_nombre
+               FROM cuenta as c , cuenta_rol as cr, rol as r, rol_privilegio as rp, privilegio as p, empleado as e, almacen as a
                WHERE e.Id_Empleado = c.Id_Empleado
                AND c.Id_Cuenta = cr.Id_Cuenta
                AND cr.Id_Rol = r.Id_Rol
                AND rp.Id_Rol = r.Id_Rol
                AND rp.Id_Privilegio = p.Id_Privilegio
+               AND e.id_Almacen=a.id
                AND usuario='$username' 
                AND password='$hash_pass'";
       
@@ -82,6 +83,7 @@ return $resultado3;
        $_SESSION['usuario'] = $row['nom'];
        $_SESSION['almacen'] = $row['alm'];
        $_SESSION["IDempleado"] = $row['e_id'];
+       $_SESSION["nomalm"]=$row['a_nombre'];
     }
    mysqli_close($con);
 }
