@@ -26,9 +26,9 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$consulta = ' SELECT  c.Password as c_pswrd, e.Id_Empleado as e_id, e.Nombre as e_nombre, e.Correo as e_correo, a.nombre as a_nombre, c.Usuario as c_usuario, p.Nombre as p_nombre, r.Nombre as r_nombre
+		$consulta = ' SELECT c.Id_Cuenta as c_idC, c.Password as c_pswrd, e.Id_Empleado as e_id, e.Nombre as e_nombre, e.Correo as e_correo, a.nombre as a_nombre, c.Usuario as c_usuario, p.Nombre as p_nombre, r.Nombre as r_nombre, c.Id_Estatusgeneral
 					  FROM empleado as e, cuenta as c, cuenta_rol as cr, puesto as p, almacen as a, rol as r
-					  WHERE e.Id_Empleado = c.Id_Empleado AND e.Id_Puesto = p.Id_Puesto AND e.Id_Almacen = a.id AND c.Id_Cuenta = cr.Id_Cuenta AND r.Id_Rol = cr.Id_Rol';
+					  WHERE e.Id_Empleado = c.Id_Empleado AND c.Id_Estatusgeneral = 1 AND e.Id_Puesto = p.Id_Puesto AND e.Id_Almacen = a.id AND c.Id_Cuenta = cr.Id_Cuenta AND r.Id_Rol = cr.Id_Rol';
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Correo</th><th>Almacen</th><th>Usuario</th><th>Puesto</th><th>Rol</th><th>Acciones</th></tr></thead><tbody>";
 		
@@ -45,16 +45,24 @@
 
 
 		    $resultado .= "<td>";
-      $resultado.='<a href="editar.php?id='.$row['e_id'].'">';
-      $resultado.= botonEditar();
-      $resultado.="</a>"." ";
+     	 if ($_SESSION["Editar"]) {
+		    //Seccion de Editar Boton
+		   $resultado.='<a href="controlador_editar_cuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'"';
+           $resultado.=" ". botonEditar();
+           $resultado.="</a>"." ";
+           }
+
        $resultado.='<a href="editarContrasena.php?id='.$row['e_id'].'&ps='.$row['c_pswrd'].'"class="btn waves-effect waves-light btn-small" id="editar">';
        $resultado.='<i class="material-icons right">lock</i>';
-      $resultado.="</a>"." ";
-      $resultado.='<a href="borrar.php?id='.$row['e_id'].'"';
-      $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['e_nombre']."?')".'"'.">";
-      $resultado.=" ". botonBorrar();
-      $resultado.="</a></td>";
+        $resultado.="</a>"." ";
+
+       if ($_SESSION["Eliminar"]) {
+           	//Seccion de Borrar Boton
+		   $resultado.='<a href="controlador_eliminar_cuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar la cuenta de  ".$row['e_nombre']." ?')".'"'.">";
+           $resultado.="borrar ";//. botonBorrar();
+           $resultado.="</a>";
+           }
       $resultado.="</tr>";
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
@@ -166,6 +174,38 @@
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
 		if (!$statement->bind_param("si", $nueva, $id_empleado)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+
+		function eliminar_cuenta($idE, $idC){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		$dml = 'UPDATE cuenta as c SET Id_Estatusgeneral = 2, c.Password = "cuentaeliminada" WHERE Id_Empleado = (?) AND Id_Cuenta = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ii", $idE, $idC)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
