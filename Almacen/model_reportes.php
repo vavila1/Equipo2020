@@ -58,10 +58,137 @@
 		return $resultado;
 	}
 
+		function consultar_stock_por_almacen($almacen){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+		
+		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th></tr></thead>";
+
+		   $consulta = 'SELECT ep.nombre as ep_nombre, almacen.nombre as a_nom, p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND ep.id = p.Id_Estatus ';
+
+		if ($almacen != "") {
+			$consulta .= "AND p.Id_Almacen=".$almacen;
+		}
+
+		/*if ($estatus != "") {
+			$consulta .= " AND e.id=".$estatus;
+		}*/
+
+
+
+		$resultados = $conexion_bd->query($consulta);  
+		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+			$resultado .= "<tr>";
+		    $resultado .= "<td>".$row['p_nombre']."</td>";
+		    $resultado .= "<td>".$row['m_nombre']."</td>";
+		    $resultado .= "<td>".$row['tp_nombre']."</td>";
+		    $resultado .= "<td>".$row['p_cantidad']."</td>";
+		    $resultado .= "<td>$".$row['p_precio']."</td>";
+		    $resultado .= "<td>$".$row['ep_nombre']."</td>";
+		}
+
+		
+		
+
+
+		mysqli_free_result($resultados); //Liberar la memoria
+
+		// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		$resultado .= "</table>";
+
+
+		sacar_total($almacen);
+		return $resultado;
+	}
+
+		function sacar_total($almacen){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+
+			$resultado = "<table class=\"highlight\"><thead><tr><th>TOTAL</th></thead>";
+
+		   $consulta = 'SELECT SUM(p.precio) as total,ep.nombre as ep_nombre, almacen.nombre as a_nom, p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND ep.id = p.Id_Estatus ';
+
+		if ($almacen != "") {
+			$consulta .= "AND p.Id_Almacen=".$almacen;
+		}
+
+		/*if ($estatus != "") {
+			$consulta .= " AND e.id=".$estatus;
+		}*/
+
+
+
+		$resultados = $conexion_bd->query($consulta);  
+		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+			$resultado .= "<tr>";
+		    $resultado .= "<td>".$row['total']."</td>";
+		  
+		}
+
+		
+
+
+
+		mysqli_free_result($resultados); //Liberar la memoria
+
+		// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		$resultado .= "</table><br><br><br>";
+
+		echo $resultado;
+	}
+
+
+		function consultar_calibracion($almacen){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID Producto</th><th>Nombre Producto</th><th>Ultima calibracion</th></tr></thead>";
+
+
+		$consulta = 'SELECT p.id as p_id, p.nombre as p_nombre, e_p.fecha as fecha FROM producto as p, e_p, estatus_producto WHERE p.id = e_p.Id_Producto AND e_p.Id_Estado_producto = estatus_producto.id AND e_p.Id_Estado_producto = 1 ';
+
+		if ($almacen != "") {
+			$consulta .= "AND p.Id_Almacen=".$almacen;
+		}
+
+		/*if ($estatus != "") {
+			$consulta .= " AND e.id=".$estatus;
+		}*/
+
+		$consulta .= " ORDER BY e_p.fecha DESC";
+		
+		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
+
+		$resultados = $conexion_bd->query($consulta);  
+		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+			$resultado .= "<tr>";
+			$resultado .= "<td>".$row['p_id']."</td>";
+		    $resultado .= "<td>".$row['p_nombre']."</td>";
+		    $resultado .= "<td>".$row['fecha']."</td>";
+		    $resultado .= "</tr>" ;
+		}
+		mysqli_free_result($resultados); //Liberar la memoria
+
+		// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		$resultado .= "</table>";
+
+		return $resultado;
+	}
+
 
 	//Crear un select con los datos de una consulta
 	
-	function consultar_select($id, $columna_descripcion, $tabla){
+	function crear_select($id, $columna_descripcion, $tabla){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 

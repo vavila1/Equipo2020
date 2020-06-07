@@ -1,0 +1,23 @@
+	<?php
+
+    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><h1 class=\"center\">Reporte Stock</h1><br><br><br><br>";
+
+    	echo "<br><div class=\"row\"><form method=\"POST\">";
+	    echo "<div class=\"input-field col s3\">";
+	    echo crear_select("id", "nombre", "almacen");
+	    echo "<div class=\"input-field col s3\">";
+	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
+	    echo "</form></div>";
+
+	    if (isset($_POST["almacen"])) {
+	    	$almacen = htmlspecialchars($_POST["almacen"]);
+	    } else {
+	    	$almacen = "";
+	    }
+
+
+	    echo consultar_stock_por_almacen($almacen);
+
+	echo "</div></div></div></section>";
+
+?>
