@@ -26,7 +26,7 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th><th>Treminar proycto</th></tr></thead>";
 
 		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.Fecha_Inicio as p_fecha, e.Nombre as e_nombre FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
 
@@ -70,7 +70,15 @@
            $resultado.="</a>";
            }
 
-		   $resultado .= "</tr>";
+		   
+		   $resultado .= "<td>";
+		    $resultado.='<a href="controlador_terminar_proyecto.php?id='.$row['p_idProyecto'].'"';
+           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas marcar como terminado el proyecto:  ".$row['p_nombre']." ?')".'"'.">";
+           $resultado.="<button class = 'btn waves-effect waves-light btn-small' title = 'terminar proyecto'>Terminar</button>";
+           $resultado.="</a>";
+           $resultado .= "</td>";
+
+           $resultado .= "</tr>";
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
 
@@ -166,6 +174,36 @@
  
 	}
 
+		function terminar_proyecto($id){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+
+		//Prepaprar la consulta
+		//$dml = 'DELETE FROM `proyecto` WHERE `proyecto`.`Id_Proyecto` = (?)';
+		$dml = 'UPDATE proyecto SET Fecha_Fin = CURRENT_TIMESTAMP, Id_EstatusProyecto = 1 WHERE Id_Proyecto = (?)';
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("s", $id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
 
 
 	function botonBorrar(){

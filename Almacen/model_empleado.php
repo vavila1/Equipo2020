@@ -26,7 +26,7 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$consulta = ' SELECT c.Id_Cuenta as c_idC, c.Password as c_pswrd, e.Id_Empleado as e_id, e.Nombre as e_nombre, e.Correo as e_correo, a.nombre as a_nombre, c.Usuario as c_usuario, p.Nombre as p_nombre, r.Nombre as r_nombre, c.Id_Estatusgeneral
+		$consulta = ' SELECT c.Id_Cuenta as c_idC, c.Password as c_pswrd, e.Id_Empleado as e_id, e.Nombre as e_nombre, e.Correo as e_correo, a.nombre as a_nombre, c.Usuario as c_usuario, p.Nombre as p_nombre, r.Nombre as r_nombre, c.Id_Estatusgeneral, p.Id_Puesto as id_puesto, r.Id_Rol as id_rol, a.id as a_id
 					  FROM empleado as e, cuenta as c, cuenta_rol as cr, puesto as p, almacen as a, rol as r
 					  WHERE e.Id_Empleado = c.Id_Empleado AND c.Id_Estatusgeneral = 1 AND e.Id_Puesto = p.Id_Puesto AND e.Id_Almacen = a.id AND c.Id_Cuenta = cr.Id_Cuenta AND r.Id_Rol = cr.Id_Rol';
 
@@ -47,8 +47,8 @@
 		    $resultado .= "<td>";
      	 if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="controlador_editar_cuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'"';
-           $resultado.=" ". botonEditar();
+		   $resultado.='<a href="editarCuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'&correo='.$row['e_correo'].'&usuario='.$row['c_usuario'].'&nombre='.$row['e_nombre'].'&puesto='.$row['id_puesto'].'&rol='.$row['id_rol'].'&almacen='.$row['id_rol'].'">';
+           $resultado.="Editar ";//. botonEditar();
            $resultado.="</a>"." ";
            }
 
@@ -222,6 +222,214 @@
  
 	}
 
+	  function crear_select_editar($id, $columna_descripcion, $tabla, $seleccion=0) {
+    $conexion_bd = conectar_bd();  
+      
+    $resultado = '<div class="input-field"><select name="'.$tabla.'" id="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
+            
+    $consulta = "SELECT $id, $columna_descripcion FROM $tabla";
+    $resultados = $conexion_bd->query($consulta);
+    while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+        $resultado .= '<option value="'.$row["$id"].'" ';
+        if($seleccion == $row["$id"]) {
+            $resultado .= 'selected';
+        }
+        $resultado .= '>'.$row["$columna_descripcion"].'</option>';
+    }
+        
+    desconectar_bd($conexion_bd);
+    $resultado .=  '</select><label>'.$tabla.'...</label></div>';
+    return $resultado;
+  }
 
 
+  	function editar_cuenta_nombre($id, $nombre){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE empleado SET Nombre = (?) WHERE Id_Empleado = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("si", $nombre,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+  	function editar_cuenta_correo($id, $correo){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE empleado SET Correo = (?) WHERE Id_Empleado = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("si", $correo,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+  	function editar_cuenta_usuario($id, $usuario){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE cuenta SET Usuario = (?) WHERE Id_Cuenta = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("si", $usuario,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+  	function editar_cuenta_puesto($id, $puesto){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE empleado SET Id_puesto = (?) WHERE Id_Empleado = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ss", $puesto,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+  	function editar_cuenta_almacen($id, $almacen){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE empleado SET Id_Almacen = (?) WHERE Id_Empleado = (?)';
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ss", $almacen,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
+
+  	function editar_cuenta_rol($id, $rol){
+		//Primero conectarse a la base de datos
+		$conexion_bd = conectar_bd();
+		
+		//Prepaprar la consulta
+		$dml = 'UPDATE cuenta_rol SET Id_Rol = (?) WHERE Id_Cuenta = (?)';
+
+
+
+		if ( !($statement = $conexion_bd->prepare($dml)) ){
+			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
+			return 0;
+			}
+
+		// Unir los parametros de la funcion con los parametros de la consulta
+		// El primer argumento de bind_param es el formato de cada parametro
+		if (!$statement->bind_param("ss", $almacen,$id)) {
+			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		// Ejecutar la consulta
+		if (!$statement->execute()) {
+
+			die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
+			return 0;
+			}
+
+		//Desconectarse de la base de datos
+
+			  desconectar_bd($conexion_bd);
+			  return 1;
+ 
+	}
 ?>
