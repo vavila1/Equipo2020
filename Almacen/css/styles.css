@@ -256,5 +256,19 @@ body {
 
 }
 
+.datepicker-date-display { background-color: #023A68; } 
+.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
+ color:#023A68;
+}
+
+.datepicker-table td.is-today {
+ color: #023A68;
+}
+
+.datepicker-table td.is-selected {
+ background-color:#023A68;
+ color: white;
+}
+
 
 
