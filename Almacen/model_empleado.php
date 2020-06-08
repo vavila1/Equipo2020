@@ -47,8 +47,8 @@
 		    $resultado .= "<td>";
      	 if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="editarCuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'&correo='.$row['e_correo'].'&usuario='.$row['c_usuario'].'&nombre='.$row['e_nombre'].'&puesto='.$row['id_puesto'].'&rol='.$row['id_rol'].'&almacen='.$row['id_rol'].'">';
-           $resultado.="Editar ";//. botonEditar();
+		   $resultado.='<a href="editarCuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'&correo='.$row['e_correo'].'&usuario='.$row['c_usuario'].'&nombre='.$row['e_nombre'].'&puesto='.$row['id_puesto'].'&rol='.$row['id_rol'].'&almacen='.$row['id_rol'].'"class="btn waves-effect waves-light btn-small" id="editar">';
+           $resultado.='<i class="material-icons right">edit</i>';//. botonEditar();
            $resultado.="</a>"." ";
            }
 
@@ -58,9 +58,9 @@
 
        if ($_SESSION["Eliminar"]) {
            	//Seccion de Borrar Boton
-		   $resultado.='<a href="controlador_eliminar_cuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'"';
+		   $resultado.='<a href="controlador_eliminar_cuenta.php?idEmp='.$row['e_id'].'&idCuenta='.$row['c_idC'].'"class="btn waves-effect waves-light btn-small" id="borrar"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar la cuenta de  ".$row['e_nombre']." ?')".'"'.">";
-           $resultado.="borrar ";//. botonBorrar();
+           $resultado.='<i class="material-icons right">delete</i>';//. botonBorrar();
            $resultado.="</a>";
            }
       $resultado.="</tr>";
