@@ -7,13 +7,13 @@
       <?php if (isset($error)): ?>
         <div class="red-text">Error: <?= $error ?></div>
     <?php endif; ?>
-      <form method="POST" action="index.php" enctype="multipart/form-data" autocomplete="off">
+      <form method="POST" action="index.php" enctype="multipart/form-data" autocomplete="on">
         <!-- USERNAME INPUT -->
         <label for="usuario">Usuario: </label>
-        <input type="text" name="usuario" placeholder="gciasa"><br>
+        <input type="text" name="usuario" placeholder="" required><br>
          <!-- PASSWORD INPUT -->
         <label for="password">Contraseña: </label>
-        <input type="password" name="password" placeholder="**********"><br><br>
+        <input type="password" name="password" placeholder="" required><br><br>
         <input type="submit" name="enviar" value="Enviar">
       </form>
     </div>

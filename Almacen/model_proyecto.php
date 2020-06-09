@@ -72,10 +72,13 @@
 
 		   
 		   $resultado .= "<td>";
-		    $resultado.='<a href="controlador_terminar_proyecto.php?id='.$row['p_idProyecto'].'"';
-           $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas marcar como terminado el proyecto:  ".$row['p_nombre']." ?')".'"'.">";
-           $resultado.="<button class = 'btn waves-effect waves-light btn-small' title = 'terminar proyecto'>Terminar</button>";
-           $resultado.="</a>";
+		   if ($row['e_nombre'] != "Terminado"){
+		   		$resultado.='<a href="controlador_terminar_proyecto.php?id='.$row['p_idProyecto'].'"';
+           		$resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas marcar como terminado el proyecto: R.".$row['p_idProyecto']." ?')".'"'.">";
+          		$resultado.="<button class = 'btn waves-effect waves-light btn-small' title = 'terminar proyecto'>Terminar</button>";
+          		$resultado.="</a>";
+		   }
+		   
            $resultado .= "</td>";
 
            $resultado .= "</tr>";

@@ -43,9 +43,9 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Modelo</th><th>Tipo de Producto</th><th>Unidades</th><th>Precio</th><th>Estatus</th><th>Acciones</th></tr></thead>";
 
-		   $consulta = 'SELECT p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT p.modelo as p_modelo, p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
@@ -68,6 +68,7 @@
 			$resultado .= "<td>".$row['p_id']."</td>";
 		    $resultado .= "<td>".$row['p_nombre']."</td>";
 		    $resultado .= "<td>".$row['m_nombre']."</td>";
+		    $resultado .= "<td>".$row['p_modelo']."</td>";
 		    $resultado .= "<td>".$row['tp_nombre']."</td>";
 		    $resultado .= "<td>".$row['p_cantidad']."</td>";
 		    $resultado .= "<td>$".$row['p_precio']."</td>";
@@ -81,7 +82,7 @@
 		           $resultado.="".'"'.">";
 		           $resultado.=" ". botonEntrada();
 		           $resultado.="</a>";
-		    	} else if ($row['tp_nombre'] == "Herramienta" && $row['p_Estatus'] == 1) {
+		    	} else if ($row['tp_nombre'] == "Herramienta" && $row['p_Estatus'] == 1 || $row['tp_nombre'] == "Vehiculo" && $row['p_Estatus'] == 1) {
 		    	//Seccion de Borrar Boton
 				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
 		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar la finalización de la calibración para la Herramienta:  ".$row['p_nombre']." ?')".'"'.">";
@@ -92,6 +93,28 @@
 				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
 		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar calibración para la Herramienta:  ".$row['p_nombre']." ?')".'"'.">";
 		           $resultado.=" ". botonCalibracion();
+		           $resultado.="</a>";
+		    	} else if ($row['tp_nombre'] == "Periferico") {
+		    	//Seccion de Borrar Boton
+		    	// Mandar descompuesto luego proximamente
+				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
+		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar una revision para el periferico:  ".$row['p_nombre']." ?')".'"'.">";
+		           $resultado.=" ". botonCalibracion();
+		           $resultado.="</a>";
+		    	} else if ($row['tp_nombre'] == "Vehiculo") {
+		    	//Seccion de Borrar Boton
+		    	// Mandar descompuesto luego proximamente
+				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
+		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar una servicio de mantenimiento para el vehiculo:  ".$row['p_nombre']." ?')".'"'.">";
+		           $resultado.=" ". botonCalibracion();
+		           $resultado.="</a>";
+		    	} 
+
+		    	else if ($row['tp_nombre'] == "Vehiculo" && $row['p_Estatus'] == 1) {
+		    	//Seccion de Borrar Boton
+				   $resultado.='<a href="controlador_calibracion_herramienta.php?id='.$row['p_id'].'&estatus='.$row['p_Estatus'].'"';
+		           $resultado.="onclick=".'"'."return confirm('¿Quieres registar la finalización del servicio del vehiculo:  ".$row['p_nombre']." ?')".'"'.">";
+		           $resultado.=" ". botonEntradaCalibracion();
 		           $resultado.="</a>";
 		    	} 
        		}
@@ -240,13 +263,13 @@
 	//Paso1: Preparar consulta
 	//Paso2 Union de parametros
 	//Paso3 Ejecutar la consulta
-	function insertar_producto($nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo,$id_estatus){
-		//Primero conectarse a la base de datos
+	function insertar_producto($nombre, $cantidad, $modelo, $precio, $id_marca, $id_almacen, $id_tipo,$id_estatus){
+		//Primero conectarse a la base de datos 
 		$conexion_bd = conectar_bd();
 		//var_dump($nombre);
 
 		//Prepaprar la consulta
-		$dml = 'INSERT INTO producto (nombre, cantidad, precio, id_marca, id_almacen, id_tipo, Id_Estatus) VALUES (?,?,?,?,?,?,?) ';
+		$dml = 'INSERT INTO producto (nombre, cantidad, modelo, precio, id_marca, id_almacen, id_tipo, Id_Estatus) VALUES (?,?,?,?,?,?,?,?) ';
 		if ( !($statement = $conexion_bd->prepare($dml)) ){
 			die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
 			return 0;
@@ -254,7 +277,7 @@
 
 		// Unir los parametros de la funcion con los parametros de la consulta
 		// El primer argumento de bind_param es el formato de cada parametro
-		if (!$statement->bind_param("sssssss", $nombre, $cantidad, $precio, $id_marca, $id_almacen, $id_tipo,$id_estatus)) {
+		if (!$statement->bind_param("ssssssss", $nombre, $cantidad, $modelo, $precio, $id_marca, $id_almacen, $id_tipo,$id_estatus)) {
 			die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
 			return 0;
 			}
