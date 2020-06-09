@@ -45,15 +45,28 @@
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
 		    //Seccion de Entrada de Material
-           $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
-           $resultado.="".'"'.">";
-           $resultado.=" ". botonSalidas();
-           $resultado.="</a>";  
+		    if ($row['e_nombre'] != "Terminado"){
+	           $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
+	           $resultado.="".'"'.">";
+	           $resultado.=" ". botonSalidas();
+	           $resultado.="</a>";  
 
-           $resultado.= '<a href="retornoHerramientas.php?id='.$row['p_idProyecto'].'"';
-           $resultado.="".'"'.">";
-           $resultado.=" ". botonRetornos();
-           $resultado.="</a>";  
+	           $resultado.= '<a href="retornoHerramientas.php?id='.$row['p_idProyecto'].'"';
+           	   $resultado.="".'"'.">";
+               $resultado.=" ". botonRetornos();
+               $resultado.="</a>";  
+       		} else{
+       		   $resultado.= '<a';
+	           $resultado.="".'"'.">";
+	           $resultado.=" ". botonDesSalidas();
+	           $resultado.="</a>";  
+
+	           $resultado.= '<a';
+           	   $resultado.="".'"'.">";
+               $resultado.=" ". botonDesRetornos();
+               $resultado.="</a>"; 
+       		}
+
 		   
 		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
@@ -237,6 +250,24 @@
   </button>';
     return $resultado;
   }
+
+
+  	function botonDesSalidas(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Salida de Producto" disabled>
+    <i class="material-icons right">exit_to_app</i>
+  </button>';
+    return $resultado;
+  }
+
+  function botonDesRetornos(){
+    $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="editar" title="Retorno de Herramientas" disabled>
+    <i class="material-icons right">assignment_return</i>
+  </button>';
+    return $resultado;
+  }
+
+
+
 
   function editar_proyecto_estatus($id, $id_estatus){
 		//Primero conectarse a la base de datos
