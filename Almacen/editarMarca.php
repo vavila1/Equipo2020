@@ -7,10 +7,10 @@
     $marca_id = htmlspecialchars($_GET["id"]);
     $nombre_marca = htmlspecialchars($_GET["nombre"]);
 
-
+if ($_SESSION["EditarMarcas"]) {
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_editarTipoMarca.html");
     include("partials/_footer.html");
-
+}
 ?>

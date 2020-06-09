@@ -7,10 +7,10 @@
     $id_empleado = htmlspecialchars($_GET["id"]);
     $contra = htmlspecialchars($_GET["ps"]);
 
-
+if ($_SESSION["ContraseñaUsuario"]) {
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_editarContra.html");
     include("partials/_footer.html");
-
+}
 ?>

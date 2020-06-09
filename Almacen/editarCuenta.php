@@ -12,11 +12,11 @@
     $idAlmacen = htmlspecialchars($_GET["almacen"]);
     $idEmpleado = htmlspecialchars($_GET["idEmp"]);
     $idCuenta = htmlspecialchars($_GET["idCuenta"]);
-
+if ($_SESSION["EditarUsuario"]) {
 
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_editarCuenta.html");
     include("partials/_footer.html");
-
+}
 ?>

@@ -4,9 +4,10 @@
 
     //Traemos libreria de model
     require_once("model_empleado.php");
+ if ($_SESSION["AgregarUsuario"]) {
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_form_Empleado.html");
     include("partials/_footer.html");
-
+}
 ?>

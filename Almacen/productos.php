@@ -12,7 +12,7 @@
     $bd = conectar_bd();
     desconectar_bd($bd); */
 
-    if ($_SESSION["Ver"]) {
+    if ($_SESSION["VerInventario"]) {
         include("partials/_header.html");
         include("partials/_nav.html");
         include("partials/_focus_productos.html");

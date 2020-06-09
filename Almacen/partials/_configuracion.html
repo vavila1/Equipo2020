@@ -4,7 +4,7 @@
 			<div class="center col s12"><h1>Configuración</h1></div>
 			<div class="container">
 				<br>
-
+<?php if ($_SESSION["VerAlmacen"]) { ?>
     <div class="col s4 m4">
       <div class="card">
         <div class="card-image">
@@ -16,7 +16,9 @@
         </div>
       </div>
     </div>
+<?php } ?>
 
+<?php if ($_SESSION["VerMarcas"]) { ?>
     <div class="col s4 m4">
       <div class="card">
         <div class="card-image">
@@ -28,7 +30,9 @@
         </div>
       </div>
     </div>
+<?php } ?>
 
+<?php if ($_SESSION["VerUsuario"]) { ?>
     <div class="col s4 m4">
       <div class="card">
         <div class="card-image">
@@ -40,7 +44,9 @@
         </div>
       </div>
     </div>
+<?php } ?>
 
+<?php if ($_SESSION["VerTP"]) { ?>
     <div class="col s4 m4">
       <div class="card">
         <div class="card-image">
@@ -52,7 +58,9 @@
         </div>
       </div>
     </div>
+<?php } ?>
 
+<?php if ($_SESSION["VerEP"]) { ?>
     <div class="col s4 m4">
       <div class="card">
         <div class="card-image">
@@ -64,6 +72,8 @@
         </div>
       </div>
     </div>
+<?php } ?>
+
 			</div>	
 		</div>
 		

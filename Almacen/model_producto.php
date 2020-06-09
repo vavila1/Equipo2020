@@ -75,7 +75,7 @@
 		    $resultado .= "<td>".obtenerHistorial($row['p_id'])."</td>";
 		    $resultado .= "<td>";
 
-		    if ($_SESSION["Registar"]) {
+		    if ($_SESSION["RecibirProducto"] && $_SESSION["CalibrarProducto"]) {
 		    	if ($row['tp_nombre'] == "Consumible") {
 		    		//Seccion de Entrada de Material
 		           $resultado.='<a href="agregar_entrada.php?id='.$row['p_id'].'&producto='.$row['p_nombre'].'"';
@@ -119,7 +119,7 @@
 		    	} 
        		}
 		    
-		    if ($_SESSION["Editar"]) {
+		    if ($_SESSION["EditarProducto"]) {
 		    //Seccion de Editar Boton
 		   $resultado.='<a href="editarProducto.php?id='.$row['p_id'].'&nombre='.$row['p_nombre'].'&tipo='.$row['tp_id'].'&marca='.$row['m_id'].'&precio='.$row['p_precio'].'&estatus='.$row['p_Estatus'].'"';
            $resultado.="".'"'.">";
@@ -133,7 +133,7 @@
            $resultado.=" ". botonBarra();
            $resultado.="</a>";
 
-           if ($_SESSION["Eliminar"]) {
+           if ($_SESSION["EliminarProducto"]) {
            	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_producto.php?id='.$row['p_id'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el producto:  ".$row['p_nombre']." ?')".'"'.">";
