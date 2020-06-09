@@ -80,6 +80,144 @@ return $resultado3;
        if($row['per'] == 'Consultar'){
            $_SESSION['Consultar'] = 1;
        }
+       if($row['per'] == 'VerInicio'){
+               $_SESSION['VerInicio'] = 1;
+       }
+       if($row['per'] == 'VerReporte'){
+           $_SESSION['VerReporte'] = 1;
+       }
+       if($row['per'] == 'ConsultarReporte'){
+           $_SESSION['ConsultarReporte'] = 1;
+       }
+       if($row['per'] == 'DescargarReporte'){
+           $_SESSION['DescargarReporte'] = 1;
+       }
+       if($row['per'] == 'VerProyecto'){
+           $_SESSION['VerProyecto'] = 1;
+       }
+       if($row['per'] == 'ConsultarProyecto'){
+               $_SESSION['ConsultarProyecto'] = 1;
+       }
+       if($row['per'] == 'AgregarProyecto'){
+           $_SESSION['AgregarProyecto'] = 1;
+       }
+       if($row['per'] == 'SalidaProyecto'){
+           $_SESSION['SalidaProyecto'] = 1;
+       }
+       if($row['per'] == 'EntradaProyecto'){
+           $_SESSION['EntradaProyecto'] = 1;
+       }
+       if($row['per'] == 'EditarProyecto'){
+           $_SESSION['EditarProyecto'] = 1;
+       }
+       if($row['per'] == 'EliminarProyecto'){
+               $_SESSION['EliminarProyecto'] = 1;
+       }
+       if($row['per'] == 'VerInventario'){
+           $_SESSION['VerInventario'] = 1;
+       }
+       if($row['per'] == 'ConsultarInventario'){
+           $_SESSION['ConsultarInventario'] = 1;
+       }
+       if($row['per'] == 'AgregarInventario'){
+           $_SESSION['AgregarInventario'] = 1;
+       }
+       if($row['per'] == 'CalibrarProducto'){
+           $_SESSION['CalibrarProducto'] = 1;
+       }
+       if($row['per'] == 'RecibirProducto'){
+               $_SESSION['RecibirProducto'] = 1;
+       }
+       if($row['per'] == 'EditarProducto'){
+           $_SESSION['EditarProducto'] = 1;
+       }
+       if($row['per'] == 'ImprimirCB'){
+           $_SESSION['ImprimirCB'] = 1;
+       }
+       if($row['per'] == 'EliminarProducto'){
+           $_SESSION['EliminarProducto'] = 1;
+       }
+       if($row['per'] == 'VerAlmacen'){
+           $_SESSION['VerAlmacen'] = 1;
+       }
+       if($row['per'] == 'ConsultarAlmacen'){
+               $_SESSION['ConsultarAlmacen'] = 1;
+       }
+       if($row['per'] == 'AgregarAlmacen'){
+           $_SESSION['AgregarAlmacen'] = 1;
+       }
+       if($row['per'] == 'EditarAlmacen'){
+           $_SESSION['EditarAlmacen'] = 1;
+       }
+       if($row['per'] == 'EliminarAlmacen'){
+           $_SESSION['EliminarAlmacen'] = 1;
+       }
+       if($row['per'] == 'VerMarcas'){
+           $_SESSION['VerMarcas'] = 1;
+       }
+       if($row['per'] == 'ConsultarMarcas'){
+               $_SESSION['ConsultarMarcas'] = 1;
+       }
+       if($row['per'] == 'AgregarMarcas'){
+           $_SESSION['AgregarMarcas'] = 1;
+       }
+       if($row['per'] == 'EditarMarcas'){
+           $_SESSION['EditarMarcas'] = 1;
+       }
+       if($row['per'] == 'EliminarMarcas'){
+           $_SESSION['EliminarMarcas'] = 1;
+       }
+       if($row['per'] == 'VerTP'){
+           $_SESSION['VerTP'] = 1;
+       }
+       if($row['per'] == 'ConsultarTP'){
+               $_SESSION['ConsultarTP'] = 1;
+       }
+       if($row['per'] == 'AgregarTP'){
+           $_SESSION['AgregarTP'] = 1;
+       }
+       if($row['per'] == 'EditarTP'){
+           $_SESSION['EditarTP'] = 1;
+       }
+       if($row['per'] == 'EliminarTP'){
+           $_SESSION['EliminarTP'] = 1;
+       }
+       if($row['per'] == 'VerEP'){
+           $_SESSION['VerEP'] = 1;
+       }
+       if($row['per'] == 'ConsultarEP'){
+               $_SESSION['ConsultarEP'] = 1;
+       }
+       if($row['per'] == 'AgregarEP'){
+           $_SESSION['AgregarEP'] = 1;
+       }
+       if($row['per'] == 'EditarEP'){
+           $_SESSION['EditarEP'] = 1;
+       }
+       if($row['per'] == 'EliminarEP'){
+           $_SESSION['EliminarEP'] = 1;
+       }
+       if($row['per'] == 'VerUsuario'){
+           $_SESSION['VerUsuario'] = 1;
+       }
+       if($row['per'] == 'ConsultarUsuario'){
+               $_SESSION['ConsultarUsuario'] = 1;
+       }
+       if($row['per'] == 'AgregarUsuario'){
+           $_SESSION['AgregarUsuario'] = 1;
+       }
+       if($row['per'] == 'EditarUsuario'){
+           $_SESSION['EditarUsuario'] = 1;
+       }
+       if($row['per'] == 'EliminarUsuario'){
+           $_SESSION['EliminarUsuario'] = 1;
+       }
+       if($row['per'] == 'ContraseñaUsuario'){
+           $_SESSION['ContraseñaUsuario'] = 1;
+       }
+       if($row['per'] == 'TerminarProyecto'){
+           $_SESSION['TerminarProyecto'] = 1;
+       }
        $_SESSION['usuario'] = $row['nom'];
        $_SESSION['almacen'] = $row['alm'];
        $_SESSION["IDempleado"] = $row['e_id'];
