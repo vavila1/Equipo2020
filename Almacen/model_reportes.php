@@ -126,7 +126,7 @@
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
 			$resultado .= "<tr>";
-		    $resultado .= "<td>".$row['total']."</td>";
+		    $resultado .= "<td><span style='font-weight:bold'>$ ".$row['total']." MXM</span></td>";
 		  
 		}
 

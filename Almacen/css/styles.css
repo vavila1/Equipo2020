@@ -123,6 +123,13 @@ body {
     margin-left: .2em;
 }
 
+.logoSidePDF{
+    height: 70px;
+    width: 130px;
+    margin-left: 1em;
+    margin-top: 2em;
+}
+
 .sidenav{
     width: 11em;
 }
