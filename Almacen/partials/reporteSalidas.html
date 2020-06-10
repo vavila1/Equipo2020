@@ -1,0 +1,16 @@
+<?php
+    echo "<section><div class=\"container\"<div class=\"row\">";
+    echo "<div class=\" col s12\"> <img class=\"logoSidePDF\" src=\"img/logo/logo.png\"> INGIENERÍA Y PROYECTOS CIASA S.A DE C.V </div> <br><br>";
+
+    echo "Almacen: ";
+    echo obtener_almacen($id_proyecto);
+    echo "<br>Reporte: ";
+    echo obtener_reporte($id_proyecto);
+                          
+    echo "<div class=\"col s12\"><h6 class=\"center\">Aviso de Retiro de Material</h6>";
+
+	    echo salidaMaterial($id_proyecto);
+
+	echo "</div></div></div></section>";
+
+?>

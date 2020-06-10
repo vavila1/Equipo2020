@@ -14,21 +14,6 @@
 		return $conexion_bd;
 	}
 
-/*BEGIN 
-	SELECT
-    E.nombre AS E_nombre,
-    H.fecha AS H_fecha
-FROM
-    estatus_producto AS E,
-    producto AS P,
-    e_p AS H
-WHERE
-    E.id = H.Id_Estado_producto AND P.id = H.Id_Producto AND H.Id_Producto = id
-ORDER BY
-    H.fecha
-DESC
-LIMIT 3;
-END*/
 
 	//Cerrar conexion de Base de Datos
 	//@param $conexion: Conexion que se cerrara
@@ -46,7 +31,7 @@ END*/
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Marca</th><th>Tipo de Producto</th><th>Unidades</th><th>Estatus</th><th>Cantidad</th><th>Agregar a proyecto</th></tr></thead>";
 
 
-		   $consulta = 'SELECT t.nombre as t_nombre, p.cantidad as p_cantidad, p.id as p_id,  ep.nombre AS ep_nombre ,p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad FROM producto AS p, marca AS m, tipo_producto AS t, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND ep.id = p.Id_Estatus AND p.Id_Almacen = almacen.id AND p.Id_Estatus = 6 AND p.Id_Almacen = '.$almacen.'';
+		   $consulta = 'SELECT t.nombre as t_nombre, p.cantidad as p_cantidad, p.id as p_id,  ep.nombre AS ep_nombre ,p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, t.nombre AS tp_nombre, p.cantidad AS p_cantidad FROM producto AS p, marca AS m, tipo_producto AS t, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND ep.id = p.Id_Estatus AND p.Id_Almacen = almacen.id AND p.Id_Estatus = 6 AND p.id_tipo != 6 AND p.id_tipo != 4 AND p.Id_Almacen = '.$almacen.'';
 		
 
 

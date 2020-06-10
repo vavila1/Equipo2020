@@ -28,13 +28,12 @@
 
 		$consulta = 'SELECT e.id as e_id, e.nombre as e_nombre FROM estatus_producto as e';
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Acciones</th></tr></thead><tbody>";
 		
 		$resultados = $conexion_bd->query($consulta);  
 
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			$resultado .= "<tr>";
-		    $resultado .= "<td>".$row['e_id']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
 

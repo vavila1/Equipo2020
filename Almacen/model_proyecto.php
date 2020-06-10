@@ -89,10 +89,11 @@
 		   		$resultado.='<a href="controlador_terminar_proyecto.php?id='.$row['p_idProyecto'].'"';
            		$resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas marcar como terminado el proyecto: R.".$row['p_idProyecto']." ?')".'"'.">";
           		$resultado.="<button class = 'btn waves-effect waves-light btn-small' title = 'terminar proyecto'>Terminar</button>";
-          		$resultado.="</a>";
+          		$resultado.="</a><br>";
 		   }
 		   
            $resultado .= "</td>";
+
 
            $resultado .= "</tr>";
 		}

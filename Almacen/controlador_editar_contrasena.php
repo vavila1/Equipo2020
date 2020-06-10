@@ -20,9 +20,6 @@
       
         }
 
-        
-    
-
     header("location:cuentas.php");
 
 ?>

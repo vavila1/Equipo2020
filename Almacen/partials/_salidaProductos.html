@@ -9,9 +9,12 @@
 	   				<?php
 	   					$almacen = $_SESSION["almacen"];
 	   					echo consultar_productos($almacen);
-
+	   					$_SESSION["id"] = $_GET["id"];
 	   				?>
-	   				
+	   				<br>
+	   				</div>
+						<a href="pdfSalidaMaterial.php "> <button class="btn waves-effect waves-light"> Descargar Confirmación </button></a>
+					</div>
 	   			</div>
 	   		</div>
 	   	</div>
