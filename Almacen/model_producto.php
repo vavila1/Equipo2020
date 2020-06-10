@@ -807,20 +807,11 @@ function botonBorrar(){
   }
   
   function registrarEntrada($id,$cantidad){
-  	$conexion_bd=conectar_bd();
-  	$consulta = 'Select P.cantidad as P_cantidad From producto as P Where P.id='.$id;
-  	$resultados = mysqli_query($conexion_bd, $consulta);
-  	if(mysqli_num_rows($resultados)>0){
-    while($row = mysqli_fetch_assoc($resultados)){
-    	$resultado = $row['P_cantidad'];
-    }
-  }
-  mysqli_free_result($resultados);
-  $resultado = $resultado+$cantidad;
-  $consulta='Update producto Set cantidad=(?), Id_Estatus = 6 Where id=(?)';
+  $conexion_bd = conectar_bd();
+  $consulta='call registrarEntradaConsumibles(?,?);';
   if ( !($statement = $conexion_bd->prepare($consulta)) ) {
     }
-    if (!$statement->bind_param("ii", $resultado,$id)) {
+    if (!$statement->bind_param("ii", $id,$cantidad)) {
     }
     if (!$statement->execute()) {
 
