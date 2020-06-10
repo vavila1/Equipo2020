@@ -264,8 +264,11 @@ body {
 }
 
 .datepicker-date-display { background-color: #023A68; } 
-.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
+.datepicker-cancel {
  color:#023A68;
+}
+.datepicker-done{
+  color:#76CB8A;
 }
 
 .datepicker-table td.is-today {
