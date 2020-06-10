@@ -10,7 +10,9 @@
         $nueva = htmlspecialchars($_POST["nueva"]);
         $id_empleado = htmlspecialchars($_POST["id"]);
 
-         if (editar_contra($nueva,$id_empleado)){
+        $contra = encriptarPassword($nueva);
+
+         if (editar_contra($contra,$id_empleado)){
               $_SESSION["mensaje"] = "Se cambió la contraseña";
           }  else {
             $_SESSION["warning"] = "Ocurrio un error al hacer el cambio";
