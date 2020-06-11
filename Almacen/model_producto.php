@@ -806,12 +806,12 @@ function botonBorrar(){
     return $resultado;
   }
   
-  function registrarEntrada($id,$cantidad){
+  function registrarEntrada($id,$cantidad,$idempleado){
   $conexion_bd = conectar_bd();
-  $consulta='call registrarEntradaConsumibles(?,?);';
+  $consulta='call registrarEntradaConsumibles(?,?,?);';
   if ( !($statement = $conexion_bd->prepare($consulta)) ) {
     }
-    if (!$statement->bind_param("ii", $id,$cantidad)) {
+    if (!$statement->bind_param("iii", $id,$cantidad,$idempleado)) {
     }
     if (!$statement->execute()) {
 
