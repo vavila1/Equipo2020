@@ -52,7 +52,7 @@
            $resultado.="</a>"." ";
            }
            	 if ($_SESSION["ContraseñaUsuario"]) {
-       $resultado.='<a href="editarContrasena.php?id='.$row['e_id'].'&ps='.$row['c_pswrd'].'"class="btn waves-effect waves-light btn-small" id="editar">';
+       $resultado.='<a href="editarContrasena.php?id='.$row['e_id'].'&ps='.$row['c_pswrd'].'&name='.$row['e_nombre'].'"class="btn waves-effect waves-light btn-small" id="editar">';
        $resultado.='<i class="material-icons right">lock</i>';
         $resultado.="</a>"." ";
     }

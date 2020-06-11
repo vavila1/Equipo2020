@@ -4,18 +4,18 @@
         <div class="row">
           <div class="col s11">
             <div class="container">
-              <h2>Editar Empleado</h2>
+              <h2>Editar Empleado <?=$nombre?></h2>
                <div class="row">
                  <form method="POST" action="controlador_editar_cuenta.php" class="col s12">
                     <div class="input-field col s6">
                       <!--Descripcion del producto o Nombre -->
-                        <input id="descripcion" type="text" name="idempleado" value="<?=$idEmpleado?>" readonly>
-                        <label for="nombre">Id Empleado</label>
+                        <input id="descripcion" type="text" name="idempleado" value="<?=$idEmpleado?>" readonly hidden>
+               
                       </div>
                       <div class="input-field col s6">
                       <!--Descripcion del producto o Nombre -->
-                        <input id="descripcion" type="text" name="idcuenta" value="<?=$idCuenta?>" readonly>
-                        <label for="nombre">Id Cuenta</label>
+                        <input id="descripcion" type="text" name="idcuenta" value="<?=$idCuenta?>" readonly hidden>
+                     
                       </div>
                     <div class="input-field col s12">
                       <!--Descripcion del producto o Nombre -->
@@ -32,16 +32,7 @@
                         <input id="descripcion" type="text" name="usuario" value="<?=$usuario?>">
                         <label for="usuario">Usuario</label>
                       </div>
-                     <!-- <div  class="input-field col s12">
-                        <?= crear_select_editar('Id_Puesto', 'Nombre', 'puesto', $idPuesto);?>
-                      </div>
-                      <div  class="input-field col s12">
-                        <?= crear_select_editar('id', 'nombre', 'almacen', $idAlmacen);?>
-                      </div>
-                      <div  class="input-field col s12">
-                         <?= crear_select_editar('Id_Rol', 'Nombre', 'rol', $idRol);?>
-                      </div>
-                    -->
+                     
                         <button class="btn waves-effect waves-light" type="submit">Guardar<i class="material-icons right">send</i></button>
                 
                   </form>

@@ -5,17 +5,17 @@
           <div class="col s1"></div>
           <div class="col s11">
             <div class="container">
-              <h2>Cambiar Contraseña</h2>
+              <h2>Cambiar Contraseña <?=$_GET["name"];?></h2>
                <div class="row">
                 <form class="col s12" action="controlador_editar_contrasena.php" method="POST">
                   <div class="row">
                     <div class="input-field col s12">
-                      <input type="text" name="id" value="<?=$id_empleado?>" readonly>
-                        <label for="id">Id Empleado</label>
+                      <input type="text" name="id" value="<?=$id_empleado?>" readonly hidden>
+                     
                       </div>
                       <div class="input-field col s12">
-                      <input type="text" name="actual" value="<?=$contra?>" readonly>
-                        <label for="actual">Contraseña actual</label>
+                      <input type="text" name="actual" value="<?=$contra?>" readonly hidden>
+                       
                       </div>
                   </div>
                   <div class="row">
