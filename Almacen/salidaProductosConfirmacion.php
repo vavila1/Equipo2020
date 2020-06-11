@@ -10,10 +10,10 @@
 
     //Probamos conexicon con la funcion creada en model.php conectar_bd()
     //var_dump(conectar_bd());
-
+if ($_SESSION["SalidaProyecto"]) {
     registrarSalidaHerramientas($cantidad, $cantidad_actual,  $tipo);
 
-if ($_SESSION["SalidaProyecto"]) {
+
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_salidaProductos.html");

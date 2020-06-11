@@ -12,5 +12,7 @@ if ($_SESSION["VerEP"]) {
     include("partials/_nav.html");
     include("partials/_estadoProducto.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

@@ -12,5 +12,7 @@ if ($_SESSION["EditarProyecto"]) {
     include("partials/_nav.html");
     include("partials/_editarProyecto.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

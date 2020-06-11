@@ -3,7 +3,7 @@
     session_start();
     require_once("model_reportes.php");
 
-if ($_SESSION["ConsultarReporte"]) {
+if ($_SESSION["SalidaProyecto"]) {
     $id_proyecto = $_SESSION["id"];
     include("partials/_header.html");
     include("partials/reporteSalidas.html");
