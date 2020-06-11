@@ -7,5 +7,7 @@ if ($_SESSION["AgregarAlmacen"]) {
     include("partials/_nav.html");
     include("partials/_agregarAlmacen.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

@@ -38,7 +38,7 @@
 		    $resultado .= "<td>";
 
 
-		   if ($_SESSION["Editar"]) {
+		   if ($_SESSION["EditarEP"]) {
 		    //Seccion de Editar Boton
 		   $resultado.='<a href="editarEstadoProducto.php?id='.$row['e_id'].'&nombre='.$row['e_nombre'].'"class="btn waves-effect waves-light btn-small" id="editar">';
 		$resultado.='<i class="material-icons right">edit</i>';
@@ -46,7 +46,7 @@
            }
 
 
-		     if ($_SESSION["Eliminar"]) {
+		     if ($_SESSION["EliminarEP"]) {
            	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_estadoProducto.php?id='.$row['e_id'].'" class="btn waves-effect waves-light btn-small" id="borrar"';
 		   $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el estado de producto:  ".$row['e_nombre']." ?')".'"'.">";

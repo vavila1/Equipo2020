@@ -13,11 +13,13 @@
 
     registrarSalidaHerramientas($cantidad, $cantidad_actual,  $tipo);
 
-
+if ($_SESSION["SalidaProyecto"]) {
     include("partials/_header.html");
     include("partials/_nav.html");
     include("partials/_salidaProductos.html");
-
     include("partials/_footer.html");
+} else {
+    header("location:logout.php");
+}
 
 ?>

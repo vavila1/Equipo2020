@@ -15,4 +15,5 @@ $dompdf->setPaper("A4", "portrait");
 $dompdf->render();
 // Ponemos el PDF en el browser
 $dompdf->stream();
+
 ?>

@@ -11,5 +11,7 @@ if ($_SESSION["AgregarAlmacen"]) {
     include("partials/_formregistrarAlmacen.html");
     include("partials/_almacenes2.html");
     include("partials/_footer.html");
+}else{
+	header("location:logout.php");
 }
 ?>

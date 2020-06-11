@@ -12,5 +12,7 @@ if ($_SESSION["EditarEP"]) {
     include("partials/_nav.html");
     include("partials/_editarEstadoProducto.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

@@ -18,5 +18,7 @@ if ($_SESSION["EditarUsuario"]) {
     include("partials/_nav.html");
     include("partials/_editarCuenta.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

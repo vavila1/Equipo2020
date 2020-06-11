@@ -12,5 +12,7 @@ if ($_SESSION["VerTP"]) {
     include("partials/_nav.html");
     include("partials/_tipoProductos.html");
     include("partials/_footer.html");
+} else{
+    header("location:logout.php");
 }
 ?>

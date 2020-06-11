@@ -49,19 +49,20 @@
 		    $cantidad_actual = $row['p_cantidad'];
 		    $tipo = $row['t_nombre'];
 
+		    if ($_SESSION["SalidaProyecto"]) {
 		    $resultado .= '<form action = "salidaProductosConfirmacion.php?id='.$proyecto.'&idProducto='.$row['p_id'].'&cantidadActual='. $cantidad_actual.'&tipo='.$tipo.'" method = "POST">';
 		    $resultado .= "<td> <input class= 'col s4' name = 'cantidad' type = 'text'></td>";
 		    
 		    $resultado .= "<td>";
 
 		
-
+		    
 		    //$resultado.= '<a href="salidaProductosConfirmacion.php?id='.$proyecto.'&idProduto='.$row['p_id'].'">';
             $resultado.=" ". botonSalidas();
            // $resultado.="</a>";
             $resultado .= "</form>";
 		    $resultado .= "</td>";
-
+		    }
    			
 		
 

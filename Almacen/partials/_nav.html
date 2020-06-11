@@ -5,9 +5,17 @@
    		 <div class="nav-wrapper dark-head">
    		 	<div class="mobile-button"><a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a></div>
       <ul class="right hide-on-med-and-down">
+        <?php if ($_SESSION["VerReporte"]) { ?>
         <li><a href="reportes.php"><i title="Modulo de Reportes" class="material-icons">view_module</i></a></li>
+        <?php } ?>
+        <?php if ($_SESSION["VerMarcas"]) { ?>
         <li><a href="configuracion.php"id="config"><i title="configuración" class="material-icons">settings</i></a></li>
+        <?php } ?>
+        <?php if ($_SESSION["VerInicio"]) { ?>
         <li><a href="logout.php"><i title="Cerrar Sesión" class="material-icons material-close">exit_to_app</i></a></li>
+        <?php } else{
+          header("location:logout.php");
+      }?>
       </ul>
     </div>
   </nav>
@@ -18,20 +26,20 @@
 	    	<div class="sidenav sidenav-fixed dark-blue">	
 		      <ul>
 		      	<a href="index.php" title="Pagina de Inicio"><li class="logo"><img  id="sides" class="logoSideNav" src="img/logo/logo.png"></li></a>
-		      	<li> 
-    				<div class="nav-wrapper">
-     					 <form>
-       						 <div class="input-field">
-          						 <input id="search" type="search" required>
-         					 	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-         					 	<i class="material-icons">close</i>
-       						 </div>
-     					 </form>
-   					 </div>
-  				</li>
+		      	<br><br>
+          <?php if ($_SESSION["VerReporte"]) { ?>
 		        <li class="bold"><a href="reportes.php"id="reportes">Reportes</a></li>
+            <?php } ?>
+
+          <?php if ($_SESSION["VerProyecto"]) { ?>
 		        <li class="bold"><a href="proyectos.php" id="proyectos">Proyectos</a></li>
+            <?php } ?>
+
+
+          <?php if ($_SESSION["VerInventario"]) { ?>
 		        <li class="bold"><a href="productos.php"id="productos">Inventario</a></li>
+            <?php } ?>
+
 		      </ul>
 	    	</div>
 	    	</div>
@@ -41,22 +49,21 @@
 
   <ul class="sidenav dark-blue" id="mobile-demo">
 		      	<li class="logo"><img id="sides" class="logoSideNav" src="img/logo/logo.png"></li>
-		      	<li> 
-    				<div class="nav-wrapper">
-     					 <form>
-       						 <div class="input-field">
-          						 <input id="search" type="search" required>
-         					 	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-         					 	<i class="material-icons">close</i>
-       						 </div>
-     					 </form>
-   					 </div>
-  				</li>
+		      	
+          <?php if ($_SESSION["VerInicio"]) { ?>
 		      	<li class="bold"><a href="index.php">Inicio</a></li>
+            <?php } ?>
+          <?php if ($_SESSION["VerReporte"]) { ?>
 		        <li class="bold"><a href="reportes.php">Reportes</a></li>
+            <?php } ?>
+            <?php if ($_SESSION["VerProyecto"]) { ?>
 		        <li class="bold"><a href="proyectos.php">Proyectos</a></li>
+            <?php } ?>
+            <?php if ($_SESSION["VerInventario"]) { ?>
 		        <li class="bold"><a href="productos.php">Inventario</a></li>
+            <?php } ?>
 		        <li class="bold">
+              <?php if ($_SESSION["VerMarcas"]) { ?>
 		        	<ul class="collapsible collapsible-accordion">
 		        		<li class="bold">
 		        			<a class="collapsible-header waves-effect waves-teal" tabindex="0">Configuración </a>
@@ -81,7 +88,7 @@
 		        					<li class="bold">
 		        						<a href="logout.php"> Cerrar Sesión </a>
 		        					</li>
-		        				</ul>	        				
+		        				</ul>	<?php } ?>      				
 		        			</div>
 		        		</li>
 		        	</ul>

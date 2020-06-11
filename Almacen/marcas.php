@@ -13,5 +13,8 @@ if ($_SESSION["VerMarcas"]) {
     include("partials/_nav.html");
     include("partials/_marcas.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
+
 ?>
