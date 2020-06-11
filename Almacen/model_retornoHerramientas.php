@@ -80,7 +80,7 @@
 
   function registrarRetornoHerramientas(){
 
- 
+  		$proyecto = $_GET["id"];
 
   		$conexion_bd = conectar_bd();
 		// prepara la consulta
@@ -88,7 +88,7 @@
   	    $producto = $_GET["idProducto"];
   		$usuario = $_SESSION["IDempleado"];
 		
-		$dlmInsertarProyecto = 'call registrarRetornoHerramientas(?,?);' ;
+		$dlmInsertarProyecto = 'call registrarRetornoHerramientas(?,?,?);' ;
 
 		if( !($statement = $conexion_bd->prepare($dlmInsertarProyecto))){
 			 die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
@@ -96,7 +96,7 @@
 
      //Unir los parámetros de la función con los parámetros de la consulta   
      //El primer argumento de bind_param es el formato de cada parámetro
-     if (!$statement->bind_param("ii", $producto, $usuario)) {
+     if (!$statement->bind_param("iii", $producto, $usuario,$proyecto)) {
          die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
      }
        
