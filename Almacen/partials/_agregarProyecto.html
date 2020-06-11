@@ -11,7 +11,7 @@
 						      <div class="row">
 						          <div class="input-field col s12">
 						            <textarea id="num" name="num" class="materialize-textarea" data-length="250"></textarea>
-						            <label for="num"># Folio</label>
+						            <label for="num">Número de Reporte</label>
 						          </div>
 						      </div>
 						      <div class="row">
@@ -20,13 +20,20 @@
 						            <label for="nombreProyecto">Nombre</label>
 						          </div>
 						      </div>
-						      <!--<div class="row">
+						       <div class="row">
 						          <div class="input-field col s12">
-						            <?= consultar_select_proyectos("Id_EstatusProyecto", "nombre", "estatusproyecto");?>
-						            
+						            Fecha Inicio: <input id="fecha" name="fecha" type="text" class="datepicker">
 						          </div>
-						      </div>-->
+						      </div>
 
+						       <div class="row">
+						          <div class="input-field col s12">
+						            <?= consultar_supervisor("Id_Empleado", "Nombre", "empleado");?>
+						          </div>
+						      </div>
+
+						      
+						     
 						      <div class="row">
 						      	  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
 			   						 <i class="material-icons right">send</i>

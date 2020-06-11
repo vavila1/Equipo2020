@@ -852,6 +852,9 @@ function botonBorrar(){
  
 	}
 
-
+function busquedaEscritas($descripcion,$nomform){
+    $resultado = '<div class="input-field col s3"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for="">Producto</label></div>';
+    return $resultado;
+  }
 
 ?>

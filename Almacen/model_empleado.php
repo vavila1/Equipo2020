@@ -432,4 +432,10 @@
 			  return 1;
  
 	}
+
+
+	function busquedaEscrita($descripcion,$nomform){
+    $resultado = '<div class="input-field col s3"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for="">Usuario</label></div>';
+    return $resultado;
+  }
 ?>

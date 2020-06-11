@@ -352,6 +352,30 @@ function consultar_editar_select($id, $columna_descripcion, $tabla, $seleccion){
 	    return $resultado;
   }
 
+function busquedaEscrita($descripcion,$nomform){
+    $resultado = '<div class="input-field col s3"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for=""> Proyecto</label></div>';
+    return $resultado;
+  }
 
+function consultar_supervisor($id, $columna_descripcion, $tabla){
+		//Primero conectarse a la bd
+		$conexion_bd = conectar_bd();
+
+		$resultado = '<select name ="'.$tabla.'" id ="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
+
+      	$consulta = "SELECT $id, $columna_descripcion FROM $tabla WHERE Id_Puesto = 2" ;
+      	$resultados = $conexion_bd->query($consulta);
+      	while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+			$resultado .= '<option value="'.$row["$id"].'">'.$row["$columna_descripcion"].'</option>';
+		}
+      
+      	// desconectarse al termino de la consulta
+		desconectar_bd($conexion_bd);
+
+		$resultado .= '</select><label>'.$tabla.'</label></div>';
+
+		return $resultado;
+
+	}
 
 ?>
