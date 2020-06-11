@@ -360,10 +360,7 @@
 
 
  	function busquedaEscrita($descripcion,$nomform){
-
-
-
-    $resultado = '<br><br><div class="input-field col s3"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for="">'.$descripcion.' del Almacen</label></div>';
+    $resultado = '<br><br><div class="input-field col s3"><input placeholder="Escribir '.$descripcion.'" type="text" class="validate" name="'.$nomform.'"><label for="">Proyecto</label></div>';
     return $resultado;
   }
 

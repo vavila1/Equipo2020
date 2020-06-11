@@ -7,8 +7,7 @@
 
     if($_SESSION["ConsultarInventario"]){
     	echo "<br><div class=\"row\">";
-    	echo "<div class=\"input-field col s3\">";
-	    echo consultar_select("id", "nombre", "marca");
+    	echo busquedaEscritas("id_producto","id_producto");
 	    echo "<div class=\"input-field col s3\">";
 	    echo consultar_select("id", "nombre", "tipo_producto");
 	  //  echo "<div class=\"input-field col s3\">";
