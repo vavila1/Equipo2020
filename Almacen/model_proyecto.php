@@ -28,7 +28,7 @@
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th><th>Terminar proyecto</th></tr></thead>";
 
-		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.Fecha_Inicio as p_fecha, e.Nombre as e_nombre FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
+		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.Fecha_Inicio as p_fecha, e.Nombre as e_nombre, e.Id_EstatusProyecto as e_id FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
 
 		if($estado != ""){
 			$consulta .= " AND e.id_estatusproyecto= ".$estado;
@@ -45,7 +45,6 @@
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
 		    //Seccion de Entrada de Material
-		    if ($_SESSION["SalidaProyecto"] || $_SESSION["EntradaProyecto"]) {
 		    if ($row['e_nombre'] != "Terminado"){
 	           $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
 	           $resultado.="".'"'.">";
@@ -68,17 +67,15 @@
                $resultado.="</a>"; 
        		}
 
-		   }
-
-
-		    if ($_SESSION["EditarProyecto"]) {
+		   
+		    if ($_SESSION["Editar"]) {
 		    //Seccion de Editar Boton
-		   $resultado.='<a href="editarProyecto.php?id='.$row['p_idProyecto'].'&nombreProyecto='.$row['p_nombre'].'">';
+		   $resultado.='<a href="editarProyecto.php?id='.$row['p_idProyecto'].'&nombreProyecto='.$row['p_nombre'].'&estatus='.$row['e_id'].'">';
            $resultado.=" ". botonEditar();
            $resultado.="</a>";
            }
 
-           if ($_SESSION["EliminarProyecto"]) {
+           if ($_SESSION["Eliminar"]) {
            	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_proyecto.php?id='.$row['p_idProyecto'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['p_nombre']." ?')".'"'.">";
@@ -335,6 +332,25 @@
 			  return 1;
  
 	}
+function consultar_editar_select($id, $columna_descripcion, $tabla, $seleccion){
+		$conexion_bd = conectar_bd();  
+      
+	    $resultado = '<div class="input-field"><select name="'.$tabla.'" id="'.$tabla.'"><option value="" disabled selected>Selecciona una opción</option>';
+	            
+	    $consulta = "SELECT $id, $columna_descripcion FROM $tabla";
+	    $resultados = $conexion_bd->query($consulta);
+	    while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+	        $resultado .= '<option value="'.$row["$id"].'" ';
+	        if($seleccion == $row["$id"]) {
+	            $resultado .= 'selected';
+	        }
+	        $resultado .= '>'.$row["$columna_descripcion"].'</option>';
+	    }
+	        
+	    desconectar_bd($conexion_bd);
+	    $resultado .=  '</select><label>'.$tabla.'...</label></div>';
+	    return $resultado;
+  }
 
 
 
