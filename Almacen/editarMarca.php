@@ -12,7 +12,5 @@ if ($_SESSION["EditarMarcas"]) {
     include("partials/_nav.html");
     include("partials/_editarTipoMarca.html");
     include("partials/_footer.html");
-} else{
-        header("location:logout.php");
-    }
+}
 ?>

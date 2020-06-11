@@ -85,7 +85,6 @@
     desconectar_bd($conexion_bd);
  
 	}
-	
 
 	function botonBorrar(){
     $resultado = '<button class="btn waves-effect waves-light btn-small" type="submit" id="borrar" title = "Eliminar Tipo">

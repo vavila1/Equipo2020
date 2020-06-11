@@ -3,6 +3,7 @@
 	//Inicio o recuperdo la sesión
     session_start();
 
+
     include("partials/_header.html");
     require_once("model_login.php");
 

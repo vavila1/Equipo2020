@@ -7,7 +7,5 @@ if ($_SESSION["AgregarTP"]) {
     include("partials/_nav.html");
     include("partials/_agregarTipoProducto.html");
     include("partials/_footer.html");
-} else{
-        header("location:logout.php");
-    }
+}
 ?>

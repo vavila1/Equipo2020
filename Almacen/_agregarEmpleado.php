@@ -9,7 +9,5 @@
     include("partials/_nav.html");
     include("partials/_form_Empleado.html");
     include("partials/_footer.html");
-} else{
-        header("location:logout.php");
-    }
+}
 ?>

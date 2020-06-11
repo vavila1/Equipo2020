@@ -12,7 +12,5 @@ if ($_SESSION["EditarProducto"]) {
     include("partials/_nav.html");
     include("partials/_form_editar_producto.html");
     include("partials/_footer.html");
-} else{
-        header("location:logout.php");
-    }
+}
 ?>

@@ -9,7 +9,5 @@ if ($_SESSION["VerReporte"]) {
     include("partials/_focus_productos.html");
     include("partials/_reportes.html");
     include("partials/_footer.html");
-} else{
-	header("location:logout.php");
 }
 ?>

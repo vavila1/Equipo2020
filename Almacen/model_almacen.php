@@ -53,16 +53,13 @@
       $resultado.="<td>" . $row['E_nombre'] . "</td>";
       $resultado.="<td>" . $row['EP_nombre'] . "</td>";
       $resultado.="<td>";
-       if ($_SESSION["EditarAlmacen"]) {
       $resultado.='<a href="editar.php?id='.$row['A_id'].'&nombre='.$row['A_nombre'].'">';
       $resultado.= botonEditar();
-      $resultado.="</a>"." ";}
-
-      if ($_SESSION["EliminarAlmacen"]) {
+      $resultado.="</a>"." ";
       $resultado.='<a href="borrar.php?id='.$row['A_id'].'"';
       $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar ".$row['A_nombre']."?')".'"'.">";
       $resultado.=" ". botonBorrar();
-      $resultado.="</a></td>";}
+      $resultado.="</a></td>";
       $resultado.="</tr>";
     }
   }

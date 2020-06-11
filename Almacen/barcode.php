@@ -8,11 +8,10 @@
 
     //Probamos conexicon con la funcion creada en model.php conectar_bd()
     //var_dump(conectar_bd());
-if ($_SESSION["ImprimirCB"]) {
+
+
     include("partials/_header.html");
     include("partials/_generarCodigo.html");
-} else{
-        header("location:logout.php");
-    }
+
 ?>
 

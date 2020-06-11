@@ -12,7 +12,5 @@ if ($_SESSION["ContraseñaUsuario"]) {
     include("partials/_nav.html");
     include("partials/_editarContra.html");
     include("partials/_footer.html");
-} else{
-        header("location:logout.php");
-    }
+}
 ?>
