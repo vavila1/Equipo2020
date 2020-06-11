@@ -5,13 +5,13 @@
 	   			<div class="col s1"></div>
 	   			<div class="col s11">
 	   				<div class="container">
-			   			<h2>Editar Marca</h2>
+			   			<h2>Editar Marca <?=$nombre_marca?></h2>
 			   			 <div class="row">
 						    <form class="col s12" action="controlador_editar_marca.php" method="POST">
 						      <div class="row">
 						          <div class="input-field col s12">
-						          <input type="text" name="num" value="<?=$marca_id?>">
-						            <label for="num"># ID</label>
+						          <input type="text" name="num" value="<?=$marca_id?>" readonly hidden>
+						           
 						          </div>
 						      </div>
 						      <div class="row">
