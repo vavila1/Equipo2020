@@ -4,12 +4,8 @@
 
 
    $_POST["nombreProyecto"] = htmlspecialchars($_POST["nombreProyecto"]);
-   $_POST["estatusProyecto"] = htmlspecialchars($_POST["estatusProyecto"]);
+   $_POST["estatusProyecto"] = htmlspecialchars($_POST["estatusproyecto"]);
    $_POST["num"] = htmlspecialchars($_POST["num"]);
-
-   var_dump($_POST["nombreProyecto"]);
-   var_dump($_POST["estatusProyecto"]);
-   var_dump($_POST["num"]);
 
 
   if(isset($_POST["estatusProyecto"])) {
@@ -27,5 +23,5 @@
       }
   }
 
- // header("location:proyectos.php");
+  header("location:proyectos.php");
 ?>
