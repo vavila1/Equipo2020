@@ -7,5 +7,7 @@ if ($_SESSION["VerUsuario"]) {
     include("partials/_nav.html");
     include("partials/_cuentas.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

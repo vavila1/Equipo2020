@@ -7,5 +7,7 @@ if ($_SESSION["AgregarInventario"]) {
     include("partials/_nav.html");
     include("partials/_agregarProducto.html");
     include("partials/_footer.html");
-}
+} else{
+        header("location:logout.php");
+    }
 ?>

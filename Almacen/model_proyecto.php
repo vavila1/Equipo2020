@@ -45,6 +45,7 @@
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
 		    $resultado .= "<td>";
 		    //Seccion de Entrada de Material
+		    if ($_SESSION["SalidaProyecto"] || $_SESSION["EntradaProyecto"]) {
 		    if ($row['e_nombre'] != "Terminado"){
 	           $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
 	           $resultado.="".'"'.">";
@@ -67,15 +68,17 @@
                $resultado.="</a>"; 
        		}
 
-		   
-		    if ($_SESSION["Editar"]) {
+		   }
+
+
+		    if ($_SESSION["EditarProyecto"]) {
 		    //Seccion de Editar Boton
 		   $resultado.='<a href="editarProyecto.php?id='.$row['p_idProyecto'].'&nombreProyecto='.$row['p_nombre'].'">';
            $resultado.=" ". botonEditar();
            $resultado.="</a>";
            }
 
-           if ($_SESSION["Eliminar"]) {
+           if ($_SESSION["EliminarProyecto"]) {
            	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_proyecto.php?id='.$row['p_idProyecto'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['p_nombre']." ?')".'"'.">";

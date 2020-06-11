@@ -14,21 +14,6 @@
 		return $conexion_bd;
 	}
 
-/*BEGIN 
-	SELECT
-    E.nombre AS E_nombre,
-    H.fecha AS H_fecha
-FROM
-    estatus_producto AS E,
-    producto AS P,
-    e_p AS H
-WHERE
-    E.id = H.Id_Estado_producto AND P.id = H.Id_Producto AND H.Id_Producto = id
-ORDER BY
-    H.fecha
-DESC
-LIMIT 3;
-END*/
 
 	//Cerrar conexion de Base de Datos
 	//@param $conexion: Conexion que se cerrara
@@ -55,6 +40,7 @@ END*/
 		$resultados = $conexion_bd->query($consulta);  
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+			 if ($_SESSION["EntradaProyecto"]) {
 			$resultado .= "<tr>";
 		    $resultado .= "<td>".$row['p_nombre']."</td>";
 
@@ -64,13 +50,13 @@ END*/
 		    $resultado .= "<td>";
 
 		
-
+		   
 		    //$resultado.= '<a href="salidaProductosConfirmacion.php?id='.$proyecto.'&idProduto='.$row['p_id'].'">';
             $resultado.=" ". botonRegresos();
            // $resultado.="</a>";
             $resultado .= "</form>";
 		    $resultado .= "</td>";
-
+		}
    			
 		
 

@@ -18,6 +18,8 @@
         include("partials/_focus_productos.html");
         include("partials/_productos.html");
         include("partials/_footer.html");
+    } else{
+        header("location:logout.php");
     }
 
 ?>
