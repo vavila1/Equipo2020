@@ -26,17 +26,7 @@
 	    	<div class="sidenav sidenav-fixed dark-blue">	
 		      <ul>
 		      	<a href="index.php" title="Pagina de Inicio"><li class="logo"><img  id="sides" class="logoSideNav" src="img/logo/logo.png"></li></a>
-		      	<li> 
-    				<div class="nav-wrapper">
-     					 <form>
-       						 <div class="input-field">
-          						 <input id="search" type="search" required>
-         					 	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-         					 	<i class="material-icons">close</i>
-       						 </div>
-     					 </form>
-   					 </div>
-  				</li>
+		      	<br><br>
           <?php if ($_SESSION["VerReporte"]) { ?>
 		        <li class="bold"><a href="reportes.php"id="reportes">Reportes</a></li>
             <?php } ?>
@@ -59,21 +49,19 @@
 
   <ul class="sidenav dark-blue" id="mobile-demo">
 		      	<li class="logo"><img id="sides" class="logoSideNav" src="img/logo/logo.png"></li>
-		      	<li> 
-    				<div class="nav-wrapper">
-     					 <form>
-       						 <div class="input-field">
-          						 <input id="search" type="search" required>
-         					 	<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-         					 	<i class="material-icons">close</i>
-       						 </div>
-     					 </form>
-   					 </div>
-  				</li>
+		      	
+          <?php if ($_SESSION["VerInicio"]) { ?>
 		      	<li class="bold"><a href="index.php">Inicio</a></li>
+            <?php } ?>
+          <?php if ($_SESSION["VerReporte"]) { ?>
 		        <li class="bold"><a href="reportes.php">Reportes</a></li>
+            <?php } ?>
+            <?php if ($_SESSION["VerProyecto"]) { ?>
 		        <li class="bold"><a href="proyectos.php">Proyectos</a></li>
+            <?php } ?>
+            <?php if ($_SESSION["VerInventario"]) { ?>
 		        <li class="bold"><a href="productos.php">Inventario</a></li>
+            <?php } ?>
 		        <li class="bold">
               <?php if ($_SESSION["VerMarcas"]) { ?>
 		        	<ul class="collapsible collapsible-accordion">
