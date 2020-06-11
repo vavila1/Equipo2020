@@ -3,17 +3,14 @@
 
   $_POST["nombreProyecto"] = htmlspecialchars($_POST["nombreProyecto"]);
   $_POST["num"] = htmlspecialchars($_POST["num"]);
-  //$_POST["estatusProyecto"] = htmlspecialchars($_POST["estatusProyecto"]);
+  $_POST["fecha"] = htmlspecialchars($_POST["fecha"]);
+  $_POST["empleado"] = htmlspecialchars($_POST["empleado"]);
 
-  //var_dump($_POST["nombreProyecto"]);
-  //var_dump($_POST["num"]);
-  //var_dump($_POST["estatusProyecto"]);
-
-  if((isset($_POST["nombreProyecto"])) && (isset($_POST["num"])) /*&& (isset($_POST["estatusProyecto"]))*/ ) {
-      insertar_proyecto($_POST["num"], 4 , $_POST["nombreProyecto"]);
+  if((isset($_POST["nombreProyecto"])) & (isset($_POST["num"])) && (isset($_POST["fecha"])) && (isset($_POST["empleado"]))) {
+      insertar_proyecto($_POST["num"], 4 , $_POST["nombreProyecto"],  $_POST["fecha"], $_POST["empleado"]);
       $_SESSION["mensaje"] = "Se completo el registro";
   }  else {
-            $_SESSION["warning"] = "Ocurrio un error al registar el producto";
+            $_SESSION["warning"] = "Ocurrio un error al registar el proyecto";
         }
 
   header("location:proyectos.php");
