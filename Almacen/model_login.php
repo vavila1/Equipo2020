@@ -238,13 +238,13 @@ return $resultado3;
     //Primero conectarse a la bd
     $conexion_bd = conectar_bd();
 
-    $resultado = "<table class=\"highlight\"><thead><tr><th></th><th>Tipo de transaccion</th><th></th><th>Producto</th><th>Folio Proyecto</th><th>Empleado Responsable</th><th>Fecha</th></tr></thead>";
+    $resultado = "<table class=\"highlight\"><thead><tr><th>Producto</th><th>Tipo de transaccion</th><th>Empleado Responsable</th><th>Cantidad</th><th>Fecha</th><th>Proyecto</th></tr></thead>";
 
 
-    $consulta = 'SELECT pp.Id_Proyecto as pp_id ,e.id as e_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha
-            FROM entregan as e, producto as p, empleado as emp, transaccion as t, producto_proyecto as pp
-            WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado
-            ORDER BY e.fecha DESC
+    $consulta = 'SELECT e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto
+            FROM entregan as e, producto as p, empleado as emp, transaccion as t 
+            WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado AND emp.id_Almacen = '.$_SESSION['almacen'].'
+            Order BY e.fecha Desc
             LIMIT 5';
     
     //Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
@@ -253,13 +253,16 @@ return $resultado3;
     while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
       //$resultado .= $row[0]; //Se puede usar el índice de la consulta
       $resultado .= "<tr>";
-        $resultado .= "<td></td>";
-        $resultado .= "<td>".$row['t_nombre']."</td>";
-        $resultado .= "<td></td>";
         $resultado .= "<td>".$row['p_nombre']."</td>";
-        $resultado .= "<td>".$row['pp_id']."</td>";
+        $resultado .= "<td>".$row['t_nombre']."</td>";
         $resultado .= "<td>".$row['emp_nombre']."</td>";
+        $resultado .= "<td>".$row['e_cantidad']."</td>";
         $resultado .= "<td>".$row['e_fecha']."</td>";
+        if($row['t_nombre']!='Entrada'){
+        $resultado .= "<td> R ".$row['e_proyecto']."</td>";
+    }else{
+      $resultado .= "<td>".$row['e_proyecto']."</td>";
+    }
         $resultado .= "</tr>" ;
     }
     mysqli_free_result($resultados); //Liberar la memoria
