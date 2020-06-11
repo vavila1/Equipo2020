@@ -211,5 +211,151 @@
 
 	}
 
+	function salidaMaterial($id_proyecto){
+ 		//Primero conectarse a la bd
+ 		$conexion_bd = conectar_bd();
+
+ 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Modelo</th><th>Tipo Producto</th><th>Cantidad Solicitada</th><th>Fecha</th><th>Autorizador</th></tr></thead>";
+
+
+ 		$consulta = 'SELECT
+ 						p.id as p_id,
+ 					    pp.Id_Proyecto as pp_id,
+ 					    p.nombre as p_nombre,
+ 					    m.nombre as p_marca,
+ 					    p.modelo as p_modelo,
+ 					    tp.nombre as tp_nombre,
+ 					    pp.Cantidad_Asignada as pp_cantidad,
+ 					    pp.Fecha_Asignacion as pp_fecha,
+ 					    a.nombre as a_nombre,
+ 					    e.Nombre as e_nombre
+ 					FROM
+ 					    producto AS p,
+ 					    tipo_producto AS tp,
+ 					    producto_proyecto AS pp,
+ 					    almacen AS a,
+ 					    empleado AS e,
+ 					    marca as m
+ 					WHERE
+ 					    p.id_marca = m.id AND p.id = pp.Id_Producto AND tp.id = p.id_tipo AND a.id = p.Id_Almacen AND e.Id_Almacen = p.Id_Almacen AND pp.Id_Proyecto = '.$id_proyecto.'';
+
+ 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
+
+ 		$resultados = $conexion_bd->query($consulta);  
+ 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+ 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+ 			$resultado .= "<tr>";
+ 			$resultado .= "<td>".$row['p_id']."</td>";
+ 		    $resultado .= "<td>".$row['p_nombre']."</td>";
+ 		    $resultado .= "<td>".$row['p_marca']."</td>";
+ 		    $resultado .= "<td>".$row['p_modelo']."</td>";
+ 		    $resultado .= "<td>".$row['tp_nombre']."</td>";
+ 		    $resultado .= "<td>".$row['pp_cantidad']."</td>";
+ 		    $resultado .= "<td>".$row['pp_fecha']."</td>";
+ 		    $resultado .= "<td>".$row['e_nombre']."</td>";
+ 		    $resultado .= "</tr>" ;
+ 		}
+ 		mysqli_free_result($resultados); //Liberar la memoria
+
+ 		// desconectarse al termino de la consulta
+ 		desconectar_bd($conexion_bd);
+
+ 		$resultado .= "</table>";
+
+ 		unset($_SESSION['id']);
+
+ 		return $resultado;
+ 	}
+
+
+
+ function obtener_reporte($id_proyecto){
+ 		//Primero conectarse a la bd
+ 		$conexion_bd = conectar_bd();
+
+ 		$resultado = "";
+
+ 		$consulta = 'SELECT
+ 					    pp.Id_Proyecto as pp_id,
+ 					    p.nombre as p_nombre,
+ 					    m.nombre as p_marca,
+ 					    p.modelo as p_modelo,
+ 					    tp.nombre as tp_nombre,
+ 					    pp.Cantidad_Asignada as pp_cantidad,
+ 					    pp.Fecha_Asignacion as pp_fecha,
+ 					    a.nombre as a_nombre,
+ 					    e.Nombre as e_nombre
+ 					FROM
+ 					    producto AS p,
+ 					    tipo_producto AS tp,
+ 					    producto_proyecto AS pp,
+ 					    almacen AS a,
+ 					    empleado AS e,
+ 					    marca as m
+ 					WHERE
+ 					    p.id_marca = m.id AND p.id = pp.Id_Producto AND tp.id = p.id_tipo AND a.id = p.Id_Almacen AND e.Id_Almacen = p.Id_Almacen AND pp.Id_Proyecto = '.$id_proyecto.'
+ 					 LIMIT 1';
+
+ 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
+
+ 		$resultados = $conexion_bd->query($consulta);  
+ 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+ 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+ 		;
+ 			$resultado .= $row['pp_id'];
+
+ 		}
+ 		mysqli_free_result($resultados); //Liberar la memoria
+
+ 		// desconectarse al termino de la consulta
+ 		desconectar_bd($conexion_bd);
+
+ 		return $resultado;
+ 	}
+
+ 	function obtener_almacen($id_proyecto){
+ 		//Primero conectarse a la bd
+ 		$conexion_bd = conectar_bd();
+
+ 		$resultado = "";
+
+
+ 		$consulta = 'SELECT
+ 					    pp.Id_Proyecto as pp_id,
+ 					    p.nombre as p_nombre,
+ 					    m.nombre as p_marca,
+ 					    p.modelo as p_modelo,
+ 					    tp.nombre as tp_nombre,
+ 					    pp.Cantidad_Asignada as pp_cantidad,
+ 					    pp.Fecha_Asignacion as pp_fecha,
+ 					    a.nombre as a_nombre,
+ 					    e.Nombre as e_nombre
+ 					FROM
+ 					    producto AS p,
+ 					    tipo_producto AS tp,
+ 					    producto_proyecto AS pp,
+ 					    almacen AS a,
+ 					    empleado AS e,
+ 					    marca as m
+ 					WHERE
+ 					    p.id_marca = m.id AND p.id = pp.Id_Producto AND tp.id = p.id_tipo AND a.id = p.Id_Almacen AND e.Id_Almacen = p.Id_Almacen AND pp.Id_Proyecto = '.$id_proyecto.'
+ 					 LIMIT 1';
+
+ 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
+
+ 		$resultados = $conexion_bd->query($consulta);  
+ 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
+ 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
+ 			$resultado .= $row['a_nombre'];
+ 		}
+ 		mysqli_free_result($resultados); //Liberar la memoria
+
+ 		// desconectarse al termino de la consulta
+ 		desconectar_bd($conexion_bd);
+
+
+ 		return $resultado;
+ 	}
+
 
 ?>
