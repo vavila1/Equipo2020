@@ -46,19 +46,7 @@
     </div>
 <?php } ?>
 
-<?php if ($_SESSION["VerTP"]) { ?>
-    <div class="col s4 m4">
-      <div class="card">
-        <div class="card-image">
-          <img src="img/tipo.png">
-          <span class="card-title"></span>
-        </div>
-        <div class="card-action">
-          <a href="tipoProducto.php" class="blue-text text-darken-2">Tipo Producto</a>
-        </div>
-      </div>
-    </div>
-<?php } ?>
+
 
 <?php if ($_SESSION["VerEP"]) { ?>
     <div class="col s4 m4">
@@ -69,6 +57,21 @@
         </div>
         <div class="card-action">
           <a href="estadoProducto.php" class="blue-text text-darken-2">Estado Producto</a>
+        </div>
+      </div>
+    </div>
+<?php } ?>
+
+
+<?php if ($_SESSION["VerTP"]) { ?>
+    <div class="col s4 m4">
+      <div class="card" hidden>
+        <div class="card-image">
+          <img src="img/tipo.png">
+          <span class="card-title"></span>
+        </div>
+        <div class="card-action">
+          <a href="tipoProducto.php" class="blue-text text-darken-2">Tipo Producto</a>
         </div>
       </div>
     </div>
