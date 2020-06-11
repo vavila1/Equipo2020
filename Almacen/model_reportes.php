@@ -213,7 +213,7 @@
  		//Primero conectarse a la bd
  		$conexion_bd = conectar_bd();
 
- 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Modelo</th><th>Tipo Producto</th><th>Cantidad Solicitada</th><th>Fecha</th><th>Autorizador</th></tr></thead>";
+ 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Modelo</th><th>Tipo Producto</th><th>Cantidad Solicitada</th><th>Fecha</th></tr></thead>";
 
 
  		$consulta = 'SELECT
@@ -224,18 +224,15 @@
  					    p.modelo as p_modelo,
  					    tp.nombre as tp_nombre,
  					    pp.Cantidad_Asignada as pp_cantidad,
- 					    pp.Fecha_Asignacion as pp_fecha,
- 					    a.nombre as a_nombre,
- 					    e.Nombre as e_nombre
+ 					    pp.Fecha_Asignacion as pp_fecha
+ 					  
  					FROM
  					    producto AS p,
  					    tipo_producto AS tp,
  					    producto_proyecto AS pp,
- 					    almacen AS a,
- 					    empleado AS e,
  					    marca as m
  					WHERE
- 					    p.id_marca = m.id AND p.id = pp.Id_Producto AND tp.id = p.id_tipo AND a.id = p.Id_Almacen AND e.Id_Almacen = p.Id_Almacen AND pp.Id_Proyecto = '.$id_proyecto.'';
+ 					    p.id_marca = m.id AND p.id = pp.Id_Producto AND tp.id = p.id_tipo AND pp.Id_Proyecto = '.$id_proyecto.'';
 
  		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 
@@ -250,7 +247,6 @@
  		    $resultado .= "<td>".$row['tp_nombre']."</td>";
  		    $resultado .= "<td>".$row['pp_cantidad']."</td>";
  		    $resultado .= "<td>".$row['pp_fecha']."</td>";
- 		    $resultado .= "<td>".$row['e_nombre']."</td>";
  		    $resultado .= "</tr>" ;
  		}
  		mysqli_free_result($resultados); //Liberar la memoria
