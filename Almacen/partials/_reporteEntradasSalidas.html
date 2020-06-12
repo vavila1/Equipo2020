@@ -6,11 +6,11 @@
     	echo "<br><div class=\"row\"><form method=\"POST\">";
     	echo '<div class="col s12 m12">
           <div class="input-field col s2"->
-            Fecha Inicio: <input type="text" class="datepicker">
+            Fecha Inicio: <input type="text" class="datepicker" name="in">
           </div>
           
           <div class="input-field col s2">
-             Fecha Final:<input type="text" class="datepicker">
+             Fecha Final:<input type="text" class="datepicker" name="fin">
           </div>
         </div>';
 
@@ -22,14 +22,16 @@
 	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
 	    echo "</form></div>";
 
-	    if (isset($_POST["almacen"])) {
-	    	$almacen = htmlspecialchars($_POST["almacen"]);
+	    if (isset($_POST["in"]) && isset($_POST['fin'])) {
+	    	$fecha1 = htmlspecialchars($_POST["in"]);
+	    	$fecha2 = htmlspecialchars($_POST["fin"]);
 	    } else {
-	    	$almacen = "";
-	    }
+	    	$fecha1 = "";
+	    	$fecha2="";
+	    } 
 
 
-	    echo consultar_transacciones();
+	    echo consultar_transacciones($fecha1,$fecha2);
 
 ?>
 

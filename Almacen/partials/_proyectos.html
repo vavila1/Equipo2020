@@ -5,19 +5,25 @@
     	echo "<br><div class=\"row\"><form method=\"POST\">";
     	echo busquedaEscrita("id_proyecto", "id_proyecto");
 	    echo "<div class=\"input-field col s3\">";
-	    echo consultar_select_proyectos("id_estatusProyecto", "nombre", "estatusproyecto");
+	    echo consultar_select_proyectos("Id_EstatusProyecto", "nombre", "estatusproyecto");
 	    echo "<div class=\"input-field col s3\">";
 	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
 	    echo "</form></div>";
 
-	    if (isset($_POST["estatusProyecto"])) {
-	    	$estatusProyecto = htmlspecialchars($_POST["estatusProyecto"]);
+	    if (isset($_POST["estatusproyecto"])) {
+	    	$estatusproyecto = htmlspecialchars($_POST["estatusproyecto"]);
 	    } else {
-	    	$estatusProyecto = "";
+	    	$estatusproyecto = "";
+	    }
+
+	    if (isset($_POST["id_proyecto"])) {
+	    	$id_proyecto = htmlspecialchars($_POST["id_proyecto"]);
+	    } else {
+	    	$id_proyecto = "";
 	    }
 
 
-	    echo consultar_proyectos($estatusProyecto);
+	    echo consultar_proyectos($estatusproyecto, $id_proyecto);
 
 	echo "</div></div></div></section>";
 

@@ -22,7 +22,7 @@
 
 
 	//Consulta de consultar Proyectos en lab14
-	function consultar_proyectos($estado = ""){
+	function consultar_proyectos($estado = "", $id=""){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
@@ -35,8 +35,13 @@
 		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.Fecha_Inicio as p_fecha, e.Nombre as e_nombre, e.Id_EstatusProyecto as e_id FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
 
 		if($estado != ""){
-			$consulta .= " AND e.id_estatusproyecto= ".$estado;
+			$consulta .= " AND p.Id_EstatusProyecto= ".$estado;
 		}
+		if($id != ""){
+			$consulta .= " AND p.Id_Proyecto= ".$id;
+		}
+
+		var_dump($consulta);
 
 		$resultados = $conexion_bd->query($consulta);  
 

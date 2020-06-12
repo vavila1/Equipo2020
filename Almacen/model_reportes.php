@@ -22,18 +22,24 @@
 
 
 	//Consulta de consultar Productos en Almacen
-	function consultar_transacciones(){
+	function consultar_transacciones($fecha_inicio,$fecha_fin){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>ID Producto</th><th>Producto</th><th>Precio unitario</th><th>Tipo de transaccion</th><th>Empleado Responsable</th><th>Cantidad</th><th>Fecha</th><th>Proyecto</th><th>Total</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID Producto</th><th>Producto</th><th>Tipo de transaccion</th><th>Empleado Responsable</th><th>Cantidad</th><th>Precio unitario</th><th>Total</th><th>Fecha</th><th>Proyecto</th></tr></thead>";
 
 
-		$consulta = 'SELECT p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
+		if($fecha_inicio=="" && $fecha_fin==""){$consulta = 'SELECT p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
 						FROM entregan as e, producto as p, empleado as emp, transaccion as t 
 						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado
 						GROUP BY e.id	
-						Order BY e.fecha Desc';
+						Order BY e.fecha Desc';}
+		if($fecha_inicio!="" && $fecha_fin!=""){
+			$consulta = 'Select p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
+						FROM entregan as e, producto as p, empleado as emp, transaccion as t 
+						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado AND e.fecha Between "'.$fecha_inicio.'" AND "'.$fecha_fin.'" GROUP BY e.id	
+						Order BY e.fecha Asc';
+		}
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 
@@ -43,17 +49,19 @@
 			$resultado .= "<tr>";
 		    $resultado .= "<td>".$row['p_id']."</td>";
 		    $resultado .= "<td>".$row['p_nombre']."</td>";
-		    $resultado .= "<td>".$row['p_precio']."</td>";
+		    
 		    $resultado .= "<td>".$row['t_nombre']."</td>";
 		    $resultado .= "<td>".$row['emp_nombre']."</td>";
 		    $resultado .= "<td>".$row['e_cantidad']."</td>";
+		    $resultado .= "<td>$".$row['p_precio']."</td>";
+		    $resultado .= "<td> $ ".$row['total']."</td>";
 		    $resultado .= "<td>".$row['e_fecha']."</td>";
 		    if($row['t_nombre']!='Entrada'){
 		    $resultado .= "<td> R ".$row['e_proyecto']."</td>";
 		}else{
 			$resultado .= "<td>".$row['e_proyecto']."</td>";
 		}
-			$resultado .= "<td> $ ".$row['total']."</td>";
+			
 		    $resultado .= "</tr>" ;
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
