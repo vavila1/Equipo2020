@@ -19,19 +19,38 @@
 	    echo "<div class=\"input-field col s3\">";
 	    echo crear_select("id", "nombre", "almacen");
 	    echo "<div class=\"input-field col s3\">";
+	    echo crear_select("Id_Transaccion", "Nombre", "transaccion");
+	    echo "<div class=\"input-field col s3\">";
 	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
 	    echo "</form></div>";
 
-	    if (isset($_POST["in"]) && isset($_POST['fin'])) {
+	    if (isset($_POST["in"])){
 	    	$fecha1 = htmlspecialchars($_POST["in"]);
-	    	$fecha2 = htmlspecialchars($_POST["fin"]);
 	    } else {
 	    	$fecha1 = "";
-	    	$fecha2="";
 	    } 
-
-
-	    echo consultar_transacciones($fecha1,$fecha2);
+	    if (isset($_POST["fin"])){
+	    	$fecha2 = htmlspecialchars($_POST["fin"]);
+	    } else {
+	    	$fecha2 = "";
+	    } 
+	    if (isset($_POST["proyecto"])){
+	    	$proyecto = htmlspecialchars($_POST["proyecto"]);
+	    } else {
+	    	$proyecto = "";
+	    } 
+	    if (isset($_POST["almacen"])){
+	    	$almacen = htmlspecialchars($_POST["almacen"]);
+	    } else {
+	    	$almacen = "";
+	    }
+	    if (isset($_POST["transaccion"])){
+	    	$transaccion = htmlspecialchars($_POST["transaccion"]);
+	    } else {
+	    	$transaccion = "";
+	    }  
+	    
+	    echo consultar_transacciones($fecha1,$fecha2,$proyecto,$almacen,$transaccion);
 
 ?>
 
