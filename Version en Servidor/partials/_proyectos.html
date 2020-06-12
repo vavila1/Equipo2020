@@ -1,0 +1,33 @@
+	<?php
+
+    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><h2 class=\"center\">Proyectos</h2><br><br>";
+    	if($_SESSION["AgregarProyecto"]){
+    echo "<a class=\"btn-floating btn-large waves-effect waves-light green right\" href=\"agregarProyecto.php\" title=\"Registar Nuevo Proyecto\"><i class=\"material-icons\">add</i></a>";}
+    echo "<br><br>";
+
+    	echo "<br><div class=\"row\"><form method=\"POST\">";
+    	echo busquedaEscrita("id_proyecto", "id_proyecto");
+	    echo "<div class=\"input-field col s3\">";
+	    echo consultar_select_proyectos("Id_EstatusProyecto", "nombre", "estatusproyecto");
+	    echo "<div class=\"input-field col s3\">";
+	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
+	    echo "</form></div>";
+
+	    if (isset($_POST["estatusproyecto"])) {
+	    	$estatusproyecto = htmlspecialchars($_POST["estatusproyecto"]);
+	    } else {
+	    	$estatusproyecto = "";
+	    }
+
+	    if (isset($_POST["id_proyecto"])) {
+	    	$id_proyecto = htmlspecialchars($_POST["id_proyecto"]);
+	    } else {
+	    	$id_proyecto = "";
+	    }
+
+
+	    echo consultar_proyectos($estatusproyecto, $id_proyecto);
+
+	echo "</div></div></div></section>";
+
+?>

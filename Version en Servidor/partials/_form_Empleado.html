@@ -1,0 +1,49 @@
+<!-- Inicia Seccion de Contenido -->
+  <section>
+      <div class="container">
+        <div class="row">
+          <div class="col s11">
+            <div class="container">
+              <h2>Agregar Empleado</h2>
+               <div class="row">
+                 <form method="POST" action="controlador_insertar_empleado.php" class="col s12">
+                    <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="nombre" required>
+                        <label for="nombre">Nombre</label>
+                      </div>
+                      <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="email" name="correo" required>
+                        <label for="corre">Correo Electrónico</label>
+                      </div>
+                      <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="usuario" required>
+                        <label for="usuario">Usuario</label>
+                      </div>
+                      <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="contra" required>
+                        <label for="contra">Contraseña</label>
+                      </div>
+                      <div  class="input-field col s12">
+                        <?= consultar_select_empleado('Id_Puesto', 'Nombre', 'puesto');?>
+                      </div>
+                      <div  class="input-field col s12">
+                        <?= consultar_select_empleado('id', 'nombre', 'almacen');?>
+                      </div>
+                      <div  class="input-field col s12">
+                         <?= consultar_select_empleado('Id_Rol', 'Nombre', 'rol');?>
+                      </div>
+                    
+                        <button class="btn waves-effect waves-light" type="submit">Registrar<i class="material-icons right">send</i></button>
+                
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+    <!-- Termina Seccion de Contenido -->

@@ -1,0 +1,27 @@
+	<?php
+
+    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><h2 class=\"center\">Reporte Historial de Calibración</h2><br>";
+
+    	echo "<br><div class=\"row\"><form method=\"POST\">";
+        
+	    echo "<div class=\"input-field col s3\">";
+	    echo crear_select("id", "nombre", "almacen");
+	    echo "<div class=\"input-field col s3\">";
+	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
+	    echo "</form></div>";
+
+	    if (isset($_POST["almacen"])) {
+	    $_SESSION["almaca"] = $_POST["almacen"];
+	    	$almacen = htmlspecialchars($_POST["almacen"]);
+	    } else {
+	    	$almacen = "";
+	    } 
+
+
+	    echo consultar_calibracion($almacen);
+
+?>
+
+</div>
+	<a href="pdfCalibrar.php"> <button class="btn waves-effect waves-light"> Descargar PDF </button></a>
+</div></div></section>

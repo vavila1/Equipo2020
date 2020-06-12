@@ -1,0 +1,43 @@
+<?php
+
+    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><div class=\"container\"><h2 class=\"center\">Sección de Marcas</h2><br><br>";
+    	if ($_SESSION["AgregarMarcas"]){
+    echo "<a class=\"btn-floating btn-large waves-effect waves-light green right\" href=\"controlador_registra_marca.php\"><i class=\"material-icons\">add</i></a>";}
+
+    echo "<br><br>";
+
+    	echo "<br><div class=\"row\"><form method=\"POST\">";
+    	echo "<div class=\"input-field col s4\">";
+	    echo consultar_select("id", "nombre", "marca");
+	    echo "<div class=\"input-field col s3\">"; 
+?>
+     	</div>
+  <?php
+	    echo "<div class=\"input-field col s3\">";
+	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
+	    echo "</form></div>";
+
+	    if (isset($_POST["marca"])) {
+	    	$marca = htmlspecialchars($_POST["marca"]);
+	    } else {
+	    	$marca = "";
+	    }
+
+
+	    if (isset($_POST["tipo_producto"])) {
+	    	$tipo = htmlspecialchars($_POST["tipo_producto"]);
+	    } else {
+	    	$tipo = "";
+	    }
+
+	    if (isset($_POST["estatus_producto"])) {
+	    	$estatus_producto = htmlspecialchars($_POST["estatus_producto"]);
+	    } else {
+	    	$estatus_producto = "";
+	    }
+
+	    echo consultar_productos($marca,$tipo,$estatus_producto);
+
+	echo "</div></div></div></div></section>";
+
+?>

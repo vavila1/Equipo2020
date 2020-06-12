@@ -1,0 +1,13 @@
+<?php
+
+    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><div class=\"container\"><h1 class=\"center\">Cuentas</h1><br><br>";
+    	if($_SESSION["AgregarUsuario"]){
+    echo "<a class=\"btn-floating btn-large waves-effect waves-light green right\" href=\"_agregarEmpleado.php\"><i class=\"material-icons\">add</i></a>";}
+    echo "<br><br>";
+    	require_once("model_empleado.php");
+
+    	
+		echo consultar_empleado("nombre", "correo", "id_empleado");
+
+?>
+</div></div></div></div></section>

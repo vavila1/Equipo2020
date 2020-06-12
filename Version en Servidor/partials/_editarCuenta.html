@@ -1,0 +1,45 @@
+<!-- Inicia Seccion de Contenido -->
+  <section>
+      <div class="container">
+        <div class="row">
+          <div class="col s11">
+            <div class="container">
+              <h2>Editar Empleado <?=$nombre?></h2>
+               <div class="row">
+                 <form method="POST" action="controlador_editar_cuenta.php" class="col s12">
+                    <div class="input-field col s6">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="idempleado" value="<?=$idEmpleado?>" readonly hidden>
+               
+                      </div>
+                      <div class="input-field col s6">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="idcuenta" value="<?=$idCuenta?>" readonly hidden>
+                     
+                      </div>
+                    <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="nombre" value="<?=$nombre?>" required>
+                        <label for="nombre">Nombre</label>
+                      </div>
+                      <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="email" name="correo" value="<?=$correo?>" required>
+                        <label for="corre">Correo Electrónico</label>
+                      </div>
+                      <div class="input-field col s12">
+                      <!--Descripcion del producto o Nombre -->
+                        <input id="descripcion" type="text" name="usuario" value="<?=$usuario?>" required>
+                        <label for="usuario">Usuario</label>
+                      </div>
+                     
+                        <button class="btn waves-effect waves-light" type="submit">Guardar<i class="material-icons right">send</i></button>
+                
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </section>
+    <!-- Termina Seccion de Contenido -->

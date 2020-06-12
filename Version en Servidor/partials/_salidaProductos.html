@@ -1,0 +1,24 @@
+   		<!-- Inicia Seccion de Contenido -->
+	<section>
+	   	<div class="container">
+	   		<div class="row">
+	   			<div class="col s4"></div>
+	   			<div >
+	   				<h2>Salida de productos</h2>
+	   				<br><br><br>
+	   				<?php
+	   					$almacen = $_SESSION["almacen"];
+	   					echo consultar_productos($almacen);
+	   					$_SESSION["id"] = $_GET["id"];
+	   				?>
+	   				<br>
+	   				<?php if ($_SESSION["SalidaProyecto"]){ ?>
+	   				</div>
+						<a href="pdfSalidaMaterial.php "> <button class="btn waves-effect waves-light"> Descargar Confirmación </button></a>
+					</div>
+	   				<?php } ?>	
+	   			</div>
+	   		</div>
+	   	</div>
+   	</section>
+   	<!-- Termina Seccion de Contenido -->

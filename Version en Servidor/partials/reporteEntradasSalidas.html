@@ -1,0 +1,21 @@
+<?php
+	
+    echo "<section><div class=\"container\"<div class=\"row\">";
+    echo "<div class=\" col s12\"> <img class=\"logoSidePDF\" src=\"img/logo/logo.png\"> INGIENERÍA Y PROYECTOS CIASA S.A DE C.V </div> <br><br>";
+                          
+    echo "<div class=\"col s12\"><h6 class=\"center\">Reporte Entradas y Salidas</h6>";
+
+    	
+    echo consultar_transacciones($_SESSION["in"],$_SESSION["fin"],$_SESSION["proyecto"],$_SESSION["almaca"],$_SESSION["trans"]);
+
+    unset($_SESSION["in"]);
+    unset($_SESSION["fin"]);
+    unset($_SESSION["proyecto"]);
+    unset($_SESSION["almaca"]);
+	unset($_SESSION["trans"]);
+    
+	    
+
+	echo "</div></div></div></section>";
+
+?>
