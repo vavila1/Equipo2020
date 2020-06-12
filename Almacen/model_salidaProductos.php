@@ -134,7 +134,7 @@
 		     //Executar la consulta
 		     if (!$statement->execute()) {
 		       die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-		     }
+		     } $_SESSION["mensaje"] = "Se ha asignado el producto al proyecto con éxito";
 
   	   	} else if ( $tipo == "Herramienta"){
 
@@ -153,7 +153,7 @@
 		     //Executar la consulta
 		     if (!$statement->execute()) {
 		       die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-		     }
+		     }$_SESSION["mensaje"] = "Se ha asignado la herramienta al proyecto con éxito";
 
   	   	}
 
