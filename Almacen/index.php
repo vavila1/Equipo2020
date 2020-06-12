@@ -27,8 +27,13 @@
         $resultado=verificarCuenta($_POST["usuario"],$_POST["password"]);
         if($resultado=="true"){
         autenticarRol($_POST["usuario"],$_POST["password"]);
+        if($_SESSION["VerInicio"]) {
         include("partials/_nav.html");
         include("partials/_mainSection.html");
+    }else{
+        $error = "Usuario y/o password incorrectos";
+            include("login.php");
+    }
         }else if($resultado=="false"){
             $error = "Usuario y/o password incorrectos";
             include("login.php");
