@@ -31,7 +31,7 @@
 		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre</th><th>Registrar Retorno</th></tr></thead>";
 
 
-		$consulta ='SELECT producto.id as p_id, producto.nombre as p_nombre FROM producto, producto_proyecto, proyecto WHERE proyecto.Id_Proyecto = producto_proyecto.Id_Proyecto AND producto.id = producto_proyecto.Id_Producto AND producto.Id_Estatus = 3  AND producto.id_tipo = 1 AND producto_proyecto.Id_Proyecto = '.$proyecto.' AND producto.Id_Almacen = '.$almacen.' GROUP BY producto.id ORDER BY producto_proyecto.Fecha_Asignacion';
+		$consulta ='SELECT producto.id as p_id, producto.nombre as p_nombre FROM producto, producto_proyecto, proyecto WHERE proyecto.Id_Proyecto = producto_proyecto.Id_Proyecto AND producto.id = producto_proyecto.Id_Producto AND producto.Id_Estatus = 3  AND producto.id_tipo = 1 AND producto_proyecto.Id_Proyecto = '.$proyecto.' AND producto.Id_Almacen = '.$almacen.' GROUP BY producto.id ';
 
 		//var_dump($consulta);
 		
