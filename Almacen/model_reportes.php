@@ -30,7 +30,7 @@
 
 		$consulta = 'SELECT p.Id_Almacen as p_Id_Almacen, p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
 						FROM entregan as e, producto as p, empleado as emp, transaccion as t, almacen as alm 
-						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado'; 
+						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado AND p.Id_Almacen=alm.id'; 
 		if($fecha_inicio!="" && $fecha_fin!=""){
 			$consulta.=' AND e.fecha Between "'.$fecha_inicio.'" AND "'.$fecha_fin.'"';
 		}
