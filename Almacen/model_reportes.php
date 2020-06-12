@@ -53,7 +53,7 @@
 		}else{
 			$resultado .= "<td>".$row['e_proyecto']."</td>";
 		}
-			$resultado .= "<td>".$row['total']."</td>";
+			$resultado .= "<td> $ ".$row['total']."</td>";
 		    $resultado .= "</tr>" ;
 		}
 		mysqli_free_result($resultados); //Liberar la memoria
