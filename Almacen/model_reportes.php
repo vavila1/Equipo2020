@@ -126,7 +126,7 @@
 
 			$resultado = "<table class=\"highlight\"><thead><tr><th>TOTAL</th></thead>";
 
-		   $consulta = 'SELECT SUM(p.precio * p.cantidad) as total,ep.nombre as ep_nombre, almacen.nombre as a_nom, p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, almacen, estatus_producto as ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND ep.id = p.Id_Estatus ';
+		   $consulta = 'SELECT SUM(p.precio * p.cantidad) AS total producto AS p, marca AS m, tipo_producto AS t, almacen, estatus_producto AS ep WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND ep.id = p.Id_Estatus ';
 
 		if ($almacen != "") {
 			$consulta .= "AND p.Id_Almacen=".$almacen;
