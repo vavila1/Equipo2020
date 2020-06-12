@@ -26,7 +26,7 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre de Marca</th><th></th><th>Acciones</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>Nombre de Marca</th><th>Acciones</th></tr></thead>";
 
 		/*$consulta = 'SELECT pr.descripcion as pr_descripcion, m.nombre as m_nombre, pr.cantidad as pr_cantidad, pr.precio as pr_precio, tp.nombre as tp_nombre, e.nombre as e_nombre FROM producto as pr, productotiene as pt, marca as m, tipoproducto as tp, estatus as e WHERE pr.id_producto = pt.id_producto AND m.id_marca = pt.id_marca AND tp.id_tipo = pt.id_tipo AND e.id_estatus = pt.id_estatus'; */
 
@@ -42,9 +42,7 @@
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
 			$resultado .= "<tr>";
-		    $resultado .= "<td></td>";
 		    $resultado .= "<td>".$row['m_nombre']."</td>";
-		    $resultado .= "<td></td>";
 		    $resultado .= "<td>";
 
 		   if ($_SESSION["EditarMarcas"]) {
