@@ -12,9 +12,11 @@
 	   					$_SESSION["id"] = $_GET["id"];
 	   				?>
 	   				<br>
+	   				<?php if ($_SESSION["SalidaProyecto"]){ ?>
 	   				</div>
 						<a href="pdfSalidaMaterial.php "> <button class="btn waves-effect waves-light"> Descargar Confirmación </button></a>
 					</div>
+	   				<?php } ?>	
 	   			</div>
 	   		</div>
 	   	</div>
