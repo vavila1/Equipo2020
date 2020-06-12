@@ -6,26 +6,25 @@
     }
 
     if($_SESSION["ConsultarInventario"]){
-    	echo "<br><div class=\"row\">";
+    	echo "<br><div class=\"row\"><form method=\"POST\">";
     	echo busquedaEscritas("id_producto","id_producto");
 	    echo "<div class=\"input-field col s3\">";
 	    echo consultar_select("id", "nombre", "tipo_producto");
-	  //  echo "<div class=\"input-field col s3\">";
-	  // echo consultar_select("id", "nombre", "estatus_producto");
 	    echo "<div class=\"input-field col s3\">";
 	    echo "<button id=\"buscar\" class=\"btn\">Buscar</button>";
-	    echo "</div>";
+	    echo "</form></div>";
 
-	    if (isset($_POST["marca"])) {
-	    	$marca = htmlspecialchars($_POST["marca"]);
-	    } else {
-	    	$marca = "";
-	    }
 
 	    if (isset($_POST["tipo_producto"])) {
 	    	$tipo_producto = htmlspecialchars($_POST["tipo_producto"]);
 	    } else {
 	    	$tipo_producto = "";
+	    }
+
+	    if (isset($_POST["id_producto"])) {
+	    	$id_producto = htmlspecialchars($_POST["id_producto"]);
+	    } else {
+	    	$id_producto = "";
 	    }
 
 	    if (isset($_POST["estatus_producto"])) {
@@ -36,7 +35,7 @@
 	    $almacen = $_SESSION["almacen"];
 	  }
 	  	echo "<div id=\"resultados_consulta_productos\">";
-	    echo consultar_productos($marca,$tipo_producto,/*$estatus_producto,*/$almacen);
+	    echo consultar_productos($tipo_producto, $id_producto,$almacen);
 		echo "</div>";
 	echo "</div></div></div></section>";
 

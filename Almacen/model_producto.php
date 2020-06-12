@@ -39,7 +39,7 @@
 
 
 	//Consulta de consultar Productos en Almacen
-	function consultar_productos($marca="",$tipo="",/*$estatus="",*/$almacen){
+	function consultar_productos($tipo="",$id="",$almacen){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
@@ -47,19 +47,18 @@
 
 		   $consulta = 'SELECT p.modelo as p_modelo, p.Id_Estatus as p_Estatus, p.id AS p_id, p.nombre AS p_nombre, m.nombre AS m_nombre, m.id AS m_id, t.id AS tp_id, t.nombre AS tp_nombre, p.cantidad AS p_cantidad, p.precio AS p_precio FROM producto AS p, marca AS m, tipo_producto AS t, almacen WHERE m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND p.Id_Almacen = '.$almacen.'';
 		
-		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
-		if ($marca != "") {
-			$consulta .= " AND m.id=".$marca;
-		}
-
+		//Ahora con el buscador necesitamos un validador de que es lo que quiere busca
 		if ($tipo != "") {
 			$consulta .= " AND t.id=".$tipo;
+		}
+		if ($id != "") {
+			$consulta .= " AND p.id=".$id;
 		}
 
 		/*if ($estatus != "") {
 			$consulta .= " AND e.id=".$estatus;
 		}*/
-
+		//var_dump($consulta);
 
 		$resultados = $conexion_bd->query($consulta);  
 		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
