@@ -40,22 +40,8 @@
       } else {
           $_SESSION["warning"] = "Ocurrió un error al editar la cuenta";
       }
-  }/*
-  if(isset($_POST["almacen"])) {
-      if (editar_cuenta_almacen($_POST["idempleado"], $_POST["almacen"])) {
-           $_SESSION["mensaje"] = "Se editó la cuenta";
-      } else {
-          $_SESSION["warning"] = "Ocurrió un error al editar la cuenta";
-      }
   }
-  if(isset($_POST["rol"])) {
-      if (editar_cuenta_rol($_POST["idcuenta"], $_POST["rol"])) {
-           $_SESSION["mensaje"] = "Se editó la cuenta";
-      } else {
-          $_SESSION["warning"] = "Ocurrió un error al editar la cuenta";
-      }
-  }
-*/
+  
 
   header("location:cuentas.php");
 ?>
