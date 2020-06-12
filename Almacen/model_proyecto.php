@@ -47,7 +47,9 @@
 		    $resultado .= "<td>".$row['p_nombre']."</td>";
 		    $resultado .= "<td>".$row['p_fecha']."</td>";
 		    $resultado .= "<td>".$row['e_nombre']."</td>";
+		   
 		    $resultado .= "<td>";
+		     if ($_SESSION["SalidaProyecto"]) {
 		    //Seccion de Entrada de Material
 		    if ($row['e_nombre'] != "Terminado"){
 	           $resultado.= '<a href="salidaProductos.php?id='.$row['p_idProyecto'].'"';
@@ -70,6 +72,7 @@
                $resultado.=" ". botonDesRetornos();
                $resultado.="</a>"; 
        		}
+       	}
 
 		   
 		    if ($_SESSION["EditarProyecto"]) {
