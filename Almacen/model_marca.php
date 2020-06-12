@@ -34,7 +34,7 @@
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($marca != "") {
-			$consulta .= " WHERE m_id=".$marca;
+			$consulta .= " WHERE m.id=".$marca;
 		}
 
 
