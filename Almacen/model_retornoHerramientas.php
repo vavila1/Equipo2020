@@ -104,7 +104,7 @@
      if (!$statement->execute()) {
        die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
      }
- 
+     $_SESSION["mensaje"] = "Se ha registrado el retorno de la herramienta";
      desconectar_bd($conexion_bd);		
 
   }
