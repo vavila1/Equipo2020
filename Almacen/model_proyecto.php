@@ -68,22 +68,21 @@
        		}
 
 		   
-		    if ($_SESSION["Editar"]) {
+		    if ($_SESSION["EditarProyecto"]) {
 		    //Seccion de Editar Boton
 		   $resultado.='<a href="editarProyecto.php?id='.$row['p_idProyecto'].'&nombreProyecto='.$row['p_nombre'].'&estatus='.$row['e_id'].'">';
            $resultado.=" ". botonEditar();
            $resultado.="</a>";
            }
 
-           if ($_SESSION["Eliminar"]) {
+           if ($_SESSION["EliminarProyecto"]) {
            	//Seccion de Borrar Boton
 		   $resultado.='<a href="controlador_eliminar_proyecto.php?id='.$row['p_idProyecto'].'"';
            $resultado.="onclick=".'"'."return confirm('¿Estás seguro que deseas borrar el proyecto:  ".$row['p_nombre']." ?')".'"'.">";
            $resultado.=" ". botonBorrar();
            $resultado.="</a>";
-           }
-
-		   
+    }
+          if ($_SESSION["TerminarProyecto"]) {
 		   $resultado .= "<td>";
 		   if ($row['e_nombre'] != "Terminado"){
 		   		$resultado.='<a href="controlador_terminar_proyecto.php?id='.$row['p_idProyecto'].'"';
@@ -91,6 +90,7 @@
           		$resultado.="<button class = 'btn waves-effect waves-light btn-small' title = 'terminar proyecto'>Terminar</button>";
           		$resultado.="</a><br>";
 		   }
+		}
 		   
            $resultado .= "</td>";
 
