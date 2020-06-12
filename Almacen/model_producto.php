@@ -127,7 +127,7 @@
            }
 
            //Seccion de Codigo de Barras Boton
-            $resultado.='<a href="barcode.php?id='.$row['p_id'].'"';
+            $resultado.='<a href="barcode.php?id='.$row['p_id'].'"target="_blank"';
            $resultado.="".'"'.">";
            $resultado.=" ". botonBarra();
            $resultado.="</a>";
