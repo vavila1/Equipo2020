@@ -1,6 +1,9 @@
 <?php
 
-    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><div class=\"container\"><h2 class=\"center\">Tipos de Producto</h2><br><br><a class=\"btn-floating btn-large waves-effect waves-light green right\" href=\"_agregarTipoProducto.php\"><i class=\"material-icons\">add</i></a><br><br>";
+    echo "<section><div class=\"container\"<div class=\"row\"><div class=\"col s12\"><div class=\"container\"><h2 class=\"center\">Tipos de Producto</h2><br><br>";
+    	if($_SESSION["AgregarTP"]){
+    echo "<a class=\"btn-floating btn-large waves-effect waves-light green right\" href=\"_agregarTipoProducto.php\"><i class=\"material-icons\">add</i></a>"; }
+    echo "<br><br>";"
     	require_once("model_tipoProducto.php");
 
     	echo "<br><div class=\"row\"><form method=\"POST\">";
