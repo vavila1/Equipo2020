@@ -26,7 +26,11 @@
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
-		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th><th>Terminar proyecto</th></tr></thead>";
+		$resultado = "<table class=\"highlight\"><thead><tr><th>ID_Proyecto</th><th>Descripcion</th><th>Fecha de inicio</th><th>Estado</th><th>Acciones</th>";
+		 if ($_SESSION["TerminarProyecto"]) {
+				$resultado .= "<th>Terminar proyecto</th>";
+					}
+		$resultado .= "</tr></thead>";
 
 		$consulta = 'SELECT p.Nombre as p_nombre, p.Id_Proyecto as p_idProyecto, p.Fecha_Inicio as p_fecha, e.Nombre as e_nombre, e.Id_EstatusProyecto as e_id FROM proyecto as p, estatusproyecto as e WHERE p.Id_EstatusProyecto = e.Id_EstatusProyecto AND p.Id_EstatusProyecto != 5';
 
