@@ -22,24 +22,46 @@
 
 
 	//Consulta de consultar Productos en Almacen
-	function consultar_transacciones($fecha_inicio,$fecha_fin){
+	function consultar_transacciones($fecha_inicio,$fecha_fin,$proyecto,$almacen,$transaccion){
 		//Primero conectarse a la bd
 		$conexion_bd = conectar_bd();
 
 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID Producto</th><th>Producto</th><th>Tipo de transaccion</th><th>Empleado Responsable</th><th>Cantidad</th><th>Precio unitario</th><th>Total</th><th>Fecha</th><th>Proyecto</th></tr></thead>";
 
 
-		if($fecha_inicio=="" && $fecha_fin==""){$consulta = 'SELECT p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
-						FROM entregan as e, producto as p, empleado as emp, transaccion as t 
-						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado
-						GROUP BY e.id	
-						Order BY e.fecha Desc';}
+		if($fecha_inicio=="" && $fecha_fin==""){
+				$consulta = 'SELECT p.Id_Almacen as p_Id_Almacen, p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
+						FROM entregan as e, producto as p, empleado as emp, transaccion as t, almacen as alm 
+						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado'; 
+				if($proyecto!=""){
+					$consulta.=' AND e.proyecto='.$proyecto;
+				}
+				if($almacen!=""){
+					$consulta.=' AND p.Id_Almacen='.$almacen;
+				}
+				if($transaccion){
+					$consulta.=' AND e.Id_Transaccion='.$transaccion;
+				}
+				$consulta.=' GROUP BY e.id Order BY e.fecha Desc';
+				
+		}
 		if($fecha_inicio!="" && $fecha_fin!=""){
-			$consulta = 'Select p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
+			$consulta = 'Select p.Id_Almacen as p_Id_Almacen, p.precio as p_precio, e.cantidad as e_cantidad, p.id as p_id, t.Nombre as t_nombre, p.nombre as p_nombre, emp.Nombre as emp_nombre, e.fecha as e_fecha,e.proyecto as e_proyecto, SUM(p.precio * e.cantidad) as total
 						FROM entregan as e, producto as p, empleado as emp, transaccion as t 
-						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado AND e.fecha Between "'.$fecha_inicio.'" AND "'.$fecha_fin.'" GROUP BY e.id	
+						WHERE e.Id_Transaccion = t.Id_Transaccion AND e.Id_Producto = p.id AND e.Id_Empleado = emp.Id_Empleado AND e.fecha Between "'.$fecha_inicio.'" AND "'.$fecha_fin.'"';
+				if($proyecto!=""){
+					$consulta.=' AND e.proyecto='.$proyecto;
+				if($almacen!=""){
+					$consulta.=' AND p.Id_Almacen='.$almacen;
+				}
+				if($transaccion!=""){
+					$consulta.=' AND e.Id_Transaccion='.$transaccion;
+				}
+
+				}$consulta.=' GROUP BY e.id	
 						Order BY e.fecha Asc';
 		}
+		
 		
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 
