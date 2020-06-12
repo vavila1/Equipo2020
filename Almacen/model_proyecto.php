@@ -41,7 +41,7 @@
 			$consulta .= " AND p.Id_Proyecto= ".$id;
 		}
 
-		var_dump($consulta);
+		
 
 		$resultados = $conexion_bd->query($consulta);  
 

@@ -1,4 +1,5 @@
 <?php 
+session_start();
   require_once("model_proyecto.php");  
 
   $_POST["nombreProyecto"] = htmlspecialchars($_POST["nombreProyecto"]);
