@@ -4,8 +4,10 @@
     echo "<div class=\" col s12\"> <img class=\"logoSidePDF\" src=\"img/logo/logo.png\"> INGIENERÍA Y PROYECTOS CIASA S.A DE C.V </div> <br><br>";
                           
     echo "<div class=\"col s12\"><h6 class=\"center\">Reporte Materiales Restantes en Almacen</h6>";
-
-	    echo consultar_stock_por_almacen($almacen);
+    	
+    echo consultar_stock_por_almacen($_SESSION["almaca"]);
+    	unset($_SESSION["almaca"]);
+   
 
 	echo "</div></div></div></section>";
 

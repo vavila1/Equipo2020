@@ -115,7 +115,6 @@
 
 		$resultado .= "</table>";
 
-
 		sacar_total($almacen);
 		return $resultado;
 	}
@@ -138,7 +137,7 @@ WHERE
     m.id = p.id_marca AND t.id = p.id_tipo AND p.Id_Almacen = almacen.id AND p.Id_Estatus != 5 AND ep.id = p.Id_Estatus';
 
 		if ($almacen != "") {
-			$consulta .= "AND p.Id_Almacen=".$almacen;
+			$consulta .= " AND p.Id_Almacen=".$almacen;
 		}
 
 		/*if ($estatus != "") {

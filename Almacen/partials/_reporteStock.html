@@ -10,11 +10,13 @@
 	    echo "</form></div>";
 
 	    if (isset($_POST["almacen"])) {
+	    	$_SESSION["almaca"] = $_POST["almacen"];
 	    	$almacen = htmlspecialchars($_POST["almacen"]);
 	    } else {
 	    	$almacen = "";
 	    }
 
+	   
 
 	    echo consultar_stock_por_almacen($almacen);
 
