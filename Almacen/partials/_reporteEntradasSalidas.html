@@ -26,28 +26,37 @@
 
 	    if (isset($_POST["in"])){
 	    	$fecha1 = htmlspecialchars($_POST["in"]);
+	    	$_SESSION["in"] = $fecha1;
 	    } else {
 	    	$fecha1 = "";
+	    	$_SESSION["in"] = $fecha1;
 	    } 
 	    if (isset($_POST["fin"])){
 	    	$fecha2 = htmlspecialchars($_POST["fin"]);
+	    	$_SESSION["fin"] = $fecha2;
 	    } else {
 	    	$fecha2 = "";
+	    	$_SESSION["fin"] = $fecha2;
 	    } 
 	    if (isset($_POST["proyecto"])){
 	    	$proyecto = htmlspecialchars($_POST["proyecto"]);
+	    	$_SESSION["proyecto"] = $proyecto;
 	    } else {
-	    	$proyecto = "";
+	    	$_SESSION["proyecto"] = $proyecto;
 	    } 
 	    if (isset($_POST["almacen"])){
 	    	$almacen = htmlspecialchars($_POST["almacen"]);
+	    	$_SESSION["almaca"] = $almacen;
 	    } else {
 	    	$almacen = "";
+	    	$_SESSION["almaca"] = $almacen;
 	    }
 	    if (isset($_POST["transaccion"])){
 	    	$transaccion = htmlspecialchars($_POST["transaccion"]);
+	    	$_SESSION["trans"] = $transaccion;
 	    } else {
 	    	$transaccion = "";
+	    	$_SESSION["trans"] = $transaccion;
 	    }  
 	    
 	    echo consultar_transacciones($fecha1,$fecha2,$proyecto,$almacen,$transaccion);

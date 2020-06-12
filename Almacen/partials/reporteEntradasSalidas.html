@@ -5,7 +5,16 @@
                           
     echo "<div class=\"col s12\"><h6 class=\"center\">Reporte Entradas y Salidas</h6>";
 
-	    echo consultar_transacciones($fecha_inicio,$fecha_fin);
+    	
+    echo consultar_transacciones($_SESSION["in"],$_SESSION["fin"],$_SESSION["proyecto"],$_SESSION["almaca"],$_SESSION["trans"]);
+
+    unset($_SESSION["in"]);
+    unset($_SESSION["fin"]);
+    unset($_SESSION["proyecto"]);
+    unset($_SESSION["almaca"]);
+	unset($_SESSION["trans"]);
+    
+	    
 
 	echo "</div></div></div></section>";
 

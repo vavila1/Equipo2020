@@ -5,7 +5,8 @@
                           
     echo "<div class=\"col s12\"><h6 class=\"center\">Reporte Materiales Restantes en Almacen</h6>";
     	
-	    echo consultar_calibracion($almacen);
+	    echo consultar_calibracion($_SESSION["almaca"]);
+	    unset($_SESSION["almaca"]);
 
 	echo "</div></div></div></section>";
 

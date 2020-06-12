@@ -47,7 +47,8 @@
 		    almacen,
 		    e_p
 		WHERE
-		    m.id = p.id_marca AND t.id = p.id_tipo AND e.id = e_p.Id_Estado_producto AND p.id = e_p.Id_Producto AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id';
+		    m.id = p.id_marca AND t.id = p.id_tipo AND e.id = e_p.Id_Estado_producto AND p.id = e_p.Id_Producto AND almacen.id = empleado.Id_Almacen AND p.Id_Almacen = almacen.id
+		LIMIT 1';
 
 		//Ahora con el buscador necesitamos un validador de que es lo que quiere buscar
 		if ($id != "") {
@@ -60,11 +61,11 @@
 			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
 			$resultado .= "<tr>";
 		    $resultado .= "<td>".$row['p_nombre']."</td>";
-		    $resultado .= "<td>".$row['m_nombre']."</td>";
-		    $resultado .= "<td>".$row['tp_nombre']."</td>";
-		    $resultado .= "<td>".$row['p_cantidad']."</td>";
-		    $resultado .= "<td>$".$row['p_precio']."</td>";
-		    $resultado .= "<td>".$row['e_nombre']."</td>";
+		    $resultado .= "<td><div class=\"col s6\"><svg id=\"barcode\"></svg></div></td>";
+		    $resultado .= "<td><div class=\"col s6\"><svg id=\"barcode\"></svg></div></td>";
+		    $resultado .= "<td><div class=\"col s6\"><svg id=\"barcode\"></svg></div></td>";
+		    $resultado .= "<td><div class=\"col s6\"><svg id=\"barcode\"></svg></div></td>";
+		    $resultado .= "<td><div class=\"col s6\"><svg id=\"barcode\"></svg></div></td>";
 		    $resultado .= "<td><div class=\"col s6\"><svg id=\"barcode\"></svg></div></td>";
 		    $resultado .= "</tr>" ;
 		    $resultado .= '<script src="scripts/JsBarcode.all.min.js"></script>';
