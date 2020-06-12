@@ -5,14 +5,7 @@
                           
     echo "<div class=\"col s12\"><h6 class=\"center\">Reporte Entradas y Salidas</h6>";
 
-	    if (isset($_POST["almacen"])) {
-	    	$almacen = htmlspecialchars($_POST["almacen"]);
-	    } else {
-	    	$almacen = "";
-	    }
-
-
-	    echo consultar_calibracion($almacen);
+	    echo consultar_transacciones($fecha_inicio,$fecha_fin);
 
 	echo "</div></div></div></section>";
 
