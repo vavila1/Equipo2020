@@ -22,16 +22,18 @@
 	    echo "<input class=\"btn\" type=\"submit\" value=\"Buscar\">";
 	    echo "</form></div>";
 
-	    if (isset($_POST["in"]) && isset($_POST['fin'])) {
+	    if (isset($_POST["in"]) && isset($_POST['fin']) && isset($_POST['proyecto'])) {
 	    	$fecha1 = htmlspecialchars($_POST["in"]);
 	    	$fecha2 = htmlspecialchars($_POST["fin"]);
+	    	$proyecto = htmlspecialchars($_POST["proyecto"]);
 	    } else {
 	    	$fecha1 = "";
 	    	$fecha2="";
+	    	$proyecto="";
 	    } 
 
 
-	    echo consultar_transacciones($fecha1,$fecha2);
+	    echo consultar_transacciones($fecha1,$fecha2,$proyecto);
 
 ?>
 
