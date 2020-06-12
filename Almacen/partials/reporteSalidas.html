@@ -3,13 +3,38 @@
     echo "<div class=\" col s12\"> <img class=\"logoSidePDF\" src=\"img/logo/logo.png\"> INGIENERÍA Y PROYECTOS CIASA S.A DE C.V </div> <br><br>";
 
     echo "Almacen: ";
-    echo obtener_almacen($id_proyecto);
-    echo "<br>Reporte: ";
+    echo obtener_almacen($id_proyecto,1);
+    echo "<br>Proyecto: ";
     echo obtener_reporte($id_proyecto);
+    echo "<br>Fecha: ";
+    echo obtener_almacen($id_proyecto);
                           
-    echo "<div class=\"col s12\"><h6 class=\"center\">Aviso de Retiro de Material</h6>";
+    echo "<div class=\"col s12\"><h6 class=\"center\">VALE DE SALIDA DE PRODUCTOS</h6>";
 
 	    echo salidaMaterial($id_proyecto);
 
 ?>
-</div></div></div></section>
+<br><br><br>
+</div>
+</div>
+</section>
+
+<div class="container">
+<div class="row">
+	<div class="col s12">
+		<div class="col s3">
+		</div>
+		<div class="col s12">
+		<p class="left">______________________<br>Firma Autorizador</p>
+	</div>
+	<div class="col s11">
+		
+	</div>
+
+		<div class="col s12">
+		<p class="right">______________________<br>Firma Supervisor</p>
+	</div>
+	</div>
+
+	</div>
+	</div>

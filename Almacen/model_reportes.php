@@ -221,7 +221,7 @@
  		//Primero conectarse a la bd
  		$conexion_bd = conectar_bd();
 
- 		$resultado = "<table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Modelo</th><th>Tipo Producto</th><th>Cantidad Solicitada</th><th>Fecha</th></tr></thead>";
+ 		$resultado = "<hr><table class=\"highlight\"><thead><tr><th>ID</th><th>Nombre</th><th>Marca</th><th>Modelo</th><th>Tipo Producto</th><th>Cantidad Solicitada</th>/tr></thead>";
 
 
  		$consulta = 'SELECT
@@ -254,7 +254,7 @@
  		    $resultado .= "<td>".$row['p_modelo']."</td>";
  		    $resultado .= "<td>".$row['tp_nombre']."</td>";
  		    $resultado .= "<td>".$row['pp_cantidad']."</td>";
- 		    $resultado .= "<td>".$row['pp_fecha']."</td>";
+ 		    
  		    $resultado .= "<td>".$row['e_nombre']."</td>";
  		    $resultado .= "</tr>" ;
  		}
@@ -263,7 +263,7 @@
  		// desconectarse al termino de la consulta
  		desconectar_bd($conexion_bd);
 
- 		$resultado .= "</table>";
+ 		$resultado .= "</table><hr>";
 
  		unset($_SESSION['id']);
 
@@ -316,7 +316,7 @@
  		return $resultado;
  	}
 
- 	function obtener_almacen($id_proyecto){
+ 	function obtener_almacen($id_proyecto,$opcion=""){
  		//Primero conectarse a la bd
  		$conexion_bd = conectar_bd();
 
@@ -349,7 +349,12 @@
  		$resultados = $conexion_bd->query($consulta);  
  		while ($row = mysqli_fetch_array($resultados, MYSQLI_BOTH)) {
  			//$resultado .= $row[0]; //Se puede usar el índice de la consulta
- 			$resultado .= $row['a_nombre'];
+ 			if($opcion != 1){
+ 				$resultado .= $row['pp_fecha'];
+ 			}else{
+ 				$resultado .= $row['a_nombre'];
+ 			}
+ 			
  		}
  		mysqli_free_result($resultados); //Liberar la memoria
 
