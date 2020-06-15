@@ -5,7 +5,7 @@
 
 if ($_SESSION["SalidaProyecto"]) {
     $id_proyecto = $_SESSION["id"];
-    include("partials/_header.html");
+    include("partials/_headerpdf.html");
     include("partials/reporteSalidas.html");
     include("partials/_footer.html");
 }else{

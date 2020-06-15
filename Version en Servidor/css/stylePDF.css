@@ -1,0 +1,45 @@
+
+/* =================================
+------------------------------------
+  STARMEN WED DESIGN SA DE CV
+  VERSION PRUEBA V1
+
+ ------------------------------------ 
+ ====================================*/
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+
+.logoSideNav{
+    height: 90px;
+    width: 170px;
+    margin-left: .2em;
+}
+
+.logoSidePDF{
+    height: 70px;
+    width: 130px;
+    margin-left: 1em;
+    margin-top: 2em;
+}
+
+
+
+table{
+	size:100%;
+}
+
+td{
+	font-size: 10px;
+}
+
+
+
